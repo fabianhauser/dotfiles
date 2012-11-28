@@ -1,3 +1,12 @@
 [user]
 	name = Fabian Hauser
 	email = spam@fh2.ch
+[core]
+        packedGitWindowSize = 16m
+        packedGitLimit = 64m
+[pack]
+        windowMemory = 64m
+        packSizeLimit = 64m
+        thread = 1
+        deltaCacheSize = 1m
+
