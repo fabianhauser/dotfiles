@@ -13,13 +13,8 @@ PATH=$PATH:$HOME/bin/aptana_studio_3/:$HOME/bin/Viridian-1.2/
 ############
 # Configuration
 ############
-git config core.packedGitWindowSize 16m
-git config core.packedGitLimit 64m
-git config pack.windowMemory 64m
-git config pack.packSizeLimit 64m
-git config pack.thread 1
-git config pack.deltaCacheSize 1m
 
+# currently nothing to see here :-)
 
 ############
 # Aliases
