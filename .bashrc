@@ -11,7 +11,7 @@ fi
 
 # fabian-laptop binary paths
 if [ `hostname` = "fabian-laptop" ]; then
-	PATH=$PATH:$HOME/bin/aptana_studio_3/:$HOME/bin/Viridian-1.2/
+	export PATH=$PATH:$HOME/bin/aptana_studio_3/:$HOME/bin/Viridian-1.2/
 fi
 
 
