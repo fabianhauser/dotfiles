@@ -2,19 +2,19 @@
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
+	source /etc/bashrc
 fi
-
-############
-# BASH Vars
-############
-PATH=$PATH:$HOME/bin/aptana_studio_3/:$HOME/bin/Viridian-1.2/
 
 ############
 # Configuration
 ############
 
-# currently nothing to see here :-)
+# fabian-laptop binary paths
+if [ `hostname` = "fabian-laptop" ]; then
+	PATH=$PATH:$HOME/bin/aptana_studio_3/:$HOME/bin/Viridian-1.2/
+fi
+
+
 
 ############
 # Aliases
