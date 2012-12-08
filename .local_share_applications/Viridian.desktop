@@ -1,0 +1,12 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Icon[de_DE]=/home/fabian/bin/Viridian-1.2/ViridianApp.svg
+Exec=/home/fabian/bin/Viridian-1.2/viridian
+Name[de_DE]=Viridian
+Comment[de_DE]=A ampache music client
+Name=Viridian
+Comment=A ampache music client
+Icon=/home/fabian/bin/Viridian-1.2/ViridianApp.svg
