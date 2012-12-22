@@ -31,3 +31,7 @@ alias tailnew='tail -n0 -f'
 alias us-services_status='svstat ~/service/*'
 alias us-restart_php='killall -u fabianh php-cgi'
 
+## Fabian shortcuts
+alias wol-fabian-teset='wol f0:7d:68:c1:ed:9e'
+alias wol-fabian-laptop='wol f0:de:f1:5f:1d:44'
+alias wol-nas='00:08:9b:c0:d5:ed'
