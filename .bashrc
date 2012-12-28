@@ -26,6 +26,7 @@ alias pwgen='pwgen -c -n -s -N 30'
 alias aptana='/home/fabian/bin/aptana/AptanaStudio3'
 alias nano='nano -A -L'
 alias tailnew='tail -n0 -f'
+alias s='su -'
 
 ## UberSpace specific aliases
 alias us-services_status='svstat ~/service/*'
