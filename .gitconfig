@@ -9,4 +9,7 @@
         packSizeLimit = 64m
         thread = 1
         deltaCacheSize = 1m
-
+[color]
+	branch = auto
+	diff = auto
+	status = auto
