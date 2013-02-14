@@ -10,8 +10,9 @@ fi
 ############
 
 # fabian-laptop binary paths
-if [ `hostname` = "fabian-laptop" ]; then
-	export PATH=$PATH:$HOME/bin/aptana_studio_3/:$HOME/bin/Viridian-1.2/:$HOME/bin/timelapsepy
+if [ `hostname` = "nbfabian" ]; then
+	export PATH=$PATH:$HOME/bin/aptana_studio_3/:$HOME/bin/Viridian-1.2/:$HOME/bin/timelapsepy:$HOME/bin/icaclient
+	export ICAROOT="$HOME/bin/icaclient"
 fi
 
 
