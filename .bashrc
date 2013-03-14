@@ -29,6 +29,7 @@ alias aptana='/home/fabian/bin/aptana/AptanaStudio3'
 alias nano='nano -A -L'
 alias tailnew='tail -n0 -f'
 alias s='su -'
+alias bc='bc -l'
 
 ## UberSpace specific aliases
 alias us-services_status='svstat ~/service/*'
