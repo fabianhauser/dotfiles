@@ -14,6 +14,8 @@ set $mod Mod4
 # font for window titles. ISO 10646 = Unicode
 font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 
+# Remove window borders from edges
+hide_edge_borders both
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -106,6 +108,8 @@ bindsym $mod+Shift+C reload
 bindsym $mod+Shift+R restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+E exit
+# lock screen useing i3lock
+bindsym Ctrl+mod1+l exec i3lock --color=000000
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -137,7 +141,12 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
+
 }
 
-# Set background image on every login
+# #############
+# Some applications on startup:
+# #############
 exec --no-startup-id feh --bg-fill --randomize ~/Bilder/backgrounds/
+exec /usr/libexec/gnome-settings-daemon
+exec nm-applet
