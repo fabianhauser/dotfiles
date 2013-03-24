@@ -147,6 +147,6 @@ bar {
 # #############
 # Some applications on startup:
 # #############
-exec --no-startup-id feh --bg-fill --randomize ~/Bilder/backgrounds/
 exec /usr/libexec/gnome-settings-daemon
 exec nm-applet
+exec_always --no-startup-id feh --bg-fill --randomize ~/Bilder/backgrounds/
