@@ -153,4 +153,4 @@ bar {
 # #############
 exec /usr/libexec/gnome-settings-daemon
 exec nm-applet
-exec_always --no-startup-id feh --bg-fill --randomize ~/Bilder/backgrounds/
+exec_always --no-startup-id /home/fabian/bin/setbackground.sh
