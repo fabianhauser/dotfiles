@@ -25,7 +25,7 @@ fi
 alias l='ls -lah'
 alias mpg123='mpg123 -C'
 alias pwgen='pwgen -c -n -s -N 30'
-alias aptana='/home/fabian/bin/aptana/AptanaStudio3'
+alias aptana="AptanaStudio3 -data $HOME/projekte"
 alias nano='nano -A -L'
 alias tailnew='tail -n0 -f'
 alias s='su -'
