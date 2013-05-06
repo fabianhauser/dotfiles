@@ -9,6 +9,9 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+# initiate gnome basis system
+exec /usr/libexec/gnome-settings-daemon&
+
 set $mod Mod4
 
 # font for window titles. ISO 10646 = Unicode
@@ -145,12 +148,15 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
-
 }
 
 # #############
 # Some applications on startup:
 # #############
-exec /usr/libexec/gnome-settings-daemon
+
+
+# Gnome Network Applet
 exec nm-applet
+
+# Set background useing feh
 exec_always --no-startup-id /home/fabian/bin/setbackground.sh
