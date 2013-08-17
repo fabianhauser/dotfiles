@@ -25,15 +25,12 @@ fi
 alias l='ls -lah'
 alias mpg123='mpg123 -C'
 alias pwgen='pwgen -c -n -s -N 30'
-alias aptana="AptanaStudio3 -data $HOME/projekte"
-alias nano='nano -A -L'
-alias tailnew='tail -n0 -f'
 alias s='su -'
-alias bc='bc -l'
+alias bc='bc --mathlib'
 
 ## UberSpace specific aliases
 alias us-services_status='svstat ~/service/*'
-alias us-restart_php='killall -u fabianh php-cgi'
+alias us-restart_php="killall -u $USER php-cgi"
 
 ## Fabian shortcuts
 alias wol-fabian-test='wol f0:7d:68:c1:ed:9e'
