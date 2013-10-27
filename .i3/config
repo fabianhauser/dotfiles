@@ -142,10 +142,6 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-# Enable/disable caps mode
-mode "caps" {
-	bindsym Caps_Lock mode "default"
-}
 bindsym Caps_Lock mode "caps"
 
 bindsym $mod+r mode "resize"
