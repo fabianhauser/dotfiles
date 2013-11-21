@@ -160,5 +160,8 @@ bar {
 # Gnome Network Applet
 exec nm-applet
 
+# Redshift screen daylight adjustment
+exec gtk-redshift
+
 # Set background useing feh
 exec_always --no-startup-id /home/fabian/bin/setbackground.sh
