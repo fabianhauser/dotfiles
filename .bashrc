@@ -11,7 +11,7 @@ fi
 
 # fabian-laptop binary paths
 if [ `hostname` = "nbfabian" ]; then
-	export PATH=$PATH:$HOME/bin/aptana_studio_3/:$HOME/bin/Viridian-1.2/:$HOME/bin/timelapsepy:$HOME/bin/icaclient:$HOME/bin/nodejs/bin
+	export PATH=$PATH:$HOME/bin/aptana_studio_3/:$HOME/bin/Viridian-1.2/:$HOME/bin/timelapsepy:$HOME/bin/icaclient:$HOME/bin/nodejs/bin:$HOME/bin/eclipse/
 	export ICAROOT="$HOME/bin/icaclient"
 	export TERMINAL=terminal
 	# remove flash-cookies
