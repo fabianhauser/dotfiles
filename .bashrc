@@ -16,6 +16,8 @@ if [ `hostname` = "nbfabian" ]; then
 	export TERMINAL=terminal
 	# remove flash-cookies
 	rm -rf $HOME/.adobe $HOME/.macromedia
+	# load node autocompletion
+	. <(npm completion)
 fi
 
 
