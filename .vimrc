@@ -1,3 +1,4 @@
+execute pathogen#infect()
 set background=dark
 colorscheme elflord
 
