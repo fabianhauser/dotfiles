@@ -19,7 +19,9 @@ FontName=Monospace 11
 AccelPrevTab=<Primary>Page_Up
 AccelNextTab=<Primary>Page_Down
 BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
-BackgroundDarkness=0.800000
+BackgroundDarkness=0.850000
 ColorPalette2=#c97a36853685
 ColorPalette10=#fb90804e804e
+ColorBackground=#1c291c291c29
+ColorForeground=#e3d6e3d6e3d6
 
