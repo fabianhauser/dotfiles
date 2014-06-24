@@ -9,8 +9,8 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
-# initiate gnome basis system
-exec /usr/libexec/gnome-settings-daemon&
+# initiate cinnamon basis system
+exec /usr/libexec/cinnamon-settings-daemon&
 
 set $mod Mod4
 
@@ -124,14 +124,10 @@ bindsym $mod+Shift+E exit
 # lock screen useing i3lock
 bindsym Ctrl+mod1+l exec i3lock --color=000000
 
-# Volume keys
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 -- +5% && killall -SIGUSR1 i3status
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -- -5% && killall -SIGUSR1 i3status
-
 # Exit session
-bindsym $mod+Shift+X exec gnome-session-quit --logout
-# Gnome poweroff Menu
-bindsym $mod+Mod1+x exec gnome-session-quit --power-off
+bindsym $mod+Shift+X exec cinnamon-session-quit --logout
+# cinnamon poweroff Menu
+bindsym $mod+Mod1+x exec cinnamon-session-quit --power-off
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -180,4 +176,4 @@ exec redshift-gtk
 
 # Set background useing feh
 exec_always --no-startup-id /home/fabian/bin/setbackground.sh
-
+exec echo “.i3/config: DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.cinnamon.SessionManager”  
