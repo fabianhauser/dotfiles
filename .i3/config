@@ -10,7 +10,7 @@
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
 # initiate cinnamon basis system
-exec /usr/libexec/cinnamon-settings-daemon&
+#exec /usr/libexec/cinnamon-settings-daemon  &
 
 set $mod Mod4
 
@@ -163,10 +163,23 @@ bar {
         status_command i3status
 }
 
+
+# #############
+# Confortable desktop environment
+# #############
+
+# pulse audio volume control
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 0 -- '-5%'
+bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 0 -- '+5%'
+bindsym XF86AudioMute exec /usr/bin/pactl set-sink-volume 0 0
+
+# screen brightness
+bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5
+
 # #############
 # Some applications on startup:
 # #############
-
 
 # Gnome Network Applet
 exec nm-applet
@@ -176,4 +189,3 @@ exec redshift-gtk
 
 # Set background useing feh
 exec_always --no-startup-id /home/fabian/bin/setbackground.sh
-exec echo “.i3/config: DESKTOP_AUTOSTART_ID $DESKTOP_AUTOSTART_ID, registering with org.cinnamon.SessionManager”  
