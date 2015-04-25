@@ -169,9 +169,9 @@ bar {
 # #############
 
 # pulse audio volume control
-bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 0 -- '-5%'
-bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 0 -- '+5%'
-bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute 0 -- 'toggle'
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 'alsa_output.pci-0000_00_1b.0.analog-stereo' '-5%'
+bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 'alsa_output.pci-0000_00_1b.0.analog-stereo' '+5%'
+bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute 'alsa_output.pci-0000_00_1b.0.analog-stereo' 'toggle'
 
 # screen brightness
 bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10
@@ -188,4 +188,4 @@ exec nm-applet
 exec redshift-gtk
 
 # Set background useing feh
-exec_always --no-startup-id /home/fabian/bin/setbackground.sh
+exec_always --no-startup-id feh --bg-fill --randomize /home/fabian/Bilder/backgrounds/
