@@ -187,5 +187,8 @@ exec nm-applet
 # Redshift screen daylight adjustment
 exec redshift-gtk
 
+# OwnCloud-Sync-Client
+exec owncloud
+
 # Set background useing feh
 exec_always --no-startup-id feh --bg-fill --randomize /home/fabian/Bilder/backgrounds/
