@@ -7,6 +7,13 @@ elif [ -f /etc/bash.bashrc ]; then
 	source /etc/bash.bashrc
 fi;
 
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+	source "${HOME}/.gpg-agent-info"
+	export GPG_AGENT_INFO
+	export SSH_AUTH_SOCK
+fi
+
+
 ############
 # Aliases
 ############
