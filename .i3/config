@@ -116,6 +116,10 @@ bindsym $mod+Shift+equal move container to workspace 10
 bindsym $mod+Shift+question move container to workspace 11
 bindsym $mod+Shift+dead_grave move container to workspace 12
 
+# scratchpad
+bindsym XF86Launch5 scratchpad show
+bindsym $mod+XF86Launch5 move scratchpad
+
 # reload the configuration file
 bindsym $mod+Shift+C reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -180,6 +184,9 @@ bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5
 
 # screenshot
 bindsym Print exec /usr/bin/xfce4-screenshooter
+
+bindsym XF86Calculator exec /usr/bin/xfce4-terminal --execute 'bc'
+
 
 # #############
 # Some applications on startup:
