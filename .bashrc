@@ -13,6 +13,13 @@ if [ -f "${HOME}/.gpg-agent-info" ]; then
 	export SSH_AUTH_SOCK
 fi
 
+###########
+# Locales
+###########
+unset LC_ALL
+export LANG=de_CH.UTF-8
+export LC_MESSAGES=C
+export LC_TIME=en_DK.UTF-8
 
 ############
 # Aliases
