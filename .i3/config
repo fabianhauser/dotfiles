@@ -127,7 +127,7 @@ bindsym $mod+Shift+R restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+E exit
 # lock screen useing i3lock
-bindsym Ctrl+mod1+l exec i3lock --color=000000
+bindsym Ctrl+mod1+l exec i3lock --ignore-empty-password --show-failed-attempts --color=000000 && sleep 0.5 && xset dpms force off
 
 # Exit session
 bindsym $mod+Shift+X exec cinnamon-session-quit --logout
