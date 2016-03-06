@@ -116,6 +116,10 @@ bindsym $mod+Shift+equal move container to workspace 10
 bindsym $mod+Shift+question move container to workspace 11
 bindsym $mod+Shift+dead_grave move container to workspace 12
 
+# Assign workspaces to applications
+assign [window_role="^browser$"] 10
+assign [class="(?i)claws-mail"] 11
+
 # scratchpad
 bindsym XF86Launch5 scratchpad show
 bindsym $mod+XF86Launch5 move scratchpad
@@ -127,7 +131,7 @@ bindsym $mod+Shift+R restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+E exit
 # lock screen useing i3lock
-bindsym Ctrl+mod1+l exec i3lock --ignore-empty-password --show-failed-attempts --color=000000 && sleep 0.5 && xset dpms force off
+bindsym Ctrl+mod1+l exec i3lock --show-failed-attempts --color=000000 && sleep 0.5 && xset dpms force off
 
 # Exit session
 bindsym $mod+Shift+X exec cinnamon-session-quit --logout
@@ -183,7 +187,7 @@ bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5
 
 # screenshot
-bindsym Print exec /usr/bin/xfce4-screenshooter
+bindsym Print exec /usr/bin/gnome-screenshot -i
 
 bindsym XF86Calculator exec /usr/bin/xfce4-terminal --execute 'bc'
 
@@ -206,4 +210,6 @@ exec parcimonie.sh
 exec gpg-agent --daemon --enable-ssh-support 
 
 # Set background useing feh
-exec_always --no-startup-id feh --bg-fill --randomize /home/fabian/Bilder/backgrounds/
+exec_always --no-startup-id feh --bg-fill --randomize /home/fabian/bilder/backgrounds/
+
+#exec_always --no-startup-id conky -c /etc/conky/conky.conf
