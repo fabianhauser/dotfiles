@@ -30,3 +30,15 @@ alias mpg123='mpg123 -C'
 alias pwgen='pwgen -c -n -s -N 30'
 alias s='su -'
 alias bc='bc --mathlib'
+
+############
+# Bash conf
+############
+# - if command not exists, cd into dir
+# - Dont't exit directly when running jobs
+# - Include .* files in * pattern
+# - ** is recursive *
+# - Append, not overwrite, history
+
+shopt -s autocd checkjobs dotglob globstar histappend
+
