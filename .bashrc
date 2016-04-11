@@ -30,6 +30,7 @@ alias mpg123='mpg123 -C'
 alias pwgen='pwgen -c -n -s -N 30'
 alias s='su -'
 alias bc='bc --mathlib'
+alias o="xdg-open"
 
 ############
 # Bash conf

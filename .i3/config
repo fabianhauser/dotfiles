@@ -32,6 +32,9 @@ bindsym $mod+Shift+Q kill
 # start dmenu (a program launcher)
 bindsym $mod+d exec dmenu_run
 
+# start passmenu (a password manager)
+bindsym $mod+p exec passmenu --type -i
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -195,6 +198,9 @@ bindsym XF86Calculator exec /usr/bin/xfce4-terminal --execute 'bc'
 # #############
 # Some applications on startup:
 # #############
+
+# Keyboard setting for x:
+exec setxkbmap ch
 
 # Gnome Network Applet
 exec nm-applet
