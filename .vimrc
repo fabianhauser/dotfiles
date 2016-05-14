@@ -9,6 +9,8 @@ set ruler			" Show current position
 set pastetoggle=<F2>
 set ignorecase
 
+set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+
 " Options
 filetype plugin indent on
 syntax on
