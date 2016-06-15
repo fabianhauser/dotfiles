@@ -35,6 +35,9 @@ bindsym $mod+d exec dmenu_run
 # start passmenu (a password manager)
 bindsym $mod+p exec passmenu --type -i
 
+# Inverse screen colors on ©®ThinkVantage™ press
+bindsym XF86Launch1 exec inverse
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
