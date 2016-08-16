@@ -22,5 +22,3 @@
 	gpgsign = true
 [gpg]
 	program = gpg2
-[remote "origin"]
-	fetch = +refs/pull/*/head:refs/remotes/origin/pr/*
