@@ -176,6 +176,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command LC_ALL=C i3status
+	tray_output primary
 }
 
 
@@ -193,7 +194,7 @@ bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5
 
 # screenshot
-bindsym Print exec /usr/bin/gnome-screenshot -i
+bindsym Print exec /usr/bin/gnome-screenshot --interactive --area
 
 bindsym XF86Calculator exec /usr/bin/xfce4-terminal --execute 'bc'
 
@@ -213,10 +214,6 @@ exec nm-applet
 
 # OwnCloud-Sync-Client
 #exec owncloud
-
-# GPG
-exec parcimonie.sh
-exec gpg-agent --daemon --enable-ssh-support 
 
 # Set background useing feh
 exec_always --no-startup-id feh --bg-fill --randomize /home/fabian/bilder/backgrounds/
