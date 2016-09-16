@@ -1,0 +1,8 @@
+[Unit]
+Description=GnuPG parcimonie key refresher
+
+[Service]
+ExecStart=/usr/bin/parcimonie.sh
+
+[Install]
+WantedBy=default.target
