@@ -32,3 +32,4 @@
 	a = add --patch
 	c = commit --message
 	l = log --color --graph --pretty=format:'%Cred%h%Creset - %C(bold)%s%Creset%C(yellow)%d%Creset %C(green)%an%Creset %C(cyan)%cr%Creset' --abbrev-commit
+	d = diff
