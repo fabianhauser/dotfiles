@@ -21,6 +21,7 @@ alias pwgen='pwgen -c -n -s -N 30'
 alias s='su -'
 alias bc='bc --mathlib'
 alias cal='cal -m'
+alias git-fetch-pr="git config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*'"
 
 function o(){
 #	for i in $@; do
