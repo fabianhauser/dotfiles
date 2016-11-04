@@ -15,7 +15,7 @@
 set $mod Mod4
 
 # font for window titles. ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font pango:DejaVu Sans 8
 
 # Remove window borders from edges
 hide_edge_borders both
@@ -92,6 +92,11 @@ bindsym $mod+a focus parent
 # focus the child container
 #bindcode $mod+d focus child
 
+# special workspaces
+set $workspace10 "&#xf269;"
+set $workspace11 "&#xf0e0;"
+set $workspace12 "&#xf04b;"
+
 # switch to workspace
 bindsym $mod+section workspace 0
 bindsym $mod+1 workspace 1
@@ -103,9 +108,9 @@ bindsym $mod+6 workspace 6
 bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace 10
-bindsym $mod+apostrophe workspace 11
-bindsym $mod+dead_circumflex workspace 12
+bindsym $mod+0 workspace $workspace10
+bindsym $mod+apostrophe workspace $workspace11
+bindsym $mod+dead_circumflex workspace $workspace12
 
 # move focused container to workspace
 bindsym $mod+Shift+degree move container to workspace 0
@@ -118,13 +123,13 @@ bindsym $mod+Shift+ampersand move container to workspace 6
 bindsym $mod+Shift+slash move container to workspace 7
 bindsym $mod+Shift+parenleft move container to workspace 8
 bindsym $mod+Shift+parenright move container to workspace 9
-bindsym $mod+Shift+equal move container to workspace 10
-bindsym $mod+Shift+question move container to workspace 11
-bindsym $mod+Shift+dead_grave move container to workspace 12
+bindsym $mod+Shift+equal move container to workspace $workspace10
+bindsym $mod+Shift+question move container to workspace $workspace11
+bindsym $mod+Shift+dead_grave move container to workspace $workspace12
 
 # Assign workspaces to applications
-assign [window_role="^browser$"] 10
-assign [class="(?i)claws-mail"] 11
+assign [window_role="^browser$"] $workspace10
+assign [class="(?i)claws-mail"] $workspace11
 
 # scratchpad
 bindsym XF86Launch5 scratchpad show
