@@ -13,7 +13,8 @@ export	LANG=en_US.UTF-8 \
 	LC_MESSAGES=en_US.UTF-8 \
 	LC_TIME=C \
 	EDITOR=vim \
-	PAGER=less
+	PAGER=less \
+    XKB_DEFAULT_LAYOUT=ch
 
 # Update GPG tty
 gpg-connect-agent updatestartuptty /bye > /dev/null

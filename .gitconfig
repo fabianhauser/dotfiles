@@ -23,7 +23,7 @@
 [commit]
 	gpgsign = true
 [gpg]
-	program = gpg2
+	program = /opt/fabian/gitgpg2
 [tag]
 	gpgsign = true
 

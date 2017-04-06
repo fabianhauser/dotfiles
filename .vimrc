@@ -1,4 +1,4 @@
-execute pathogen#infect()
+"execute pathogen#infect()
 set background=dark
 colorscheme elflord
 
@@ -9,7 +9,12 @@ set ruler			" Show current position
 set pastetoggle=<F2>
 set ignorecase
 
-set listchars=eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+
+set listchars="eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣"
 
 " Options
 filetype plugin indent on
