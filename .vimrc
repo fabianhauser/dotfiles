@@ -15,6 +15,7 @@ set softtabstop=4
 set expandtab
 
 set listchars="eol:¬,tab:>·,trail:~,extends:>,precedes:<,space:␣"
+set grepprg=ack\ -k
 
 " Options
 filetype plugin indent on
