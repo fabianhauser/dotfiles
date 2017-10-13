@@ -190,14 +190,14 @@ bar {
 # #############
 
 # pulse audio volume control
-bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 'alsa_output.pci-0000_00_1f.3.analog-stereo' '-5%' && py3-cmd refresh "volume master"
-bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 'alsa_output.pci-0000_00_1f.3.analog-stereo' '+5%' && py3-cmd refresh "volume master"
-bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute 'alsa_output.pci-0000_00_1f.3.analog-stereo' 'toggle' && py3-cmd refresh "volume master"
-bindsym XF86AudioMicMute exec /usr/bin/pactl set-source-mute 'alsa_input.pci-0000_00_1f.3.analog-stereo' 'toggle' && py3-cmd refresh "volume master"
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 'alsa_output.pci-0000_00_1f.3.analog-stereo' '-5%' && flock -w 0.2 -E 0 ~/.i3/lock/audio py3-cmd refresh "volume master"
+bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 'alsa_output.pci-0000_00_1f.3.analog-stereo' '+5%' && flock -w 0.2 -E 0 ~/.i3/lock/audio py3-cmd refresh "volume master"
+bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute 'alsa_output.pci-0000_00_1f.3.analog-stereo' 'toggle' && flock -w 0.2 -E 0 ~/.i3/lock/audio py3-cmd refresh "volume master"
+bindsym XF86AudioMicMute exec /usr/bin/pactl set-source-mute 'alsa_input.pci-0000_00_1f.3.analog-stereo' 'toggle' && flock -w 0.2 -E 0 ~/.i3/lock/audio py3-cmd refresh "volume master"
 
 # screen brightness
-bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10 && py3-cmd refresh "backlight"
-bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5 && py3-cmd refresh "backlight"
+bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10 && flock -w 0.2 -E 0 ~/.i3/lock/backlight py3-cmd refresh "backlight"
+bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5 && flock -w 0.2 -E 0 ~/.i3/lock/backlight py3-cmd refresh "backlight"
 
 # screenshot
 bindsym Print exec /usr/bin/gnome-screenshot --interactive --area
