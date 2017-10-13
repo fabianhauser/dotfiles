@@ -15,7 +15,7 @@
 set $mod Mod4
 
 # font for window titles. ISO 10646 = Unicode
-font pango:DejaVu Sans 8
+font pango:DejaVu Sans 9
 
 # Remove window borders from edges
 hide_edge_borders both
@@ -109,8 +109,8 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace $workspace10
-bindsym $mod+dead_circumflex workspace $workspace11
-bindsym $mod+apostrophe workspace $workspace12
+bindsym $mod+apostrophe workspace $workspace11
+bindsym $mod+dead_circumflex workspace $workspace12
 
 # move focused container to workspace
 bindsym $mod+Shift+degree move container to workspace 0
@@ -124,8 +124,8 @@ bindsym $mod+Shift+slash move container to workspace 7
 bindsym $mod+Shift+parenleft move container to workspace 8
 bindsym $mod+Shift+parenright move container to workspace 9
 bindsym $mod+Shift+equal move container to workspace $workspace10
-bindsym $mod+Shift+dead_grave move container to workspace $workspace11
-bindsym $mod+Shift+question move container to workspace $workspace12
+bindsym $mod+Shift+question move container to workspace $workspace11
+bindsym $mod+Shift+dead_grave move container to workspace $workspace12
 
 # Assign workspaces to applications
 assign [window_role="^browser$"] $workspace10
@@ -216,7 +216,7 @@ exec setxkbmap ch
 exec nm-applet
 
 # Redshift screen daylight adjustment
-#exec redshift-gtk
+exec redshift-gtk
 
 # OwnCloud-Sync-Client
 exec nextcloud
