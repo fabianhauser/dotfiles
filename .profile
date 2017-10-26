@@ -19,3 +19,6 @@ export	LANG=en_US.UTF-8 \
 # Update GPG tty
 gpg-connect-agent updatestartuptty /bye > /dev/null
 export GPG_TTY=$(tty)
+
+export PATH="$HOME/.cargo/bin:$PATH" \
+    RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
