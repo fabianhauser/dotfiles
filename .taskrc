@@ -33,3 +33,6 @@ include /usr/share/task/dark-gray-blue-256.theme
 urgency.age.coefficient=0
 urgency.user.project.studium.coefficient=0.1
 uda.priority.values=H,M,,L
+
+report.next.labels=ID,Project,Description,Deps,P,Tag,R,S,Until,Due
+report.next.columns=id,project,description,depends,priority,tags,recur,scheduled.countdown,until.remaining,due.relative
