@@ -32,7 +32,14 @@ include /usr/share/task/dark-gray-blue-256.theme
 #urgency.due.coefficient=20.0
 urgency.age.coefficient=0
 urgency.user.project.studium.coefficient=0.1
+urgency.user.project.privat.j.coefficient=0.1
 uda.priority.values=H,M,,L
 
 report.next.labels=ID,Project,Description,Deps,P,Tag,R,S,Until,Due
 report.next.columns=id,project,description,depends,priority,tags,recur,scheduled.countdown,until.remaining,due.relative
+report.next.sort=due+,urgency-
+taskd.credentials=qo.is\/fhauser\/c9a43ae6-c0c4-4609-8299-356d2fb277e7
+taskd.server=task.qo.is:61941
+taskd.certificate=\/home\/fhauser\/.task\/fhauser.cert.pem
+taskd.key=\/home\/fhauser\/.task\/fhauser.key.pem
+taskd.ca=\/home\/fhauser\/.task\/ca.cert.pem
