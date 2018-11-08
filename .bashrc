@@ -22,6 +22,7 @@ alias s='su -'
 alias bc='bc --mathlib'
 alias cal='cal -m'
 alias git-fetch-pr="git config --add remote.origin.fetch '+refs/pull/*/head:refs/remotes/origin/pr/*'"
+alias ssh="LC_TIME=C ssh"
 
 function o(){
 #	for i in $@; do
