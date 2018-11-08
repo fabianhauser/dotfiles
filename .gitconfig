@@ -1,7 +1,7 @@
 [user]
 	name = Fabian Hauser
 	email = fabian@fh2.ch
-	signingkey = 8A52A140BEBF7D2C
+#	signingkey = 8A52A140BEBF7D2C
 [core]
         packedGitWindowSize = 16m
         packedGitLimit = 64m
@@ -21,11 +21,11 @@
 [branch]
 	autosetuprebase = always
 [commit]
-	gpgsign = true
+#	gpgsign = true
 [gpg]
 	program = /opt/fabian/gitgpg2
 [tag]
-	gpgsign = true
+#	gpgsign = true
 
 [alias]
 	s = status --short --branch
