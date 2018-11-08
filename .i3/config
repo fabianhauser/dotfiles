@@ -128,7 +128,7 @@ bindsym $mod+Shift+question move container to workspace $workspace11
 bindsym $mod+Shift+dead_grave move container to workspace $workspace12
 
 # Assign workspaces to applications
-assign [window_role="^browser$"] $workspace10
+#assign [window_role="^browser$"] $workspace10
 assign [class="(?i)claws-mail"] $workspace11
 
 # scratchpad
@@ -142,7 +142,7 @@ bindsym $mod+Shift+R restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+E exit
 # lock screen useing i3lock
-bindsym Ctrl+mod1+l exec i3lock --show-failed-attempts --color=000000 && sleep 0.5 && xset dpms force off
+bindsym Ctrl+mod1+l exec i3lock --ignore-empty-password --show-failed-attempts --color=000000 && sleep 0.5 && xset dpms force off
 
 # Exit session
 bindsym $mod+Shift+X exec cinnamon-session-quit --logout
@@ -181,7 +181,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
     status_command LC_ALL=C py3status
-	tray_output primary
+	#tray_output primary
 }
 
 
@@ -190,10 +190,10 @@ bar {
 # #############
 
 # pulse audio volume control
-bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume 'alsa_output.pci-0000_00_1f.3.analog-stereo' '-3%' && flock -w 0.2 -E 0 ~/.i3/lock/audio py3-cmd refresh "volume master"
-bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume 'alsa_output.pci-0000_00_1f.3.analog-stereo' '+3%' && flock -w 0.2 -E 0 ~/.i3/lock/audio py3-cmd refresh "volume master"
-bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute 'alsa_output.pci-0000_00_1f.3.analog-stereo' 'toggle' && flock -w 0.2 -E 0 ~/.i3/lock/audio py3-cmd refresh "volume master"
-bindsym XF86AudioMicMute exec /usr/bin/pactl set-source-mute 'alsa_input.pci-0000_00_1f.3.analog-stereo' 'toggle' && flock -w 0.2 -E 0 ~/.i3/lock/audio py3-cmd refresh "volume master"
+bindsym XF86AudioLowerVolume exec /usr/bin/pactl set-sink-volume '@DEFAULT_SINK@' '-3%' && flock -w 0.2 -E 0 ~/.i3/lock/audio py3-cmd refresh "volume master"
+bindsym XF86AudioRaiseVolume exec /usr/bin/pactl set-sink-volume '@DEFAULT_SINK@' '+3%' && flock -w 0.2 -E 0 ~/.i3/lock/audio py3-cmd refresh "volume master"
+bindsym XF86AudioMute exec /usr/bin/pactl set-sink-mute '@DEFAULT_SINK@' 'toggle' && flock -w 0.2 -E 0 ~/.i3/lock/audio py3-cmd refresh "volume master"
+bindsym XF86AudioMicMute exec /usr/bin/pactl set-source-mute '@DEFAULT_SOURCE@' 'toggle' && flock -w 0.2 -E 0 ~/.i3/lock/audio py3-cmd refresh "volume master"
 
 # screen brightness
 bindsym XF86MonBrightnessUp exec /usr/bin/xbacklight -inc 10 && flock -w 0.2 -E 0 ~/.i3/lock/backlight py3-cmd refresh "backlight"
@@ -203,6 +203,7 @@ bindsym XF86MonBrightnessDown exec /usr/bin/xbacklight -dec 5 && flock -w 0.2 -E
 bindsym Print exec /usr/bin/gnome-screenshot --interactive --area
 
 bindsym XF86Tools exec /usr/bin/xfce4-terminal --execute 'bc'
+bindsym XF86Display exec /usr/bin/xfce4-terminal --execute bash -c 'xrandr && bash'
 
 
 # #############
@@ -214,6 +215,14 @@ exec setxkbmap ch
 
 # Gnome Network Applet
 exec nm-applet
+exec wwan off
+
+# PulseAudio Management Applet
+exec pasystray
+
+# BlueTooth management
+exec blueberry-tray
+exec bluetooth off
 
 # Redshift screen daylight adjustment
 exec redshift-gtk
