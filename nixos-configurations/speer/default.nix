@@ -5,11 +5,8 @@
     ./filesystems.nix
     ./networking.nix
     ./disko-config.nix
-
-    # TODO: Hardware
   ];
-
-  nixpkgs.hostPlatform = "x86_64-linux";
+  facter.reportPath = ./facter.json;
 
   virtualisation = {
     # TODO: This should probably be somewhere else.

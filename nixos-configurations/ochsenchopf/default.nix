@@ -9,8 +9,6 @@
 
   ];
 
-  nixpkgs.hostPlatform = "x86_64-linux";
-
   virtualisation = {
     # TODO: This should probably be somewhere else.
     docker = {

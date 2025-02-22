@@ -1,12 +1,11 @@
 { ... }:
 {
-
   imports = [
     ./base
     ./base-system
     ./desktop
     ./filesystems
-    #./hardware #TODO
+    ./hardware
     ./home-manager
     ./printing
     ./theme

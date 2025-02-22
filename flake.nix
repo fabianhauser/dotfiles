@@ -24,14 +24,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote/v0.4.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
     fcc-unlock = {
       url = "github:fabianhauser/fcc-unlock";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -74,6 +75,7 @@
             packages = lib.attrValues {
               inherit (pkgs)
                 nixos-rebuild
+                nixos-facter
                 sops
                 ssh-to-age
                 nixd
