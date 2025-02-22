@@ -15,6 +15,12 @@
                 type = "filesystem";
                 format = "vfat";
                 mountpoint = "/boot";
+                mountOptions = [
+                  "uid=0"
+                  "gid=0"
+                  "fmask=0077"
+                  "dmask=0077"
+                ];
               };
             };
             raid_system = {
