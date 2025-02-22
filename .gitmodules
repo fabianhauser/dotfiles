@@ -1,0 +1,4 @@
+[submodule "private"]
+	path = private
+	url = https://git.qo.is/fabianhauser/nix-config-private.git
+	branch = main

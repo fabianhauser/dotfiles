@@ -1,0 +1,8 @@
+{
+  ...
+}:
+{
+  hardware.rasdaemon = {
+    enable = true;
+  };
+}
