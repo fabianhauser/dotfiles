@@ -17,6 +17,4 @@
   services.fwupd.daemonSettings.EspLocation = pkgs.lib.mkForce config.disko.devices.disk.system-1.content.partitions.boot.content.mountpoint;
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
 }

@@ -26,7 +26,6 @@
       pwgen
       powertop
       lm_sensors
-      sbctl
     ]
     ++ [
       nixfmt-rfc-style
