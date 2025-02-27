@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: nix
+    steps:
+      - name: Initialize CI
+        uses: https://git.qo.is/qo.is/actions-nix-init@main
+        with:
+          token: ${{ secrets.CI_TOKEN }}
+          lfs: false
+
+      - name: Add submodules to nix store to circumvent another nix bug
+        run: |
+          git clone https://git.qo.is/fabianhauser/nix-config-private.git /tmp/private
+          cd /tmp/private
+          nix flake prefetch
+
+      - name: Setup Attic Watch and Push
+        uses: ./.github/actions/attic-cache
+        with:
+          cache_name: fabianhauser
+          server: https://attic.qo.is/
+          attic_auth_token: ${{ secrets.ATTIC_AUTH_TOKEN }}
+          cache_repository: fabianhauser:dotfiles
+
+      - name: Build
+        run: nix build --max-jobs 12 --cores 12
+
+      - name: Run Checks
+        run: nix flake check
+
+      - name: Setup Cache Push
+        uses: ./.github/actions/attic-cache-push
+        with:
+          cache_repository: fabianhauser:dotfiles

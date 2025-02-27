@@ -76,6 +76,7 @@
               inherit (pkgs)
                 nixos-rebuild
                 nixos-facter
+                attic-client
                 sops
                 ssh-to-age
                 nixd

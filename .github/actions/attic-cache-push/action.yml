@@ -1,0 +1,33 @@
+name: "Attic Watch and Push"
+description: "Composite action that logs in, sets the cache repository, starts attic watch-store in the background, and pushes results after the job completes."
+
+inputs:
+  cache_name:
+    description: "Cache name for attic login"
+    required: true
+  server:
+    description: "Server URL for attic login"
+    required: true
+  attic_auth_token:
+    description: "Authentication token for attic login"
+    required: true
+  cache_repository:
+    description: "Cache repository to use with attic"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Attic Login
+      shell: "nix shell nixpkgs#attic-client --command {0}"
+      run: |
+        attic login "${{ inputs.cache_name }}" "${{ inputs.server }}" "${{ inputs.attic_auth_token }}"
+    - name: Attic Use Repository
+      shell: "nix shell nixpkgs#attic-client --command {0}"
+      run: |
+        attic use "${{ inputs.cache_repository }}"
+    - name: Start Attic Watch-Store in Background
+      shell: "nix shell nixpkgs#attic-client --command {0}"
+      run: |
+        # Start attic watch-store in the background
+        attic watch-store &
