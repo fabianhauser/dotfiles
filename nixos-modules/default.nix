@@ -9,5 +9,6 @@
     ./home-manager
     ./printing
     ./theme
+    ./virtualisation
   ];
 }

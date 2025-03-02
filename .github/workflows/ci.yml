@@ -27,13 +27,6 @@ jobs:
           attic_auth_token: ${{ secrets.ATTIC_AUTH_TOKEN }}
           cache_repository: fabianhauser:dotfiles
 
-      - name: Build
-        run: nix build --max-jobs 12 --cores 12
-
       - name: Run Checks
-        run: nix flake check
-
-      - name: Setup Cache Push
-        uses: ./.github/actions/attic-cache-push
-        with:
-          cache_repository: fabianhauser:dotfiles
+        shell: nix develop --command bash -c "{0}"
+        run: nix-fast-build --skip-cached --attic-cache fabianhauser:dotfiles

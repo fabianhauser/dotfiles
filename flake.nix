@@ -50,7 +50,12 @@
   };
 
   outputs =
-    inputs@{ flake-parts, nixpkgs, ... }:
+    inputs@{
+      flake-parts,
+      nixpkgs,
+      self,
+      ...
+    }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = map (name: inputs.${name}.flakeModule) [
         "treefmt-nix"
@@ -60,7 +65,12 @@
         "x86_64-linux"
       ];
       perSystem =
-        { pkgs, lib, ... }:
+        {
+          pkgs,
+          lib,
+          self',
+          ...
+        }:
         {
           treefmt = {
             programs = {
@@ -70,12 +80,24 @@
             settings.global.excludes = [ "*.jpg" ];
           };
 
+          checks =
+            with lib;
+            concatMapAttrs
+              (typeName: concatMapAttrs (objectName: value: { "${typeName}-${objectName}" = value; }))
+              {
+                inherit (self') devShells;
+                nixosConfigurations = mapAttrs (
+                  _name: value: value.config.system.build.toplevel
+                ) self.nixosConfigurations;
+              };
+
           devShells.default = pkgs.mkShell {
             name = "nix-config-default-shell";
             packages = lib.attrValues {
               inherit (pkgs)
                 nixos-rebuild
                 nixos-facter
+                nix-fast-build
                 attic-client
                 sops
                 ssh-to-age
