@@ -3,6 +3,10 @@ name: CI
 on:
   push:
 
+defaults:
+  run:
+    shell: nix develop --command bash -c "{0}"
+
 jobs:
   build:
     runs-on: nix
@@ -13,20 +17,15 @@ jobs:
           token: ${{ secrets.CI_TOKEN }}
           lfs: false
 
-      - name: Add submodules to nix store to circumvent another nix bug
+      - name: Setup Attic Cache
+        env:
+          CACHE_NAME: fabianhauser
+          CACHE_REPOSITORY: fabianhauser:dotfiles
+          SERVER: https://attic.qo.is/
+          ATTIC_AUTH_TOKEN: ${{ secrets.ATTIC_AUTH_TOKEN }}
         run: |
-          git clone https://git.qo.is/fabianhauser/nix-config-private.git /tmp/private
-          cd /tmp/private
-          nix flake prefetch
-
-      - name: Setup Attic Watch and Push
-        uses: ./.github/actions/attic-cache
-        with:
-          cache_name: fabianhauser
-          server: https://attic.qo.is/
-          attic_auth_token: ${{ secrets.ATTIC_AUTH_TOKEN }}
-          cache_repository: fabianhauser:dotfiles
+          attic login "$CACHE_NAME" "$SERVER" "$ATTIC_AUTH_TOKEN"
+          attic use "$CACHE_REPOSITORY"
 
       - name: Run Checks
-        shell: nix develop --command bash -c "{0}"
-        run: nix-fast-build --skip-cached --attic-cache fabianhauser:dotfiles
+        run: nix-fast-build --no-nom --max-jobs 1 --skip-cached --attic-cache fabianhauser:dotfiles
