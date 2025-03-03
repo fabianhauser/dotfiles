@@ -7,6 +7,7 @@
     ./disko-config.nix
   ];
   facter.reportPath = ./facter.json;
+  dotfiles.hardware.amd-desktop.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Tallinn";

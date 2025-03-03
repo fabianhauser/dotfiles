@@ -4,6 +4,18 @@
 }:
 
 {
+
+  environment.etc = {
+    gitconfig.source = ./etc/gitconfig;
+    vimrc.source = ./etc/vimrc;
+  };
+
+  programs.autojump.enable = true;
+  programs.vim = {
+    enable = true;
+    defaultEditor = true;
+  };
+
   environment.systemPackages =
     with pkgs;
     [
@@ -33,6 +45,7 @@
       nix-diff
       nixpkgs-review
       nixos-option
+      comma
     ]
     ++ [
       autojump
@@ -52,20 +65,6 @@
       vimPlugins.airline
       git
       git-lfs
-    ]
-    ++ [
-      # Filesystem & Disk Utilities
-      exfat
-      samba
-      cifs-utils
-      keyutils # required for cifs kerberos auth
-      sshfs-fuse
-      hdparm
-      mtpfs
-      ntfs3g
-      smartmontools
-      parted
-      usbutils
     ]
     ++ [
       # Networking Utilities

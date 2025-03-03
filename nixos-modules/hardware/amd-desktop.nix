@@ -1,7 +1,7 @@
 {
   lib,
+  config,
   pkgs,
-  modulesPath,
   ...
 }:
 let
@@ -40,30 +40,20 @@ let
   '';
 in
 {
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  options.dotfiles.hardware.amd-desktop.enable =
+    lib.mkEnableOption "Enable AMD Desktop Setup Support";
 
-  boot.initrd.availableKernelModules = [
-    "nvme"
-    "usbhid"
-    "usb_storage"
-    "sd_mod"
-    "xhci_pci"
-    "ahci"
-    "virtio-pci"
-    "igb"
-  ];
-  boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [
-    "kvm-amd"
-    "uhid"
-  ];
-  boot.extraModulePackages = [ ];
-  boot.kernelParams = [ "acpi_enforce_resources=lax" ];
+  config = lib.mkIf config.dotfiles.hardware.amd-desktop.enable {
 
-  environment.systemPackages = [ thunderboltDockRestart ];
+    dotfiles.hardware.ecc-memory.enable = true;
 
-  hardware.cpu.amd.updateMicrocode = true;
-  nix.settings.max-jobs = lib.mkDefault 24;
+    boot.kernelParams = [ "acpi_enforce_resources=lax" ];
 
-  powerManagement.powerUpCommands = "${forceThunderboltOnScript}/bin/force-thunderbolt-power-on";
+    # The Thunderbolt card in combination with a Thinkpad Dock has power issues after suspend and boot.
+    # These scripts help with some cases.
+    environment.systemPackages = [ thunderboltDockRestart ];
+    powerManagement.powerUpCommands = "${forceThunderboltOnScript}/bin/force-thunderbolt-power-on";
+
+    nix.settings.max-jobs = lib.mkDefault 24;
+  };
 }

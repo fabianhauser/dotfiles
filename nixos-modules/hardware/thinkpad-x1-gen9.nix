@@ -1,42 +1,19 @@
 {
   lib,
-  pkgs,
-  modulesPath,
-  hardwareModules,
-  pkgFccUnlock,
+  config,
   ...
 }:
 {
 
-  imports = with hardwareModules; [
-    (modulesPath + "/installer/scan/not-detected.nix")
-    hardwareModules.lenovo-thinkpad-x1-9th-gen
-  ];
+  options.dotfiles.hardware.thinkpad-x1-gen9.enable =
+    lib.mkEnableOption "Enable ThinkPad X1 Gen9 Support";
 
-  boot.initrd.availableKernelModules = [
-    "xhci_pci"
-    "thunderbolt"
-    "nvme"
-    "usb_storage"
-    "sd_mod"
-    "ahci"
-    "usbhid"
-  ];
-  boot.kernelModules = [ "kvm-intel" ];
+  config = lib.mkIf config.dotfiles.hardware.thinkpad-x1-gen9.enable {
 
-  boot.initrd.kernelModules = [ "dm-snapshot" ]; # TODO: This should be moved to defaults
+    dotfiles.hardware.modem-em120r-gl.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    modemmanager
-    libmbim
-  ];
-
-  environment.etc."ModemManager/fcc-unlock.d/1eac:1001" = {
-    source = "${pkgFccUnlock}/bin/fcc-unlock";
+    # CPU Configuration
+    services.throttled.enable = true;
+    powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   };
-
-  # CPU Configuration
-  hardware.cpu.intel.updateMicrocode = true;
-  services.throttled.enable = true;
-  powerManagement.cpuFreqGovernor = lib.mkDefault "performance";
 }

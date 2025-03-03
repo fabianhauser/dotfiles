@@ -9,9 +9,6 @@
     defaultSession = "sway";
   };
 
-  # Enable touchpad support.
-  services.libinput.enable = true;
-
   services.xserver = {
     enable = true;
     desktopManager.xterm.enable = false;

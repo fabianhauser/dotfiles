@@ -3,6 +3,7 @@
 }:
 
 {
+  # TODO: Revive when needed.
   #services.printing = {
   #  enable = true;
   #  drivers = with pkgs; [
