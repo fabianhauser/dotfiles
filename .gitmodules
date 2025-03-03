@@ -1,4 +1,4 @@
 [submodule "private"]
 	path = private
-	url = https://git.qo.is/fabianhauser/nix-config-private.git
+	url = https://git.qo.is/fabianhauser/dotfiles-private.git
 	branch = main
