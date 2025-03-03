@@ -10,6 +10,8 @@
     useDHCP = false;
   };
 
+  systemd.network.wait-online.enable = false;
+  systemd.network.wait-online.ignoredInterfaces = [ "tailscale0" ];
   services.tailscale = {
     enable = true;
     openFirewall = true;
