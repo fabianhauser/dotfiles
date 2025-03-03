@@ -31,12 +31,5 @@
 
   swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = lib.mkForce false;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.lanzaboote = {
-    enable = true;
-    pkiBundle = "/etc/secureboot";
-  };
+  boot.lanzaboote.pkiBundle = lib.mkForce "/etc/secureboot"; # TODO: Migrate to /var/lib/sbctl, see default config.
 }
