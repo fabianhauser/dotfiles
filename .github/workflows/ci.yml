@@ -1,12 +1,9 @@
 name: CI
-
 on:
   push:
-
 defaults:
   run:
     shell: nix develop --command bash -c "{0}"
-
 jobs:
   build:
     runs-on: nix
@@ -16,7 +13,6 @@ jobs:
         with:
           token: ${{ secrets.CI_TOKEN }}
           lfs: false
-
       - name: Setup Attic Cache
         env:
           CACHE_NAME: fabianhauser
@@ -26,6 +22,5 @@ jobs:
         run: |
           attic login "$CACHE_NAME" "$SERVER" "$ATTIC_AUTH_TOKEN"
           attic use "$CACHE_REPOSITORY"
-
       - name: Run Checks
         run: nix-fast-build --no-nom --max-jobs 1 --skip-cached --attic-cache fabianhauser:dotfiles

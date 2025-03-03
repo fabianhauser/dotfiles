@@ -76,6 +76,9 @@
             programs = {
               nixfmt.enable = true;
               deadnix.enable = true;
+              jsonfmt.enable = true;
+              yamlfmt.enable = true;
+              mdformat.enable = true;
             };
             settings.global.excludes = [ "*.jpg" ];
           };
