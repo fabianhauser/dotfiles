@@ -30,6 +30,4 @@
     };
 
   swapDevices = [ { device = "/dev/disk/by-label/swap"; } ];
-
-  boot.lanzaboote.pkiBundle = lib.mkForce "/etc/secureboot"; # TODO: Migrate to /var/lib/sbctl, see default config.
 }
