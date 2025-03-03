@@ -1,0 +1,29 @@
+{
+  "assistant": {
+    "default_model": {
+      "model": "o1-mini",
+      "provider": "openai"
+    },
+    "version": "2"
+  },
+  "buffer_font_size": 16,
+  "languages": {
+    "Markdown": {
+      "remove_trailing_whitespace_on_save": false
+    },
+    "Markdown-Inline": {
+      "remove_trailing_whitespace_on_save": false
+    }
+  },
+  "telemetry": {
+    "diagnostics": false,
+    "metrics": false
+  },
+  "theme": {
+    "dark": "One Dark",
+    "light": "Andromeda",
+    "mode": "dark"
+  },
+  "ui_font_size": 16,
+  "vim_mode": false
+}
