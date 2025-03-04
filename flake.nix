@@ -17,6 +17,10 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    git-hooks-nix = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
@@ -60,12 +64,14 @@
       imports = map (name: inputs.${name}.flakeModule) [
         "treefmt-nix"
         "ez-configs"
+        "git-hooks-nix"
       ];
       systems = [
         "x86_64-linux"
       ];
       perSystem =
         {
+          config,
           pkgs,
           lib,
           self',
@@ -81,6 +87,13 @@
               mdformat.enable = true;
             };
             settings.global.excludes = [ "*.jpg" ];
+          };
+          pre-commit = {
+            check.enable = false;
+            settings.hooks.treefmt = {
+              enable = true;
+              always_run = true;
+            };
           };
 
           checks =
@@ -107,6 +120,9 @@
                 nixd
                 ;
             };
+            shellHook = ''
+              ${config.pre-commit.installationScript}
+            '';
           };
 
         };

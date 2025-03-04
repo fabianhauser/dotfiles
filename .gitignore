@@ -3,3 +3,4 @@
 /.direnv
 /book
 /.sops.yaml
+/.pre-commit-config.yaml
