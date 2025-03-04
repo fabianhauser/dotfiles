@@ -1,13 +1,13 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }:
 
 {
 
   imports = [
+    ./anki.nix
     ./catppuccin.nix
     ./codium.nix
     ./emanote.nix

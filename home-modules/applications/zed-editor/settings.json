@@ -1,7 +1,7 @@
 {
   "assistant": {
     "default_model": {
-      "model": "o1-mini",
+      "model": "gpt-4o-mini",
       "provider": "openai"
     },
     "version": "2"
