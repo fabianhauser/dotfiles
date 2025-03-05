@@ -13,6 +13,12 @@
     },
     "Markdown-Inline": {
       "remove_trailing_whitespace_on_save": false
+    },
+    "Nix": {
+      "language_servers": [
+        "nixd",
+        "!nil"
+      ]
     }
   },
   "telemetry": {
