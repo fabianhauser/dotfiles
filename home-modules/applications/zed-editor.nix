@@ -4,7 +4,7 @@
     enable = true;
     extensions = [
       "nix"
-      "cspell"
+      "typos"
       "latex"
       "sql"
       "toml"
@@ -21,8 +21,9 @@
     ];
     extraPackages = with pkgs; [
       nixd
-      nodePackages.cspell
       direnv
+      typos
+      typos-lsp
     ];
     userSettings = lib.importJSON ./zed-editor/settings.json;
   };
