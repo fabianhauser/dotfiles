@@ -1,0 +1,12 @@
+[
+  {
+    "label": "Switch System",
+    "command": "sudo nixos-rebuild switch --flake .",
+    "use_new_terminal": true,
+    "allow_concurrent_runs": false,
+    "reveal": "always",
+    "reveal_target": "dock",
+    "hide": "on_success",
+    "shell": "system"
+  }
+]
