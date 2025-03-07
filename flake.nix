@@ -107,7 +107,9 @@
                 ) self.nixosConfigurations;
               };
 
-          devShells.default = pkgs.mkShell {
+          packages.dotfiles-enroll-tpm = pkgs.callPackage ./packages/dotfiles-enroll-tpm { inherit self; };
+
+          devShells.default = pkgs.mkShellNoCC {
             name = "nix-config-default-shell";
             packages = lib.attrValues {
               inherit (pkgs)
@@ -119,6 +121,7 @@
                 ssh-to-age
                 nixd
                 ;
+              inherit (self'.packages) dotfiles-enroll-tpm;
             };
             shellHook = ''
               ${config.pre-commit.installationScript}
