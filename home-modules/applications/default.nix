@@ -82,7 +82,7 @@
         jitsi-meet-electron
         teams-for-linux
         rdesktop
-        davinci-resolve
+        # davinci-resolve # TODO: This package is big. Maybe write a wrapper around nix run?
       ]
       ++ [
         # Development
