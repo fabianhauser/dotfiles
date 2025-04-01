@@ -1,4 +1,4 @@
-{ config, ... }:
+{ config, pkgs, ... }:
 {
   virtualisation = {
     docker = {
@@ -8,6 +8,7 @@
     libvirtd.enable = true;
     spiceUSBRedirection.enable = true;
   };
+  environment.systemPackages = [ pkgs.virtiofsd ];
 
   boot.extraModprobeConfig =
     let
