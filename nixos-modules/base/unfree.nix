@@ -14,6 +14,7 @@
       "steam-run"
       "steam-original"
       "steam-unwrapped"
+      "andagii"
 
       "hplip"
 
