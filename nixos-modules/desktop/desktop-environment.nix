@@ -34,7 +34,7 @@ in
 
   services.gnome = {
     # TODO: Do this manually and not all at once.
-    core-utilities.enable = true;
+    core-apps.enable = true;
     core-os-services.enable = false;
 
     gnome-keyring.enable = true;
