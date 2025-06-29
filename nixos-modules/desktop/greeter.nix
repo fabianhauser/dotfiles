@@ -7,6 +7,10 @@
 
   services.displayManager = {
     defaultSession = "sway";
+    gdm = {
+      enable = true;
+      wayland = true;
+    };
   };
 
   services.xserver = {
@@ -15,10 +19,6 @@
     displayManager = {
       startx.enable = false;
       lightdm.enable = false;
-      gdm = {
-        enable = true;
-        wayland = true;
-      };
     };
 
     # TODO: Extract i18n
