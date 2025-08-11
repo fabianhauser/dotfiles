@@ -46,7 +46,7 @@
       gimp
       hugin
       lensfun
-      #darktable #TODO: Insecure dependency, wait for patch to be merged
+      darktable
       inkscape
       ghostscript
     ]
