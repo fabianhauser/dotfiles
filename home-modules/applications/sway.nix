@@ -163,7 +163,6 @@ rec {
     };
     gtk3.extraConfig.gtk-menu-images = true;
   };
-  catppuccin.gtk.enable = true;
 
   dconf.settings = {
     "org/gnome/desktop/interface".menus-have-icons = true;
