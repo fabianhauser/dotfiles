@@ -24,7 +24,6 @@
       "teamviewer"
       "todoist-electron"
       "todoist-electron-8.10.1"
-      "obsidian"
 
       "davinci-resolve"
       "davinci-resolve-18.6.3"
@@ -50,7 +49,6 @@
       "idea-ultimate"
       "android-studio-stable"
       "android-studio-beta"
-
-      "vmware-view"
+      "claude-code"
     ];
 }

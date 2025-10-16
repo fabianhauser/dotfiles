@@ -73,7 +73,6 @@
         gnome-online-accounts
         gnome-control-center
         todoist-electron
-        obsidian
         smile
         qdigidoc
       ]
