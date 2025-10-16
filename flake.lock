@@ -585,17 +585,14 @@
     },
     "private": {
       "locked": {
-        "lastModified": 1740248734,
-        "narHash": "sha256-BJM/A7lFYi7G+AaNjttLNmZdXGGFi1dI82Mse+JYkes=",
-        "rev": "f2b5747476e21c585d304e38f2ba519e9a99714d",
-        "revCount": 1,
-        "type": "git",
-        "url": "file:./private"
+        "path": "./private",
+        "type": "path"
       },
       "original": {
-        "type": "git",
-        "url": "file:./private"
-      }
+        "path": "./private",
+        "type": "path"
+      },
+      "parent": []
     },
     "root": {
       "inputs": {

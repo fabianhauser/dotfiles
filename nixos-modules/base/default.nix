@@ -11,7 +11,7 @@
     ./users.nix
   ];
 
-  console.keyMap = "de_CH-latin1";
+  console.useXkbConfig = true;
   i18n.defaultLocale = "en_US.UTF-8";
 
   # Package management

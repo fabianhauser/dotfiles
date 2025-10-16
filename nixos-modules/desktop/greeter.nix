@@ -22,10 +22,7 @@
     };
 
     # TODO: Extract i18n
-    xkb = {
-      layout = "ch,de";
-      options = "eurosign:e";
-    };
+    xkb.layout = "us(altgr-intl)";
 
     updateDbusEnvironment = true;
   };

@@ -5,6 +5,7 @@
   };
 
   inputs = {
+    self.submodules = true;
     flake-parts.url = "github:hercules-ci/flake-parts";
     treefmt-nix = {
       url = "github:numtide/treefmt-nix";
@@ -50,7 +51,7 @@
       };
     };
 
-    private.url = "git+file:./private";
+    private.url = "./private";
   };
 
   outputs =

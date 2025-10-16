@@ -53,8 +53,7 @@ rec {
     config = {
       input = {
         "type:keyboard" = {
-          xkb_layout = "ch,de";
-          xkb_options = "eurosign:e";
+          xkb_layout = "us(altgr-intl)";
         };
         "*" = {
           xkb_numlock = "enable";
@@ -86,6 +85,14 @@ rec {
           playerctl = "${pkgs.playerctl}/bin/playerctl";
           wpctl = "${pkgs.wireplumber}/bin/wpctl";
           light = "${pkgs.light}/bin/light";
+          ws = {
+            "0" = "grave";
+            "10" = "0";
+            "11" = "minus";
+            "12" = "equal";
+            "13" = "bracketright";
+            "14" = "backslash";
+          };
         in
         lib.mkOptionDefault {
           "${mod}+p" = "exec passbemenu";
@@ -93,19 +100,19 @@ rec {
           "${mod}+x" = "move workspace to output right";
           "${mod}+y" = "move workspace to output left";
 
-          "${mod}+section" = "workspace 0";
-          "${mod}+0" = "workspace 10";
-          "${mod}+apostrophe" = "workspace 11";
-          "${mod}+dead_circumflex" = "workspace 12";
-          "${mod}+dead_diaeresis" = "workspace 13";
-          "${mod}+dollar" = "workspace 14";
+          "${mod}+${ws."0"}" = "workspace 0";
+          "${mod}+${ws."10"}" = "workspace 10";
+          "${mod}+${ws."11"}" = "workspace 11";
+          "${mod}+${ws."12"}" = "workspace 12";
+          "${mod}+${ws."13"}" = "workspace 13";
+          "${mod}+${ws."14"}" = "workspace 14";
 
-          "${mod}+Shift+section" = "move container to workspace 0";
-          "${mod}+Shift+0" = "move container to workspace 10";
-          "${mod}+Shift+apostrophe" = "move container to workspace 11";
-          "${mod}+Shift+dead_circumflex" = "move container to workspace 12";
-          "${mod}+Shift+dead_diaeresis" = "move container to workspace 13";
-          "${mod}+Shift+dollar" = "move container to workspace 14";
+          "${mod}+Shift+${ws."0"}" = "move container to workspace 0";
+          "${mod}+Shift+${ws."10"}" = "move container to workspace 10";
+          "${mod}+Shift+${ws."11"}" = "move container to workspace 11";
+          "${mod}+Shift+${ws."12"}" = "move container to workspace 12";
+          "${mod}+Shift+${ws."13"}" = "move container to workspace 13";
+          "${mod}+Shift+${ws."14"}" = "move container to workspace 14";
 
           "Ctrl+mod1+l" = "exec ${pkgs.systemd}/bin/loginctl lock-session";
           "Ctrl+mod1+Shift+L" = "exec ${pkgs.systemd}/bin/systemctl suspend";
