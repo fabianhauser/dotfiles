@@ -10,7 +10,6 @@
     ./anki.nix
     ./catppuccin.nix
     ./codium.nix
-    ./emanote.nix
     ./evolution.nix
     ./firefox.nix
     ./gammastep.nix

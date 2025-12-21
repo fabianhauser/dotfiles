@@ -54,7 +54,6 @@
     ferrum
     #    fixedsys-excelsior # Breaks fawesome
     emacs-all-the-icons-fonts
-    emojione
     encode-sans
     envypn-font
     fantasque-sans-mono
@@ -164,7 +163,7 @@
     tipa
     twemoji-color-font
     twitter-color-emoji
-    ubuntu_font_family
+    ubuntu-classic
     #ucs-fonts
     ultimate-oldschool-pc-font-pack
     victor-mono

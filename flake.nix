@@ -34,7 +34,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     lanzaboote = {
-      url = "github:nix-community/lanzaboote/v0.4.2";
+      url = "github:nix-community/lanzaboote/v1.0.0";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-facter-modules.url = "github:nix-community/nixos-facter-modules";
@@ -43,13 +43,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     catppuccin.url = "github:catppuccin/nix";
-    emanote = {
-      url = "github:srid/emanote";
-      inputs = {
-        emanote-template.follows = "";
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
 
     private.url = "./private";
   };
