@@ -145,7 +145,7 @@ rec {
       # Workaround for https://bugs.chromium.org/p/chromium/issues/detail?id=1338554
       for_window [app_id="^chrome-.*-.*$"] shortcuts_inhibitor disable
 
-      output "*" bg ${./mountain.jpg} fill
+      output "*" bg ${./closed_farn.JPG} fill
     '';
   };
   catppuccin.sway.enable = true;
