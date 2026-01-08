@@ -62,7 +62,6 @@
   services.upower.enable = config.powerManagement.enable;
 
   programs.light.enable = true;
-  programs.adb.enable = true;
 
   services.fprintd = lib.mkIf config.facter.detected.fingerprint.enable {
     # TODO: wait for an update of https://github.com/NixOS/nixpkgs/pull/388905#issuecomment-2727242456
