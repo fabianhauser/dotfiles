@@ -55,10 +55,10 @@
         google-chrome
         chromium
         nextcloud-client
-        xfce.thunar
-        xfce.thunar-archive-plugin
-        xfce.xfce4-appfinder
-        xfce.mousepad
+        thunar
+        thunar-archive-plugin
+        xfce4-appfinder
+        mousepad
         bitwarden-desktop
         pinentry-rofi # Required by gnupg
       ]

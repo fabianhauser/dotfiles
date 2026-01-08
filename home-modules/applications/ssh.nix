@@ -17,6 +17,9 @@
         "github.com" = forceIdentityPrivate // {
           user = "git";
         };
+        "*" = {
+          forwardAgent = false;
+        };
       };
       extraConfig = ''
         IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh

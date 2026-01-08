@@ -40,7 +40,7 @@
       lm_sensors
     ]
     ++ [
-      nixfmt-rfc-style
+      nixfmt
       nix-index
       nix-diff
       nixpkgs-review
