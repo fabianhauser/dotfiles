@@ -89,6 +89,7 @@
         modem-manager-gui
         tealdeer
         llm
+        android-tools
       ];
 
     #TODO: Write module
