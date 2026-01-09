@@ -13,7 +13,7 @@
         doc-editor = [ "writer.desktop" ];
         sheet-editor = [ "calc.desktop" ];
         presentation-editor = [ "impress.desktop" ];
-        pdf = [ "org.gnome.Evince.desktop" ];
+        pdf = [ "org.gnome.Papers.desktop" ];
         image = [
           "org.gnome.Loupe.desktop"
           "gimp.desktop"
