@@ -23,7 +23,7 @@
         };
       };
       extraConfig = ''
-        IdentityAgent /run/user/1000/gnupg/S.gpg-agent.ssh
+        IdentityAgent /run/user/%i/gnupg/S.gpg-agent.ssh
       '';
       #TODO: Authorized keys implementation, see https://github.com/nix-community/home-manager/pull/9
     };
