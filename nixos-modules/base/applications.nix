@@ -34,21 +34,15 @@
       rename
       wipe
       gnupg
-      pass-wayland
       pwgen
       powertop
       lm_sensors
     ]
     ++ [
-      nixfmt
       nix-index
       nix-diff
-      nixpkgs-review
-      nixos-option
-      comma
     ]
     ++ [
-      autojump
       powerline-go
     ]
     ++ [
@@ -56,13 +50,8 @@
       ripgrep
       unzip
       p7zip
-      unrar
       iotop
-      cabextract
       tree
-      vim
-      vimPlugins.pathogen
-      vimPlugins.airline
       git
       git-lfs
     ]
@@ -72,14 +61,11 @@
       bind
       curl
       wget
-      tor
-      whois
       wol
       rsync
       sshuttle
       iftop
       mailutils
-      imapsync
       bluez-tools
     ];
 }

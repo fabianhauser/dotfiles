@@ -10,7 +10,7 @@
       " colorscheme elflord
       set autoindent
       set ruler
-      set pastetoggle=<F2>
+      "set pastetoggle=<F2>
       set splitbelow
       set splitright
       set mouse=

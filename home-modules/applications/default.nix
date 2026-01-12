@@ -3,12 +3,11 @@
   pkgs,
   ...
 }:
-
 {
 
   imports = [
+    ./games
     ./anki.nix
-    ./catppuccin.nix
     ./codium.nix
     ./evolution.nix
     ./firefox.nix
@@ -43,6 +42,8 @@
   home = {
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
+      NIXOS_WAYLAND = "1";
+      ELECTRON_OZONE_PLATFORM_HINT = "auto"; # Only has effect on non-nix applications (i.e. not patched)
     };
     packages =
       with pkgs;
@@ -78,18 +79,45 @@
       ++ [
         # Communication
         jitsi-meet-electron
-        teams-for-linux
         rdesktop
         # davinci-resolve # TODO: This package is big. Maybe write a wrapper around nix run?
       ]
       ++ [
         # Development
         virt-manager
-        modemmanager # TODO: makes sense here?
-        modem-manager-gui
-        tealdeer
         llm
         android-tools
+      ]
+      ++ [
+        tmux
+        bc
+        mkpasswd
+        rename
+        wipe
+        pass-wayland
+        pwgen
+        powertop
+      ]
+      ++ [
+        # File Utilities
+        ripgrep
+        unzip
+        p7zip
+        iotop
+        tree
+      ]
+      ++ [
+        # Networking Utilities
+        nmap
+        bind
+        curl
+        wget
+        wol
+        rsync
+        sshuttle
+        iftop
+        mailutils
+        bluez-tools
       ];
 
     #TODO: Write module

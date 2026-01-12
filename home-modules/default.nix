@@ -5,12 +5,21 @@
   imports = [
     ./applications
     ./theme
-    ./multimedia.nix
-    ./mimetypes.nix
+    ./multimedia
+    ./mimetypes
+    ./fonts
+    ./catppuccin.nix
   ];
 
-  systemd.user.targets.tray.Unit = {
-    Description = "Home Manager System Tray";
-    Requires = [ "graphical-session-pre.target" ];
-  };
+  nixpkgs.overlays = [
+    (_final: prev: {
+      lib = prev.lib.extend (
+        _self: _super: {
+          dotfiles = {
+            # Add lib functions here.
+          };
+        }
+      );
+    })
+  ];
 }

@@ -1,9 +1,14 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }:
 {
+
+  dconf.settings = {
+    "apps/gnome-keyring/daemon-components".ssh = false;
+  };
   #TODO: ENV variabls for agent
   programs.gpg = {
     enable = true;
@@ -41,20 +46,8 @@
     enableScDaemon = true;
     enableSshSupport = true;
     enableExtraSocket = true;
-    # TODO: pinentryPackage =
-    extraConfig =
-      let
-        pinentryBemenu = pkgs.writeShellApplication {
-          name = "pinentry-bemenu-with-env";
-          text = ''
-            PATH="$PATH:${pkgs.coreutils}/bin:${pkgs.bemenu}/bin"
-            "${pkgs.pinentry-bemenu}/bin/pinentry-bemenu" "$@"
-          '';
-        };
-      in
-      ''
-        pinentry-program ${pinentryBemenu}/bin/pinentry-bemenu-with-env
-      '';
+    pinentry.package =
+      if config.targets.genericLinux.enable then pkgs.pinentry-gnome3 else pkgs.pinentry-bemenu;
     sshKeys = [
       "638143D3F6421377E9D4C7F1D2EDC5AA0A860351" # 0x3E957C9C8CB5D6B2 / fabian.hauser@qo.is
     ];

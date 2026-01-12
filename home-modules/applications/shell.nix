@@ -1,5 +1,10 @@
-{ ... }:
+{ pkgs, config, ... }:
 {
+  home.packages = [ config.services.tldr-update.package ];
+  services.tldr-update = {
+    enable = true;
+    package = pkgs.tealdeer;
+  };
   programs = {
     bash = {
       enable = true;
@@ -11,7 +16,7 @@
       ];
       shellAliases = {
         # Sane defaults
-        l = "ls -lah";
+        l = "ls --color -lah";
         cp = "cp --reflink=auto";
         pwgen = "pwgen -c -n -s -N 30";
         bc = "bc --mathlib";

@@ -150,6 +150,11 @@ rec {
   };
   catppuccin.sway.enable = true;
 
+  systemd.user.targets.tray.Unit = {
+    Description = "Home Manager System Tray";
+    Requires = [ "graphical-session-pre.target" ];
+  };
+
   systemd.user.services.network-manager-applet = adhereTheSwayTarget;
   systemd.user.services.nextcloud-client = adhereTheSwayTarget // {
     # For trayicon to work:

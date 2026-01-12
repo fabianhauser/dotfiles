@@ -114,6 +114,7 @@
                 sops
                 ssh-to-age
                 nixd
+                home-manager
                 ;
               inherit (self'.packages) dotfiles-enroll-tpm;
             };
@@ -126,10 +127,19 @@
       ezConfigs = {
         root = ./.;
         globalArgs = { inherit inputs; };
+        home.users.work.standalone = {
+          enable = true;
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+        };
         nixos.hosts =
           with nixpkgs.lib;
           genAttrs [ "speer" "ochsenchopf" ] (const {
-            userHomeModules = [ "fhauser" ];
+            userHomeModules = [
+              "fhauser"
+            ];
           });
       };
     };
