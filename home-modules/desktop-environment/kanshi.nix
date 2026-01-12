@@ -1,11 +1,16 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }:
+let
+  inherit (lib) mkIf;
+  cfg = config.dotfiles.desktop-environment;
+in
 {
   #  systemd.user.services.kanshi.Install.WantedBy = "home-manager-fhauser.service"; # TODO: Upstream array type of systemdTarget
-  services.kanshi = {
+  services.kanshi = mkIf cfg.enable {
     enable = true;
     settings =
       let

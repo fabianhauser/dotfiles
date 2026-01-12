@@ -1,6 +1,10 @@
-{ ... }:
+{ lib, config, ... }:
+let
+  inherit (lib) mkIf;
+  cfg = config.dotfiles.desktop-environment;
+in
 {
-  services.gammastep = {
+  services.gammastep = mkIf cfg.enable {
     enable = true;
     settings.general.brightness-night = "0.9";
 

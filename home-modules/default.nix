@@ -4,6 +4,7 @@
 {
   imports = [
     ./applications
+    ./desktop-environment
     ./theme
     ./multimedia
     ./mimetypes

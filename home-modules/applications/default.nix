@@ -10,34 +10,25 @@
     ./codium.nix
     ./evolution.nix
     ./firefox.nix
-    ./gammastep.nix
     ./games
     ./gh.nix
     ./git.nix
     ./gpg.nix
-    ./kanshi.nix
     ./kitty.nix
-    ./mako.nix
     ./psql.nix
     ./scripts.nix
     ./shell.nix
     ./ssh.nix
-    ./sway.nix
-    ./swaylock.nix
     ./vim.nix
-    ./waybar.nix
     ./webapps.nix
     ./zed-editor.nix
   ];
 
   services = {
-    network-manager-applet.enable = true;
     nextcloud-client = {
       enable = true;
       startInBackground = true;
     };
-    pasystray.enable = true;
-    blueman-applet.enable = true;
   };
 
   home = {
