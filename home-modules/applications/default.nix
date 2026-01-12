@@ -6,12 +6,13 @@
 {
 
   imports = [
-    ./games
     ./anki.nix
     ./codium.nix
     ./evolution.nix
     ./firefox.nix
     ./gammastep.nix
+    ./games
+    ./gh.nix
     ./git.nix
     ./gpg.nix
     ./kanshi.nix
