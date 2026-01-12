@@ -44,7 +44,6 @@
       ]
       ++ [
         # Desktop Environment Applications
-        google-chrome
         chromium
         nextcloud-client
         thunar
