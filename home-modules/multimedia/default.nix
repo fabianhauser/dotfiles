@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   ...
 }:
 
@@ -38,8 +39,8 @@
       id3v2 # icedax
       pasystray
       pavucontrol
-      spotify
     ]
+    ++ (if config.target.genericLinux.enable then [ spot ] else [ spotify ])
     ++ [
       # Imaging
       gimp
