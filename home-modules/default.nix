@@ -9,6 +9,7 @@
     ./multimedia
     ./mimetypes
     ./fonts
+    ./work
     ./catppuccin.nix
   ];
 

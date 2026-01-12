@@ -12,4 +12,6 @@
       inherit (osConfig.system) stateVersion;
       homeDirectory = osConfig.users.users.${username}.home;
     };
+
+  dotfiles.desktop-environment.enable = true;
 }
