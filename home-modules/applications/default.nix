@@ -16,7 +16,6 @@
     ./gpg.nix
     ./kitty.nix
     ./psql.nix
-    ./scripts.nix
     ./shell.nix
     ./ssh.nix
     ./vim.nix
