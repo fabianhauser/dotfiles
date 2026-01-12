@@ -39,8 +39,8 @@
       id3v2 # icedax
       pasystray
       pavucontrol
+      (if config.targets.genericLinux.enable then spot else spotify)
     ]
-    ++ (if config.target.genericLinux.enable then [ spot ] else [ spotify ])
     ++ [
       # Imaging
       gimp
