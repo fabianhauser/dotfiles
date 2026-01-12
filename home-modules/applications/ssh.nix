@@ -13,6 +13,7 @@
     in
     {
       enable = true;
+      enableDefaultConfig = false;
       matchBlocks = {
         "github.com" = forceIdentityPrivate // {
           user = "git";
