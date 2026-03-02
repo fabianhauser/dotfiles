@@ -44,7 +44,10 @@
     };
     catppuccin.url = "github:catppuccin/nix";
 
-    private.url = "./private";
+    private = {
+      url = "./private";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

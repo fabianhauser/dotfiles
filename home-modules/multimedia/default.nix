@@ -32,7 +32,7 @@
       #sox mencoder
       vorbis-tools
       vorbisgain
-      opusTools
+      opus-tools
       flac
       lame
       id3lib
