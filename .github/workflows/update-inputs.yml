@@ -25,7 +25,7 @@ jobs:
           attic login "$CACHE_NAME" "$SERVER" "$ATTIC_AUTH_TOKEN"
           attic use "$CACHE_REPOSITORY"
       - name: Update flake inputs
-        uses: https://github.com/Mic92/update-flake-inputs-gitea@main
+        uses: https://git.qo.is/fabianhauser/update-flake-inputs-gitea@main
         with:
           gitea-token: ${{ secrets.CI_TOKEN }}
           auto-merge: 'true'
