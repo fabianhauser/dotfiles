@@ -2,10 +2,16 @@
   pkgs,
   lib,
   config,
+  osConfig,
   ...
 }:
 let
-  inherit (lib) mkIf mkForce mkOptionDefault;
+  inherit (lib)
+    mkIf
+    mkForce
+    mkOptionDefault
+    getExe
+    ;
   cfg = config.dotfiles.desktop-environment;
 
   adhereTheSwayTarget = {
@@ -16,9 +22,9 @@ let
   bemenuLauncher = pkgs.writeScriptBin "bemenuLauncher" ''
     #!${pkgs.stdenv.shell}
     #active_screen=$(swaymsg -r -t get_outputs | \
-    #  ${pkgs.jq}/bin/jq '. [] | select (.focused == true) | .name | split ("-") | last')
+    #  ${getExe pkgs.jq} '. [] | select (.focused == true) | .name | split ("-") | last')
     ${pkgs.dmenu}/bin/dmenu_path | \
-      ${pkgs.bemenu}/bin/bemenu --list 20 --ignorecase --prompt 'Start: ' | \
+      ${getExe pkgs.bemenu} --list 20 --ignorecase --prompt 'Start: ' | \
       xargs swaymsg exec --
   '';
 in
@@ -63,8 +69,8 @@ in
             xkb_numlock = "enable";
           };
         };
-        terminal = "${pkgs.kitty}/bin/kitty";
-        menu = "${bemenuLauncher}/bin/bemenuLauncher";
+        terminal = getExe pkgs.kitty;
+        menu = getExe bemenuLauncher;
         gaps.inner = 8;
         modifier = "Mod4";
         window.border = 0;
@@ -86,9 +92,9 @@ in
         keybindings =
           let
             mod = config.wayland.windowManager.sway.config.modifier;
-            playerctl = "${pkgs.playerctl}/bin/playerctl";
+            playerctl = getExe pkgs.playerctl;
             wpctl = "${pkgs.wireplumber}/bin/wpctl";
-            light = "${pkgs.light}/bin/light";
+            light = getExe pkgs.brightnessctl;
             ws = {
               "0" = "grave";
               "10" = "0";
@@ -100,7 +106,7 @@ in
           in
           mkOptionDefault {
             "${mod}+p" = "exec passbemenu";
-            "${mod}+Shift+d" = "exec ${pkgs.rofimoji}/bin/rofimoji --action clipboard --selector fuzzel";
+            "${mod}+Shift+d" = "exec ${getExe pkgs.rofimoji} --action clipboard --selector fuzzel";
             "${mod}+x" = "move workspace to output right";
             "${mod}+y" = "move workspace to output left";
 
@@ -118,8 +124,8 @@ in
             "${mod}+Shift+${ws."13"}" = "move container to workspace 13";
             "${mod}+Shift+${ws."14"}" = "move container to workspace 14";
 
-            "Ctrl+mod1+l" = "exec ${pkgs.systemd}/bin/loginctl lock-session";
-            "Ctrl+mod1+Shift+L" = "exec ${pkgs.systemd}/bin/systemctl suspend";
+            "Ctrl+mod1+l" = "exec ${osConfig.systemd.package or pkgs.systemd}/bin/loginctl lock-session";
+            "Ctrl+mod1+Shift+L" = "exec ${osConfig.systemd.package or pkgs.systemd}/bin/systemctl suspend";
 
             # pulse audio volume control
             XF86AudioLowerVolume = "exec ${wpctl} set-volume @DEFAULT_AUDIO_SINK@ 3%-";
@@ -134,11 +140,11 @@ in
             XF86AudioPrev = "exec ${playerctl} previous";
 
             # screen brightness
-            XF86MonBrightnessUp = "exec ${light} -A 10";
-            XF86MonBrightnessDown = "exec ${light} -U 5";
+            XF86MonBrightnessUp = "exec ${light} +10%";
+            XF86MonBrightnessDown = "exec ${light} 5%-";
 
             # screenshot
-            Print = "exec ${pkgs.sway-contrib.grimshot}/bin/grimshot copy area";
+            Print = "exec ${getExe pkgs.sway-contrib.grimshot} copy area";
           };
       };
       extraConfig = ''

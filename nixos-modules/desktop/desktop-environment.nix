@@ -25,7 +25,6 @@ in
       #plugins = [ pkgs.evolution-ews ];
     };
     geary.enable = false;
-    light.enable = true;
 
     dconf.enable = true;
 
