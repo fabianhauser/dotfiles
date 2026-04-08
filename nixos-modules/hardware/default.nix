@@ -29,7 +29,7 @@
   services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
-    alsa.enable = true;
+    package = pkgs.pipewire.override { libldac-dec = null; }; # TODO: Switch and update once https://github.com/NixOS/nixpkgs/pull/507189 lands in unstable
     pulse.enable = true;
   };
   security.rtkit.enable = true;
