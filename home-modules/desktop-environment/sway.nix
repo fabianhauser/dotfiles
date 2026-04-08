@@ -8,16 +8,10 @@
 let
   inherit (lib)
     mkIf
-    mkForce
     mkOptionDefault
     getExe
     ;
   cfg = config.dotfiles.desktop-environment;
-
-  adhereTheSwayTarget = {
-    Install.WantedBy = mkForce [ "sway-session.target" ];
-    Unit.PartOf = mkForce [ "sway-session.target" ];
-  };
   # TODO: active screen with -m $active_screen
   bemenuLauncher = pkgs.writeScriptBin "bemenuLauncher" ''
     #!${pkgs.stdenv.shell}
@@ -159,22 +153,6 @@ in
       '';
     };
     catppuccin.sway.enable = true;
-
-    systemd.user.targets.tray.Unit = {
-      Description = "Home Manager System Tray";
-      Requires = [ "graphical-session-pre.target" ];
-    };
-
-    systemd.user.services.network-manager-applet = adhereTheSwayTarget;
-    systemd.user.services.nextcloud-client = adhereTheSwayTarget // {
-      # For trayicon to work:
-      Unit.After = mkForce [ "waybar.service" ];
-      Service = {
-        ExecStartPre = "${pkgs.coreutils}/bin/sleep 3";
-        Environment = mkForce "PATH=${config.home.profileDirectory}/bin XDG_CURRENT_DESKTOP=Unity";
-      };
-    };
-    systemd.user.services.pasystray = adhereTheSwayTarget;
 
     gtk = {
       iconTheme = {

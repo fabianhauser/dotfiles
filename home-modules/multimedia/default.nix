@@ -37,7 +37,6 @@
       lame
       id3lib
       id3v2 # icedax
-      pasystray
       pavucontrol
       (if config.targets.genericLinux.enable then riff else spotify)
     ]

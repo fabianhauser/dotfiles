@@ -28,5 +28,4 @@ in
       blueman-applet.enable = true;
     };
   };
-
 }

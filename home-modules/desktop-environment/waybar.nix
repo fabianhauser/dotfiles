@@ -16,7 +16,7 @@ in
       enable = true;
       systemd = {
         enable = true;
-        target = "tray.target";
+        targets = [ "tray.target" ];
       };
       settings = [
         {

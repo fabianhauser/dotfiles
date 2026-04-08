@@ -21,14 +21,8 @@
     ./vim.nix
     ./webapps.nix
     ./zed-editor.nix
+    ./nextcloud.nix
   ];
-
-  services = {
-    nextcloud-client = {
-      enable = true;
-      startInBackground = true;
-    };
-  };
 
   home = {
     sessionVariables = {
