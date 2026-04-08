@@ -105,6 +105,9 @@
               };
 
           packages.dotfiles-enroll-tpm = pkgs.callPackage ./packages/dotfiles-enroll-tpm { inherit self; };
+          packages.dotfiles-nixos-switch = pkgs.writeShellScriptBin "dotfiles-nixos-switch" ''
+            ${pkgs.lib.getExe pkgs.nixos-rebuild} switch --sudo --flake .
+          '';
 
           devShells.default = pkgs.mkShellNoCC {
             name = "nix-config-default-shell";
@@ -119,7 +122,7 @@
                 nixd
                 home-manager
                 ;
-              inherit (self'.packages) dotfiles-enroll-tpm;
+              inherit (self'.packages) dotfiles-enroll-tpm dotfiles-nixos-switch;
             };
             shellHook = ''
               ${config.pre-commit.installationScript}
