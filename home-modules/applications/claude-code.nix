@@ -1,7 +1,7 @@
 { pkgs, lib, ... }:
 
 let
-  inherit (pkgs) writeShellApplication kitty;
+  inherit (pkgs) writeShellApplication kitty libnotify;
   inherit (lib) getExe;
 in
 {
@@ -32,26 +32,27 @@ in
                 type = "command";
                 command = getExe (writeShellApplication {
                   name = "claude-notification";
-                  runtimeInputs = [ kitty ];
+                  runtimeInputs = [
+                    kitty
+                    libnotify
+                  ];
                   text = ''
                     INPUT=$(cat)
-
-                    if [ ! -v KITTY_WINDOW_ID ]; then
-                      echo "Not running in kitty - skipping notification"
-                    fi
-
-                    IS_FOCUSED=$(
-                      kitten @ ls | \
-                      jq --argjson wid "$KITTY_WINDOW_ID" '[.[].tabs[].windows[] | select(.id == $wid)] | .[0].is_focused'
-                    )
-                    if [ "$IS_FOCUSED" = 'true' ]; then
-                      echo "Window is focused - skipping notification"
-                      exit 0
-                    fi
 
                     ID=$(echo "$INPUT" | jq -r '.session_id')
                     TITLE=$(echo "$INPUT" | jq -r '.title // "Claude Code"')
                     MSG=$(echo "$INPUT" | jq -r '.message // "Needs your attention"')
+
+                    if [ -v KITTY_WINDOW_ID ]; then
+
+                      IS_FOCUSED=$(
+                        kitten @ ls | \
+                        jq --argjson wid "$KITTY_WINDOW_ID" '[.[].tabs[].windows[] | select(.id == $wid)] | .[0].is_focused'
+                      )
+                      if [ "$IS_FOCUSED" = 'true' ]; then
+                        echo "Window is focused - skipping notification"
+                        exit 0
+                      fi
 
                     kitten notify \
                       --icon question \
@@ -61,6 +62,18 @@ in
                       --identifier "$ID" \
                       "$TITLE" \
                       "$MSG"
+
+                    else
+
+                      notify-send \
+                        --icon question \
+                        --app-name claude-code \
+                        --urgency normal \
+                        --category agent \
+                        --replace-id "$ID" \
+                        "$TITLE" \
+                        "$MSG"
+                    fi
                   '';
                 });
               }
