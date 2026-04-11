@@ -7,6 +7,7 @@
 
   imports = [
     ./anki.nix
+    ./claude-code.nix
     ./codium.nix
     ./evolution.nix
     ./firefox.nix
@@ -15,13 +16,13 @@
     ./git.nix
     ./gpg.nix
     ./kitty.nix
+    ./nextcloud.nix
     ./psql.nix
     ./shell.nix
     ./ssh.nix
     ./vim.nix
     ./webapps.nix
     ./zed-editor.nix
-    ./nextcloud.nix
   ];
 
   home = {
