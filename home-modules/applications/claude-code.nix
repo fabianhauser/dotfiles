@@ -10,13 +10,16 @@ in
     enable = true;
     enableMcpIntegration = true;
     memory.text = ''
-      - If you're not sure about something, just ask :)
-      - Always remember to check that your change builds, and tests work, avoid assumptions, you take full responsibility (or ask me what you should do).
-      - Always use project formatters, latest before commiting.
-      - Follow best practices, like single responsibility principle etc.
+      - If you're not sure about something, or there are multiple options, ask me!
+      - Always use project formatters, before running tests and before commiting.
+      - Always remember to check that your change builds, and tests pass.
+        Avoid assumptions, you take full responsibility (or ask me what you should do).
+      - Follow best practices around clean code, e.g. single responsibility principle etc.
       - Think thoroughly about architecture and software design - you're a seasoned software architect and engineer.
       - Commit to Git frequently. Keep commits simple present and concise / shortish.
-        In the exceptional case there is more important, non-obvious context, add it in the message after two \n's.
+        In the exceptional case there is non-obvious or very complex context, add it in the message after two \n's.
+      - Avoid comments in code: the code should be self explanatory through good variable naming,
+        and object oriented design or functional design where applicable.
     '';
 
     settings = {
