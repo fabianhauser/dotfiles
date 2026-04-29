@@ -28,7 +28,7 @@ in
         # Can be applied by profile.exec
         backgroundPicturePath = "~/shares/cloud.qo.is/pictures/backgrounds";
         backgroundCommand = ''
-          ${pkgs.sway}/bin/swaymsg "output * bg `find ${backgroundPicturePath} -type f | shuf -n 1` fill"
+          ${pkgs.sway}/bin/swaymsg "output * bg `find ${backgroundPicturePath} -type f | ${pkgs.coreutils-full}/bin/shuf -n 1` fill"
         '';
 
         screens = {
