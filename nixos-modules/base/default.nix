@@ -7,6 +7,7 @@
   imports = [
     ./applications.nix
     ./boot.nix
+    ./efitools-override.nix
     ./unfree.nix
     ./users.nix
   ];
