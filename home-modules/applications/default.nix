@@ -7,6 +7,7 @@
 
   imports = [
     ./anki.nix
+    ./calibre.nix
     ./claude-code.nix
     ./codium.nix
     ./evolution.nix
@@ -23,6 +24,7 @@
     ./vim.nix
     ./webapps.nix
     ./zed-editor.nix
+    ./mistral.nix
   ];
 
   home = {

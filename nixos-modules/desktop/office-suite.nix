@@ -4,13 +4,6 @@
 }:
 
 {
-
-  # Hamster
-  environment.systemPackages = with pkgs; [
-    hamster
-  ];
-  programs.hamster.enable = true;
-
   # Fonts
   fonts.packages = with pkgs; [
     #    google-fonts # Breaks fwesome

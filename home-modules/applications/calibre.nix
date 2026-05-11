@@ -1,0 +1,4 @@
+{ ... }:
+{
+  programs.calibre.enable = true;
+}

@@ -26,6 +26,15 @@ in
       includeCoAuthoredBy = false;
       defaultMode = "plan";
 
+      permissions = {
+        allow = [
+          "Bash(nix log *)"
+          "Bash(nix fmt *)"
+          "Bash(nix flake check *)"
+          "Bash(nix build *)"
+        ];
+      };
+
       hooks = {
         Notification = [
           {

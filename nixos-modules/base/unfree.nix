@@ -51,5 +51,6 @@
       "android-studio-beta"
       "claude-code"
       "vscode-extension-anthropic-claude-code"
+      "textual-speedups"
     ];
 }
