@@ -29,9 +29,6 @@
   services.pulseaudio.enable = false;
   services.pipewire = {
     enable = true;
-    package = pkgs.pipewire.override {
-      ldacBtDecodeSupport = true;
-    };
     pulse.enable = true;
   };
   security.rtkit.enable = true;
