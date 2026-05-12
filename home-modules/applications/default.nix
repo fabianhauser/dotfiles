@@ -18,13 +18,13 @@
     ./gpg.nix
     ./kitty.nix
     ./nextcloud.nix
+    ./opencode.nix
     ./psql.nix
     ./shell.nix
     ./ssh.nix
     ./vim.nix
     ./webapps.nix
     ./zed-editor.nix
-    ./mistral.nix
   ];
 
   home = {

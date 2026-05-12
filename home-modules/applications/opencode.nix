@@ -1,6 +1,6 @@
 { ... }:
 {
-  programs.mistral-vibe = {
+  programs.opencode = {
     enable = true;
   };
 }
