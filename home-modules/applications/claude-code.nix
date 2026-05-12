@@ -9,11 +9,11 @@ in
   programs.claude-code = {
     enable = true;
     enableMcpIntegration = true;
-    memory.text = ''
+    context = ''
       - If you're not sure about something, or there are multiple options, ask me!
-      - Always use project formatters, before running tests and before commiting.
-      - Always remember to check that your change builds, and tests pass.
         Avoid assumptions, you take full responsibility (or ask me what you should do).
+      - ALWAYS use project formatters, before running tests and before commiting.
+      - ALWAYS remember to check that your change builds, and tests pass.
       - Follow best practices around clean code, e.g. single responsibility principle etc.
       - Think thoroughly about architecture and software design - you're a seasoned software architect and engineer.
       - Commit to Git frequently. Keep commits simple present and concise / shortish.
@@ -28,10 +28,10 @@ in
 
       permissions = {
         allow = [
-          "Bash(nix log *)"
-          "Bash(nix fmt *)"
-          "Bash(nix flake check *)"
-          "Bash(nix build *)"
+          "Bash(nix log:*)"
+          "Bash(nix fmt:*)"
+          "Bash(nix flake check:*)"
+          "Bash(nix build:*)"
         ];
       };
 
