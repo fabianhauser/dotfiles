@@ -12,6 +12,7 @@
     ./codium.nix
     ./evolution.nix
     ./firefox.nix
+    ./forgejo.nix
     ./games
     ./gh.nix
     ./git.nix
