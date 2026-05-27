@@ -3,6 +3,62 @@
 let
   inherit (pkgs) writeShellApplication kitty libnotify;
   inherit (lib) getExe;
+
+  statuslineScript = writeShellApplication {
+    name = "claude-statusline";
+    runtimeInputs = [
+      pkgs.jq
+      pkgs.gawk
+      pkgs.coreutils
+    ];
+    text = ''
+      input=$(cat)
+
+      MODEL=$(echo "$input" | jq -r '.model.display_name')
+      DIR=$(basename "$(echo "$input" | jq -r '.workspace.current_dir')")
+
+      FIVE_H_PCT=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+      FIVE_H_RESET=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
+      WEEK_PCT=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
+
+      make_bar() {
+        local pct=$1
+        local width=8
+        local filled
+        local bar=""
+        local i
+        filled=$(awk -v p="$pct" -v w="$width" 'BEGIN{printf "%d", p/100*w}')
+        filled=''${filled:-0}
+        local empty=$((width - filled))
+        for ((i=0; i<filled; i++)); do bar="''${bar}█"; done
+        for ((i=0; i<empty; i++)); do bar="''${bar}░"; done
+        echo "$bar"
+      }
+
+      STATUS="[$MODEL] 📁 $DIR"
+
+      if [ -n "$FIVE_H_PCT" ]; then
+        BAR=$(make_bar "$FIVE_H_PCT")
+        PCT_INT=$(printf '%.0f' "$FIVE_H_PCT")
+
+        RESET_STR=""
+        if [ -n "$FIVE_H_RESET" ]; then
+          RESET_TIME=$(date -d "@$FIVE_H_RESET" '+%H:%M')
+          RESET_STR=" 🔄$RESET_TIME"
+        fi
+
+        WEEK_STR=""
+        if [ -n "$WEEK_PCT" ]; then
+          WEEK_INT=$(printf '%.0f' "$WEEK_PCT")
+          WEEK_STR=" 📅''${WEEK_INT}%"
+        fi
+
+        STATUS="$STATUS | ⏱️ $BAR ''${PCT_INT}%''${RESET_STR}''${WEEK_STR}"
+      fi
+
+      echo "$STATUS"
+    '';
+  };
 in
 {
 
@@ -95,9 +151,7 @@ in
       };
 
       statusLine = {
-        command = ''
-          input=$(cat); echo "[$(echo "$input" | jq -r '.model.display_name')] 📁 $(basename "$(echo "$input" | jq -r '.workspace.current_dir')")"
-        '';
+        command = getExe statuslineScript;
         padding = 0;
         type = "command";
       };
