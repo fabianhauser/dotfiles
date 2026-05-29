@@ -81,9 +81,14 @@
               deadnix.enable = true;
               jsonfmt.enable = true;
               yamlfmt.enable = true;
-              mdformat.enable = true;
+              mdformat = {
+                enable = true;
+                plugins = pkgs: [ pkgs.mdformat-frontmatter ];
+              };
             };
-            settings.global.excludes = [ "*.jpg" ];
+            settings.global.excludes = [
+              "*.jpg"
+            ];
           };
           pre-commit = {
             check.enable = false;

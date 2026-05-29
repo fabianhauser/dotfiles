@@ -8,7 +8,7 @@
   imports = [
     ./anki.nix
     ./calibre.nix
-    ./claude-code.nix
+    ./claude-code
     ./codium.nix
     ./evolution.nix
     ./firefox.nix
