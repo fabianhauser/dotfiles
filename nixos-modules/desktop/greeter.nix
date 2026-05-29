@@ -9,7 +9,6 @@
     defaultSession = "sway";
     gdm = {
       enable = true;
-      wayland = true;
     };
   };
 
