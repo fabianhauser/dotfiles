@@ -1,8 +1,8 @@
 {
+  lib,
   ...
 }:
 {
-
   imports = [
     ./desktop-environment.nix
     ./greeter.nix
@@ -11,4 +11,6 @@
     ./video.nix
     ./llm.nix
   ];
+
+  options.dotfiles.desktop.enable = lib.mkEnableOption "graphical desktop environment";
 }

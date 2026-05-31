@@ -12,4 +12,7 @@
   targets.genericLinux.enable = true;
 
   dotfiles.work.enable = true;
+  dotfiles.desktop.enable = true;
+  dotfiles.desktop.security.enable = true;
+  dotfiles.development.enable = true;
 }

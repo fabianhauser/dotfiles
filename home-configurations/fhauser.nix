@@ -13,5 +13,7 @@
       homeDirectory = osConfig.users.users.${username}.home;
     };
 
-  dotfiles.desktop-environment.enable = true;
+  dotfiles.desktop.enable = true;
+  dotfiles.desktop.security.enable = true;
+  dotfiles.development.enable = true;
 }

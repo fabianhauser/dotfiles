@@ -8,6 +8,7 @@
   ];
   facter.reportPath = ./facter.json;
   dotfiles.hardware.amd-desktop.enable = true;
+  dotfiles.desktop.enable = true;
 
   # Set your time zone.
   time.timeZone = "Europe/Tallinn";

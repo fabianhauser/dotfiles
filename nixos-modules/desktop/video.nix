@@ -1,10 +1,9 @@
+{ lib, config, ... }:
 {
-  ...
-}:
+  config = lib.mkIf config.dotfiles.desktop.enable {
+    #boot.kernelModules = [ "v4l2loopback" ];
+    #boot.extraModulePackages = [ pkgs.linuxPackages_latest.v4l2loopback ];
 
-{
-  #boot.kernelModules = [ "v4l2loopback" ];
-  #boot.extraModulePackages = [ pkgs.linuxPackages_latest.v4l2loopback ];
-
-  programs.steam.enable = true;
+    programs.steam.enable = true;
+  };
 }

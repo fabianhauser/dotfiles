@@ -1,15 +1,11 @@
-{
-  ...
-}:
+{ ... }:
 {
   imports = [
-    ./applications
-    ./desktop-environment
-    ./theme
-    ./multimedia
-    ./mimetypes
-    ./fonts
-    ./work
+    ./options.nix
+    ./base
     ./catppuccin.nix
+    ./desktop
+    ./development
+    ./work
   ];
 }

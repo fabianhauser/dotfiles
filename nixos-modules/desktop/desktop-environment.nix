@@ -1,80 +1,79 @@
 {
   pkgs,
   lib,
+  config,
   ...
 }:
-let
-  mkDefault = lib.mkDefault;
-in
 {
+  config = lib.mkIf config.dotfiles.desktop.enable {
+    environment.systemPackages = with pkgs; [
+      freetype
+      lxappearance
+      sound-theme-freedesktop
 
-  environment.systemPackages = with pkgs; [
-    freetype
-    lxappearance
-    sound-theme-freedesktop
+      qt5.qtwayland # Required for qt applications
+    ];
+    environment.sessionVariables.NIXOS_OZONE_WL = "1";
+    environment.sessionVariables.DO_NOT_TRACK = "1";
 
-    qt5.qtwayland # Required for qt applications
-  ];
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-  environment.sessionVariables.DO_NOT_TRACK = "1";
+    programs = {
+      gnome-terminal.enable = false;
+      evolution = {
+        enable = true;
+        #plugins = [ pkgs.evolution-ews ];
+      };
+      geary.enable = false;
 
-  programs = {
-    gnome-terminal.enable = false;
-    evolution = {
-      enable = true;
-      #plugins = [ pkgs.evolution-ews ];
+      dconf.enable = true;
+
+      sway.enable = true;
     };
-    geary.enable = false;
 
-    dconf.enable = true;
+    services.gnome = {
+      # TODO: Do this manually and not all at once.
+      core-apps.enable = true;
+      core-os-services.enable = false;
 
-    sway.enable = true;
-  };
+      gnome-keyring.enable = true;
+      evolution-data-server.enable = true;
+      gnome-online-accounts.enable = true;
+      gnome-remote-desktop.enable = true;
+      sushi.enable = false;
+    };
 
-  services.gnome = {
-    # TODO: Do this manually and not all at once.
-    core-apps.enable = true;
-    core-os-services.enable = false;
+    ##########
+    # gnome.core-os-services excerpt
 
-    gnome-keyring.enable = true;
-    evolution-data-server.enable = true;
-    gnome-online-accounts.enable = true;
-    gnome-remote-desktop.enable = true;
-    sushi.enable = false;
-  };
+    security.polkit.enable = true;
+    services.power-profiles-daemon.enable = false; # TODO: Remove
 
-  ##########
-  # gnome.core-os-services excerpt
+    # Explicitly enabled since GNOME will be severely broken without these.
+    xdg.mime.enable = true;
+    xdg.icons.enable = true;
 
-  security.polkit.enable = true;
-  services.power-profiles-daemon.enable = false; # TODO: Remove
+    # Harmonize Qt5 application style and also make them use the portal for file chooser dialog.
+    qt = {
+      enable = lib.mkDefault true;
+      platformTheme = lib.mkDefault "gnome";
+      style = lib.mkDefault "adwaita";
+    };
 
-  # Explicitly enabled since GNOME will be severely broken without these.
-  xdg.mime.enable = true;
-  xdg.icons.enable = true;
+    # Needed for themes and backgrounds
+    environment.pathsToLink = [
+      "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
+    ];
 
-  # Harmonize Qt5 application style and also make them use the portal for file chooser dialog.
-  qt = {
-    enable = mkDefault true;
-    platformTheme = mkDefault "gnome";
-    style = mkDefault "adwaita";
-  };
+    # GVFS
+    services.gvfs.enable = true;
 
-  # Needed for themes and backgrounds
-  environment.pathsToLink = [
-    "/share" # TODO: https://github.com/NixOS/nixpkgs/issues/47173
-  ];
+    # Flatpak
+    services.flatpak.enable = true;
 
-  # GVFS
-  services.gvfs.enable = true;
-
-  # Flatpak
-  services.flatpak.enable = true;
-
-  # Portals
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    # Portals
+    xdg.portal = {
+      enable = true;
+      wlr.enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    };
   };
 }

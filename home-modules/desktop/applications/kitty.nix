@@ -1,11 +1,10 @@
 { lib, config, ... }:
 {
   config = lib.mkIf config.dotfiles.desktop.enable {
-    services.ollama.enable = true;
-
-    services.nextjs-ollama-llm-ui = {
+    programs.kitty = {
       enable = true;
-      port = 7001;
+      settings.term = "xterm";
     };
+    catppuccin.kitty.enable = true;
   };
 }

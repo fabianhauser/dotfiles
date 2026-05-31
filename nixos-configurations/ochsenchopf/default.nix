@@ -7,6 +7,7 @@
   ];
   facter.reportPath = ./facter.json; # TODO: Update
   dotfiles.hardware.thinkpad-x1-gen9.enable = true;
+  dotfiles.desktop.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like fi:le locations and database versions
