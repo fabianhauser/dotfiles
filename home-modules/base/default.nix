@@ -15,7 +15,6 @@
     mkpasswd
     rename
     wipe
-    pass-wayland
     pwgen
     powertop
 

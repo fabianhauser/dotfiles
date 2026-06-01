@@ -1,7 +1,6 @@
 {
   config,
   inputs,
-  lib,
   pkgs,
   ...
 }:
@@ -60,13 +59,4 @@
   services.udisks2.enable = true;
   services.upower.enable = config.powerManagement.enable;
 
-  services.fprintd = lib.mkIf config.facter.detected.fingerprint.enable {
-    # TODO: wait for an update of https://github.com/NixOS/nixpkgs/pull/388905#issuecomment-2727242456
-    enable = false;
-    package = pkgs.fprintd-tod;
-    tod = {
-      enable = true;
-      driver = pkgs.libfprint-2-tod1-vfs0090;
-    };
-  };
 }

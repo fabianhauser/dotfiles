@@ -68,7 +68,6 @@
         STATEFUL_CONFS=(
           ".config/spotify"
           ".mozilla"
-          ".password-store"
         )
         for STATEFUL_CONF in ''${STATEFUL_CONFS[@]}; do
           if [ -e "$STATEFUL_CONF" ] && [ ! -h "$STATEFUL_CONF" ]; then

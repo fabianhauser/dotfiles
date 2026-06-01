@@ -13,7 +13,6 @@
 
   config = lib.mkIf config.dotfiles.development.enable {
     home.packages = with pkgs; [
-      llm
       forgejo-cli
     ];
 

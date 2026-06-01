@@ -99,7 +99,6 @@ in
             };
           in
           mkOptionDefault {
-            "${mod}+p" = "exec passbemenu";
             "${mod}+Shift+d" = "exec ${getExe pkgs.rofimoji} --action clipboard --selector fuzzel";
             "${mod}+x" = "move workspace to output right";
             "${mod}+y" = "move workspace to output left";

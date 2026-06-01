@@ -54,7 +54,6 @@ in
           directories = [
             "${config.dotfiles.privatePath}/"
             "~/projects/"
-            "~/.password-store/"
             "~/.stateful/"
           ];
           settings.user = {
