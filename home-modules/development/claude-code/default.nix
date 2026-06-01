@@ -25,6 +25,7 @@ let
       FIVE_H_PCT=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
       FIVE_H_RESET=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
       WEEK_PCT=$(echo "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty')
+      CTX_PCT=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 
       make_bar() {
         local pct=$1
@@ -59,6 +60,12 @@ let
         fi
 
         STATUS="$STATUS | ⏱️ $BAR ''${PCT_INT}%''${RESET_STR}''${WEEK_STR}"
+      fi
+
+      if [ -n "$CTX_PCT" ]; then
+        CTX_BAR=$(make_bar "$CTX_PCT")
+        CTX_INT=$(printf '%.0f' "$CTX_PCT")
+        STATUS="$STATUS | 🔲 $CTX_BAR $CTX_INT%"
       fi
 
       echo "$STATUS"
