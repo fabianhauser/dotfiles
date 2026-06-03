@@ -140,63 +140,16 @@ in
       ];
 
       style = ''
-        /* =============================================================================
-        *
-        * Waybar configuration
-        *
-        * Configuration reference: https://github.com/Alexays/Waybar/wiki/Configuration
-        *
-        * =========================================================================== */
-
-        /* -----------------------------------------------------------------------------
-        * Keyframes
-        * -------------------------------------------------------------------------- */
-
         @keyframes blink-warning {
-            70% {
-                color: white;
-            }
-
-            to {
-                color: white;
-                background-color: orange;
-            }
+            70% { color: @base05; }
+            to { color: @base00; background-color: @base09; }
         }
 
         @keyframes blink-critical {
-            70% {
-              color: white;
-            }
-
-            to {
-                color: white;
-                background-color: red;
-            }
+            70% { color: @base05; }
+            to { color: @base00; background-color: @base08; }
         }
 
-
-        /* -----------------------------------------------------------------------------
-        * Base styles
-        * -------------------------------------------------------------------------- */
-
-        /* Reset all styles */
-        * {
-            border: none;
-            border-radius: 0;
-            min-height: 0;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* The whole bar */
-        #waybar {
-            background: #323232;
-            color: white;
-            /*font-family: Cantarell, Noto Sans, sans-serif;*/
-            font-size: 13px;
-        }
-
-        /* Each module */
         #battery,
         #clock,
         #cpu,
@@ -211,25 +164,17 @@ in
         #tray {
             margin-left: 5px;
             margin-right: 5px;
-            padding-left: 5px;
-            padding-right: 5px;
-            /*border-right: solid 1px black;*/
         }
 
         #backlight {
-          margin-right: 0;
-          padding-right: 0;
+            margin-right: 0;
+            padding-right: 0;
         }
 
-        #idle_inhibiter {
-          margin-left: 0;
-          padding-left: 0;
+        #idle_inhibitor {
+            margin-left: 0;
+            padding-left: 0;
         }
-
-
-        /* -----------------------------------------------------------------------------
-        * Module styles
-        * -------------------------------------------------------------------------- */
 
         #battery {
             animation-timing-function: linear;
@@ -237,13 +182,8 @@ in
             animation-direction: alternate;
         }
 
-        #battery.warning {
-            color: orange;
-        }
-
-        #battery.critical {
-            color: red;
-        }
+        #battery.warning { color: @base09; }
+        #battery.critical { color: @base08; }
 
         #battery.warning.discharging {
             animation-name: blink-warning;
@@ -255,21 +195,10 @@ in
             animation-duration: 3s;
         }
 
-        #clock {
-            font-weight: bold;
-        }
+        #clock { font-weight: bold; }
 
-        #cpu {
-          /* No styles */
-        }
-
-        #cpu.warning {
-            color: orange;
-        }
-
-        #cpu.critical {
-            color: red;
-        }
+        #cpu.warning { color: @base09; }
+        #cpu.critical { color: @base08; }
 
         #memory {
             animation-timing-function: linear;
@@ -277,77 +206,32 @@ in
             animation-direction: alternate;
         }
 
-        #memory.warning {
-            color: orange;
-        }
+        #memory.warning { color: @base09; }
 
         #memory.critical {
-            color: red;
+            color: @base08;
             animation-name: blink-critical;
             animation-duration: 2s;
         }
 
         #mode {
-            background: #64727D;
-            border-top: 2px solid white;
-            /* To compensate for the top border and still have vertical centering */
+            background: @base03;
+            border-top: 2px solid @base05;
             padding-bottom: 2px;
         }
 
-        #network {
-            /* No styles */
-        }
+        #network.disconnected { color: @base09; }
 
-        #network.disconnected {
-            color: orange;
-        }
+        #custom-spotify { color: @base0B; }
 
-        #pulseaudio {
-            /* No styles */
-        }
+        #temperature.critical { color: @base08; }
 
-        #pulseaudio.muted {
-            /* No styles */
-        }
-
-        #custom-spotify {
-            color: rgb(102, 220, 105);
-        }
-
-        #temperature {
-            /* No styles */
-        }
-
-        #temperature.critical {
-            color: red;
-        }
-
-        #tray {
-            /* No styles */
-        }
-
-        #window {
-            font-weight: bold;
-        }
+        #window { font-weight: bold; }
 
         #workspaces button {
-            border-top: 2px solid transparent;
-            /* To compensate for the top border and still have vertical centering */
-            padding-bottom: 2px;
             padding-left: 10px;
             padding-right: 10px;
-            color: #888888;
-        }
-
-        #workspaces button.focused {
-            border-color: #4c7899;
-            color: white;
-            background-color: #285577;
-        }
-
-        #workspaces button.urgent {
-            border-color: #c9545d;
-            color: #c9545d;
+            color: @base04;
         }
       '';
     };
