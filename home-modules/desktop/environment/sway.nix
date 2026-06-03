@@ -67,7 +67,6 @@ in
         menu = getExe bemenuLauncher;
         gaps.inner = 8;
         modifier = "Mod4";
-        window.border = 0;
 
         #TODO: Workspace Programm assignment: Not working properly
         assigns = {
@@ -146,6 +145,9 @@ in
 
         # Workaround for https://bugs.chromium.org/p/chromium/issues/detail?id=1338554
         for_window [app_id="^chrome-.*-.*$"] shortcuts_inhibitor disable
+
+        default_border pixel 0
+        default_floating_border pixel 0
       '';
     };
 

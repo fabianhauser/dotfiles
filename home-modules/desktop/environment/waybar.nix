@@ -150,21 +150,25 @@ in
             to { color: @base00; background-color: @base08; }
         }
 
+        #backlight,
+        #battery,
+        #clock,
+        #idle_inhibitor,
+        #memory,
+        #network,
+        #pulseaudio,
+        #temperature,
+        #window,
         #mode,
         #tray,
         #custom-keyboard-layout {
-            padding: 0 5px;
+            padding: 0 10px;
         }
 
-        #backlight {
-            margin-right: 0;
-            padding-right: 0;
-        }
-
-        #idle_inhibitor {
-            margin-left: 0;
-            padding-left: 0;
-        }
+        #backlight      { color: @base0A; }
+        #battery        { color: @base0B; }
+        #pulseaudio     { color: @base0C; }
+        #idle_inhibitor { color: @base0E; }
 
         #battery {
             animation-timing-function: linear;

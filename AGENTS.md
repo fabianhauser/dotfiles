@@ -37,3 +37,4 @@
 - Uses lanzaboote for Secure Boot signing
 - Attic cache configured for CI and local builds
 - **Flake evaluation requires clean git tree**: Run `git add` on new/modified files before `nix flake check` to avoid path resolution errors
+- Configuration of Claude Code, OpenCode and other AI tooling is in this repository - configured often via home-manager.
