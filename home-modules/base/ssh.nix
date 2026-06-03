@@ -3,9 +3,9 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    matchBlocks = {
+    settings = {
       "*" = {
-        forwardAgent = false;
+        ForwardAgent = false;
       };
     };
   };

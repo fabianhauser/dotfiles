@@ -52,7 +52,16 @@ in
     # The Thunderbolt card in combination with a Thinkpad Dock has power issues after suspend and boot.
     # These scripts help with some cases.
     environment.systemPackages = [ thunderboltDockRestart ];
-    powerManagement.powerUpCommands = "${forceThunderboltOnScript}/bin/force-thunderbolt-power-on";
+    systemd.services.force-thunderbolt-power-on = {
+      description = "Force Thunderbolt PCI devices to power on";
+      wantedBy = [ "multi-user.target" ];
+      after = [ "local-fs.target" ];
+      serviceConfig = {
+        Type = "oneshot";
+        ExecStart = "${forceThunderboltOnScript}/bin/force-thunderbolt-power-on";
+        RemainAfterExit = true;
+      };
+    };
 
     nix.settings.max-jobs = lib.mkDefault 24;
   };

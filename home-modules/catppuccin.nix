@@ -3,5 +3,9 @@
   imports = [
     inputs.catppuccin.homeModules.catppuccin
   ];
-  catppuccin.flavor = "mocha";
+  catppuccin = {
+    enable = true;
+    autoEnable = false;
+    flavor = "mocha";
+  };
 }
