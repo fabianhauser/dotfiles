@@ -19,6 +19,7 @@
   services.libinput.enable = true;
 
   services.fwupd.enable = true;
+  services.fprintd.enable = false;
 
   services.blueman.enable = true;
 
