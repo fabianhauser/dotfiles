@@ -42,6 +42,5 @@ in
         };
       };
 
-    catppuccin.swaylock.enable = true;
   };
 }

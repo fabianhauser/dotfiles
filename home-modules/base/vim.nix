@@ -54,5 +54,4 @@
       vim-airline
     ];
   };
-  catppuccin.nvim.enable = true;
 }

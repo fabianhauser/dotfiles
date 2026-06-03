@@ -1,11 +1,16 @@
-{ inputs, pkgs, ... }:
-
 {
-  imports = [ inputs.stylix.nixosModules.stylix ];
+  inputs,
+  lib,
+  pkgs,
+  osConfig ? { },
+  ...
+}:
+{
+  imports = lib.optional (!(osConfig ? stylix)) inputs.stylix.homeModules.stylix;
 
-  stylix = {
+  stylix = lib.mkIf (!(osConfig ? stylix)) {
     enable = true;
-    image = ../../home-modules/desktop/environment/closed_farn.JPG;
+    image = ./desktop/environment/closed_farn.JPG;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     fonts = {
       monospace = {

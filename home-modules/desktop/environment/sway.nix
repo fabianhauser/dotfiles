@@ -147,17 +147,14 @@ in
 
         # Workaround for https://bugs.chromium.org/p/chromium/issues/detail?id=1338554
         for_window [app_id="^chrome-.*-.*$"] shortcuts_inhibitor disable
-
-        output "*" bg ${./closed_farn.JPG} fill
       '';
     };
-    catppuccin.sway.enable = true;
 
     gtk = {
       iconTheme = {
         # package = pkgs.gnome-icon-theme;
         # name = "gnome";
-        package = pkgs.hicolor_icon_theme;
+        package = pkgs.hicolor-icon-theme;
         name = "hicolor";
       };
       gtk3.extraConfig.gtk-menu-images = true;

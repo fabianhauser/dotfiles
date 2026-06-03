@@ -3,7 +3,7 @@
   imports = [
     ./options.nix
     ./base
-    ./catppuccin.nix
+    ./stylix.nix
     ./desktop
     ./development
     ./work

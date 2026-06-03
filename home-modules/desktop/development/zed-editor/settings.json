@@ -6,7 +6,6 @@
     },
     "version": "2"
   },
-  "buffer_font_size": 16,
   "languages": {
     "Markdown": {
       "remove_trailing_whitespace_on_save": false
@@ -25,11 +24,5 @@
     "diagnostics": false,
     "metrics": false
   },
-  "theme": {
-    "dark": "One Dark",
-    "light": "Andromeda",
-    "mode": "dark"
-  },
-  "ui_font_size": 16,
   "vim_mode": false
 }

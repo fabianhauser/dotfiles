@@ -16,6 +16,5 @@ in
         #font = "monospace 10";
       };
     }; # TODO
-    catppuccin.mako.enable = true;
   };
 }
