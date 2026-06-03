@@ -1,6 +1,6 @@
 ---
 name: nix
-description: Nix derivation debugging, NixOS test debugging, and Nix code style guidelines. Use when working with Nix derivations, NixOS configurations, NixOS module options, or writing Nix code.
+description: 'Nix derivation debugging, NixOS test debugging, and Nix code style guidelines. Always use when working with Nix derivations, NixOS configurations, NixOS module options, or writing Nix code. TRIGGER when: working in a NixOS or home-manager repo; about to search the filesystem for Nix store paths or derivation outputs; writing or debugging any .nix file.'
 ---
 
 > **Important:** Flake evaluation requires a clean git tree. Run `git add` on new/modified files before `nix flake check` to avoid path resolution errors.

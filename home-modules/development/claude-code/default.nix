@@ -88,6 +88,7 @@ in
           In the exceptional case there is non-obvious or very complex context, add it in the message after two \n's.
         - Avoid comments in code: the code should be self explanatory through good variable naming,
           and object oriented design or functional design where applicable.
+        - Never use `find` or `grep` in `/nix/store` — use `nix eval --raw .#pkg.out` to get exact store paths, then inspect them directly.
       '';
 
       settings = {
