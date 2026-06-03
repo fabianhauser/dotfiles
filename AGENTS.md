@@ -30,6 +30,27 @@
 - `packages/`: Custom packages like dotfiles-enroll-tpm
 - `nixos-modules/` and `home-modules/`: Reusable modules
 
+## Home-Manager & NixOS Configuration Structure
+
+**NixOS hosts** (`nixos-configurations/`): `speer`, `ochsenchopf` — both use the `fhauser` user, each automatically picks up `home-configurations/fhauser.nix` via ez-configs.
+
+**Home-manager entry points:**
+
+- `home-configurations/fhauser.nix` — primary user config for both NixOS hosts
+- `home-configurations/work.nix` — standalone home-manager deployment (non-NixOS); imports from `inputs.private`
+
+**Module tree** (`home-modules/`):
+
+- `default.nix` — root; imports all sub-modules: base, stylix, desktop, development, work
+- `base/` — always active: git, shell, ssh, vim, gpg, core packages (ripgrep, curl, rsync, …)
+- `desktop/` — gated by `dotfiles.desktop.enable`; sub-dirs: applications/, environment/ (sway, waybar, kanshi), security/, theme/, fonts/, multimedia/
+- `development/` — gated by `dotfiles.development.enable`; contains claude-code/, gh.nix, opencode.nix, psql.nix
+- `work/` — gated by `dotfiles.work.enable`; imports from `inputs.private.homeModules.work`
+
+**Enable pattern:** features use `lib.mkEnableOption` + `lib.mkIf config.dotfiles.<feature>.enable`
+
+**Private config:** sensitive data (git identities, work config) lives in `inputs.private` — not present in this repo.
+
 ## Important Notes
 
 - Secure Boot and TPM disk unlock require manual setup steps

@@ -89,6 +89,7 @@ in
         - Avoid comments in code: the code should be self explanatory through good variable naming,
           and object oriented design or functional design where applicable.
         - Never use `find` or `grep` in `/nix/store` — use `nix eval --raw .#pkg.out` to get exact store paths, then inspect them directly.
+        - Use `rg` (ripgrep) instead of `find -exec grep` or `grep -r` for searching files.
       '';
 
       settings = {
@@ -101,6 +102,7 @@ in
             "Bash(nix fmt:*)"
             "Bash(nix flake check:*)"
             "Bash(nix build:*)"
+            "Bash(rg:*)"
           ];
         };
 
