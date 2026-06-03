@@ -150,20 +150,10 @@ in
             to { color: @base00; background-color: @base08; }
         }
 
-        #battery,
-        #clock,
-        #cpu,
-        #custom-keyboard-layout,
-        #memory,
         #mode,
-        #network,
-        #pulseaudio,
-        #temperature,
-        #backlight,
-        #idle_inhibitor,
-        #tray {
-            margin-left: 5px;
-            margin-right: 5px;
+        #tray,
+        #custom-keyboard-layout {
+            padding: 0 5px;
         }
 
         #backlight {

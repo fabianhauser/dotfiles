@@ -68,7 +68,6 @@ in
         gaps.inner = 8;
         modifier = "Mod4";
         window.border = 0;
-        #colors.focused.border = "#323232";
 
         #TODO: Workspace Programm assignment: Not working properly
         assigns = {
