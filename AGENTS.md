@@ -51,6 +51,14 @@
 
 **Private config:** sensitive data (git identities, work config) lives in `inputs.private` — not present in this repo.
 
+## Styling
+
+- Waybar workspace buttons can be targeted via `#sway-workspace-N` CSS IDs (e.g. `#sway-workspace-0 { background-color: ...; }`)
+- Stylix base16 colors are available in Nix expressions as `config.lib.stylix.colors.withHashtag.baseXX` (returns hex string with `#` prefix)
+- In waybar/GTK CSS, stylix colors are available as CSS custom properties: `@base08`, `@base0A`, etc.
+- Sway has no native per-workspace background support; implement with an event-driven script using `swaymsg -t subscribe '["workspace"]'` and `swaymsg "output '*' bg <hex> solid_color"`
+- Embed stylix colors into bash scripts at build time using `pkgs.writeShellScript` with Nix `${config.lib.stylix.colors.withHashtag.baseXX}` interpolation — colors update automatically with theme changes
+
 ## Important Notes
 
 - Secure Boot and TPM disk unlock require manual setup steps

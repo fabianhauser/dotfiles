@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (pkgs) writeShellApplication kitty libnotify;
+  inherit (pkgs) writeShellApplication;
   inherit (lib) getExe;
 
   statuslineScript = writeShellApplication {
@@ -94,9 +94,43 @@ in
 
       settings = {
         includeCoAuthoredBy = false;
-        defaultMode = "plan";
+
+        # memory
+        autoMemoryEnabled = true;
+        autoMemoryDirectory = "~/cloud/Notes/claude/memory";
+
+        preferredNotifChannel = "auto"; # Uses kitten automatically
+
+        plansDirectory = "~/cloud/Notes/claude/plans";
+        showClearContextOnPlanAccept = true;
+
+        useAutoModeDuringPlan = true;
+
+        disableWorkflows = false;
+        workflowKeywordTriggerEnabled = true;
+
+        teammateMode = "auto";
+
+        sandbox = {
+          enabled = true;
+          filesystem = {
+            denyRead = [
+              "~/"
+              "/var"
+              "/etc"
+            ];
+            allowRead = [
+              "/nix/store"
+              "~/private/nixos"
+            ];
+          };
+        };
+        env = {
+          CLAUDE_CODE_ENABLE_AUTO_MODE = 1;
+        };
 
         permissions = {
+          defaultMode = "plan";
           allow = [
             "Bash(nix log:*)"
             "Bash(nix fmt:*)"
@@ -104,65 +138,7 @@ in
             "Bash(nix build:*)"
             "Bash(rg:*)"
           ];
-        };
-
-        hooks = {
-          Notification = [
-            {
-              matcher = "permission_prompt|idle_prompt";
-              hooks = [
-                {
-                  type = "command";
-                  command = getExe (writeShellApplication {
-                    name = "claude-notification";
-                    runtimeInputs = [
-                      kitty
-                      libnotify
-                    ];
-                    text = ''
-                      INPUT=$(cat)
-
-                      ID=$(echo "$INPUT" | jq -r '.session_id')
-                      TITLE=$(echo "$INPUT" | jq -r '.title // "Claude Code"')
-                      MSG=$(echo "$INPUT" | jq -r '.message // "Needs your attention"')
-
-                      if [ -v KITTY_WINDOW_ID ]; then
-
-                        IS_FOCUSED=$(
-                          kitten @ ls | \
-                          jq --argjson wid "$KITTY_WINDOW_ID" '[.[].tabs[].windows[] | select(.id == $wid)] | .[0].is_focused'
-                        )
-                        if [ "$IS_FOCUSED" = 'true' ]; then
-                          echo "Window is focused - skipping notification"
-                          exit 0
-                        fi
-
-                      kitten notify \
-                        --icon question \
-                        --app-name claude-code \
-                        --urgency normal \
-                        --type agent \
-                        --identifier "$ID" \
-                        "$TITLE" \
-                        "$MSG"
-
-                      else
-
-                        notify-send \
-                          --icon question \
-                          --app-name claude-code \
-                          --urgency normal \
-                          --category agent \
-                          --replace-id "$ID" \
-                          "$TITLE" \
-                          "$MSG"
-                      fi
-                    '';
-                  });
-                }
-              ];
-            }
-          ];
+          skipDangerousModePermissionPrompt = true;
         };
 
         statusLine = {

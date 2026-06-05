@@ -227,6 +227,28 @@ in
             padding-right: 10px;
             color: @base04;
         }
+
+        #sway-workspace-0 { background-color: alpha(@base08, 0.4); color: @base05; border-bottom: 3px solid @base08; }
+        #sway-workspace-1 { background-color: alpha(@base09, 0.4); color: @base05; border-bottom: 3px solid @base09; }
+        #sway-workspace-2 { background-color: alpha(@base0A, 0.4); color: @base05; border-bottom: 3px solid @base0A; }
+        #sway-workspace-3 { background-color: alpha(@base0B, 0.4); color: @base05; border-bottom: 3px solid @base0B; }
+        #sway-workspace-4 { background-color: alpha(@base0C, 0.4); color: @base05; border-bottom: 3px solid @base0C; }
+        #sway-workspace-5 { background-color: alpha(@base0D, 0.4); color: @base05; border-bottom: 3px solid @base0D; }
+        #sway-workspace-6 { background-color: alpha(@base0E, 0.4); color: @base05; border-bottom: 3px solid @base0E; }
+        #sway-workspace-7 { background-color: alpha(@base0F, 0.4); color: @base05; border-bottom: 3px solid @base0F; }
+        #sway-workspace-8 { background-color: alpha(@base07, 0.4); color: @base05; border-bottom: 3px solid @base07; }
+        #sway-workspace-9 { background-color: alpha(@base06, 0.4); color: @base05; border-bottom: 3px solid @base06; }
+
+        #sway-workspace-0.focused { background-color: @base08; color: @base00; }
+        #sway-workspace-1.focused { background-color: @base09; color: @base00; }
+        #sway-workspace-2.focused { background-color: @base0A; color: @base00; }
+        #sway-workspace-3.focused { background-color: @base0B; color: @base00; }
+        #sway-workspace-4.focused { background-color: @base0C; color: @base00; }
+        #sway-workspace-5.focused { background-color: @base0D; color: @base00; }
+        #sway-workspace-6.focused { background-color: @base0E; color: @base00; }
+        #sway-workspace-7.focused { background-color: @base0F; color: @base00; }
+        #sway-workspace-8.focused { background-color: @base07; color: @base00; }
+        #sway-workspace-9.focused { background-color: @base06; color: @base00; }
       '';
     };
   };
