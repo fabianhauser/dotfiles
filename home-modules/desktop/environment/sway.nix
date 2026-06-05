@@ -23,27 +23,28 @@ let
 
     set_bg() {
       case "$1" in
-        0) ${pkgs.sway}/bin/swaymsg "output '*' bg ${colors.base08} solid_color" ;;
-        1) ${pkgs.sway}/bin/swaymsg "output '*' bg ${colors.base09} solid_color" ;;
-        2) ${pkgs.sway}/bin/swaymsg "output '*' bg ${colors.base0A} solid_color" ;;
-        3) ${pkgs.sway}/bin/swaymsg "output '*' bg ${colors.base0B} solid_color" ;;
-        4) ${pkgs.sway}/bin/swaymsg "output '*' bg ${colors.base0C} solid_color" ;;
-        5) ${pkgs.sway}/bin/swaymsg "output '*' bg ${colors.base0D} solid_color" ;;
-        6) ${pkgs.sway}/bin/swaymsg "output '*' bg ${colors.base0E} solid_color" ;;
-        7) ${pkgs.sway}/bin/swaymsg "output '*' bg ${colors.base0F} solid_color" ;;
-        8) ${pkgs.sway}/bin/swaymsg "output '*' bg ${colors.base07} solid_color" ;;
-        9) ${pkgs.sway}/bin/swaymsg "output '*' bg ${colors.base06} solid_color" ;;
-        *) ${pkgs.sway}/bin/swaymsg "output '*' bg ${colors.base00} solid_color" ;;
+        0) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base08} solid_color" ;;
+        1) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base09} solid_color" ;;
+        2) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base0A} solid_color" ;;
+        3) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base0B} solid_color" ;;
+        4) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base0C} solid_color" ;;
+        5) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base0D} solid_color" ;;
+        6) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base0E} solid_color" ;;
+        7) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base0F} solid_color" ;;
+        8) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base07} solid_color" ;;
+        9) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base06} solid_color" ;;
+        *) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base00} solid_color" ;;
       esac
     }
 
     current=$(${pkgs.sway}/bin/swaymsg -t get_workspaces | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | .name')
     set_bg "$current"
 
-    ${pkgs.sway}/bin/swaymsg -t subscribe '["workspace"]' | while IFS= read -r line; do
-      ws=$(printf '%s' "$line" | ${pkgs.jq}/bin/jq -r 'select(.change == "focus") | .current.name')
-      [ -n "$ws" ] && set_bg "$ws"
-    done
+    ${pkgs.sway}/bin/swaymsg -t subscribe '["workspace"]' \
+      | ${pkgs.jq}/bin/jq -r --unbuffered 'select(.change == "focus") | .current.name' \
+      | while IFS= read -r ws; do
+          set_bg "$ws"
+        done
   '';
   # TODO: active screen with -m $active_screen
   bemenuLauncher = pkgs.writeScriptBin "bemenuLauncher" ''

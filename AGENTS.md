@@ -53,11 +53,22 @@
 
 ## Styling
 
-- Waybar workspace buttons can be targeted via `#sway-workspace-N` CSS IDs (e.g. `#sway-workspace-0 { background-color: ...; }`)
-- Stylix base16 colors are available in Nix expressions as `config.lib.stylix.colors.withHashtag.baseXX` (returns hex string with `#` prefix)
-- In waybar/GTK CSS, stylix colors are available as CSS custom properties: `@base08`, `@base0A`, etc.
-- Sway has no native per-workspace background support; implement with an event-driven script using `swaymsg -t subscribe '["workspace"]'` and `swaymsg "output '*' bg <hex> solid_color"`
-- Embed stylix colors into bash scripts at build time using `pkgs.writeShellScript` with Nix `${config.lib.stylix.colors.withHashtag.baseXX}` interpolation — colors update automatically with theme changes
+**Always reference stylix colors — never hardcode hex values.**
+
+- In Nix expressions: `config.lib.stylix.colors.withHashtag.baseXX` gives the hex color string (with `#` prefix)
+- In waybar/GTK CSS: stylix injects `@define-color` entries, so use `@base08`, `@base0A`, etc. directly
+- For bash scripts or other config files generated at build time: use `pkgs.writeShellScript` / `pkgs.writeText` with Nix string interpolation — the hex values are baked in at build time and update automatically when the theme changes
+
+**Waybar CSS conventions:**
+
+- Individual workspace buttons: `#sway-workspace-N` CSS IDs
+- State classes (e.g. focused) combine with the ID: `#sway-workspace-1.focused { ... }`
+- Other module IDs follow the pattern `#module-name` (e.g. `#battery`, `#clock`)
+
+**Dynamic sway behavior:**
+
+- Sway exposes an IPC — subscribe to events with `swaymsg -t subscribe '["event-type"]'` and parse JSON output with `jq`
+- Use `pkgs.writeShellScript` + `wayland.windowManager.sway.config.startup` (with `always = true`) for scripts that must run on sway start and reload
 
 ## Important Notes
 
