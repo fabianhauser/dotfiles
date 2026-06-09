@@ -16,7 +16,7 @@ let
   pythonEnv = pkgs.python3.withPackages (ps: [ ps.i3ipc ]);
   workspaceBgScript = pkgs.writeScript "sway-workspace-bg" ''
     #!${pythonEnv}/bin/python3
-    import i3ipc
+    import i3ipc, subprocess, threading, time, signal, sys
 
     COLORS = {
         "0": "${colors.base08}",
@@ -31,17 +31,35 @@ let
         "9": "${colors.base06}",
     }
 
-    def set_bg(ipc, name):
+    bg_proc = None
+
+    def set_bg(name):
+        global bg_proc
         color = COLORS.get(name, "${colors.base00}")
-        ipc.command(f"output * bg {color} solid_color")
+        old_proc = bg_proc
+        bg_proc = subprocess.Popen(["${pkgs.swaybg}/bin/swaybg", "-c", color])
+        if old_proc is not None:
+            def kill_old():
+                time.sleep(0.05)
+                old_proc.terminate()
+                old_proc.wait(timeout=1)
+            threading.Thread(target=kill_old, daemon=True).start()
+
+    def cleanup(sig, frame):
+        if bg_proc is not None:
+            bg_proc.terminate()
+        sys.exit(0)
+
+    signal.signal(signal.SIGTERM, cleanup)
+    signal.signal(signal.SIGINT, cleanup)
 
     def on_focus(ipc, event):
-        set_bg(ipc, event.current.name)
+        set_bg(event.current.name)
 
     ipc = i3ipc.Connection()
     focused = next((w for w in ipc.get_workspaces() if w.focused), None)
     if focused:
-        set_bg(ipc, focused.name)
+        set_bg(focused.name)
     ipc.on("workspace::focus", on_focus)
     ipc.main()
   '';
