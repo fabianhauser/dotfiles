@@ -13,38 +13,37 @@ let
     ;
   cfg = config.dotfiles.desktop;
   colors = config.lib.stylix.colors.withHashtag;
-  workspaceBgScript = pkgs.writeShellScript "sway-workspace-bg" ''
-    LOCKFILE=/tmp/sway-workspace-bg.lock
-    if [ -f "$LOCKFILE" ]; then
-      kill "$(cat "$LOCKFILE")" 2>/dev/null || true
-    fi
-    echo $$ > "$LOCKFILE"
-    trap 'rm -f "$LOCKFILE"' EXIT
+  pythonEnv = pkgs.python3.withPackages (ps: [ ps.i3ipc ]);
+  workspaceBgScript = pkgs.writeScript "sway-workspace-bg" ''
+    #!${pythonEnv}/bin/python3
+    import i3ipc
 
-    set_bg() {
-      case "$1" in
-        0) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base08} solid_color" ;;
-        1) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base09} solid_color" ;;
-        2) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base0A} solid_color" ;;
-        3) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base0B} solid_color" ;;
-        4) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base0C} solid_color" ;;
-        5) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base0D} solid_color" ;;
-        6) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base0E} solid_color" ;;
-        7) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base0F} solid_color" ;;
-        8) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base07} solid_color" ;;
-        9) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base06} solid_color" ;;
-        *) ${pkgs.sway}/bin/swaymsg "output * bg ${colors.base00} solid_color" ;;
-      esac
+    COLORS = {
+        "0": "${colors.base08}",
+        "1": "${colors.base09}",
+        "2": "${colors.base0A}",
+        "3": "${colors.base0B}",
+        "4": "${colors.base0C}",
+        "5": "${colors.base0D}",
+        "6": "${colors.base0E}",
+        "7": "${colors.base0F}",
+        "8": "${colors.base07}",
+        "9": "${colors.base06}",
     }
 
-    current=$(${pkgs.sway}/bin/swaymsg -t get_workspaces | ${pkgs.jq}/bin/jq -r '.[] | select(.focused) | .name')
-    set_bg "$current"
+    def set_bg(ipc, name):
+        color = COLORS.get(name, "${colors.base00}")
+        ipc.command(f"output * bg {color} solid_color")
 
-    ${pkgs.sway}/bin/swaymsg -t subscribe '["workspace"]' \
-      | ${pkgs.jq}/bin/jq -r --unbuffered 'select(.change == "focus") | .current.name' \
-      | while IFS= read -r ws; do
-          set_bg "$ws"
-        done
+    def on_focus(ipc, event):
+        set_bg(ipc, event.current.name)
+
+    ipc = i3ipc.Connection()
+    focused = next((w for w in ipc.get_workspaces() if w.focused), None)
+    if focused:
+        set_bg(ipc, focused.name)
+    ipc.on("workspace::focus", on_focus)
+    ipc.main()
   '';
   # TODO: active screen with -m $active_screen
   bemenuLauncher = pkgs.writeScriptBin "bemenuLauncher" ''
@@ -172,12 +171,6 @@ in
             Print = "exec ${getExe pkgs.sway-contrib.grimshot} copy area";
           };
 
-        startup = [
-          {
-            command = "${workspaceBgScript}";
-            always = true;
-          }
-        ];
       };
       extraConfig = ''
         # Disable the laptop screen when the lid is closed.
@@ -190,6 +183,20 @@ in
         default_border pixel 0
         default_floating_border pixel 0
       '';
+    };
+
+    systemd.user.services.sway-workspace-bg = {
+      Unit = {
+        Description = "Per-workspace sway background colors";
+        After = [ "sway-session.target" ];
+        PartOf = [ "graphical-session.target" ];
+      };
+      Service = {
+        ExecStart = "${workspaceBgScript}";
+        Restart = "on-failure";
+        RestartSec = "1";
+      };
+      Install.WantedBy = [ "sway-session.target" ];
     };
 
     gtk = {
