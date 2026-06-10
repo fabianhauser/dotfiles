@@ -140,11 +140,6 @@ in
             light = getExe pkgs.brightnessctl;
             ws = {
               "0" = "grave";
-              "10" = "0";
-              "11" = "minus";
-              "12" = "equal";
-              "13" = "bracketright";
-              "14" = "backslash";
             };
           in
           mkOptionDefault {
@@ -152,19 +147,9 @@ in
             "${mod}+x" = "move workspace to output right";
             "${mod}+y" = "move workspace to output left";
 
-            "${mod}+${ws."0"}" = "workspace 0";
-            "${mod}+${ws."10"}" = "workspace 10";
-            "${mod}+${ws."11"}" = "workspace 11";
-            "${mod}+${ws."12"}" = "workspace 12";
-            "${mod}+${ws."13"}" = "workspace 13";
-            "${mod}+${ws."14"}" = "workspace 14";
+            "${mod}+${ws."0"}" = "workspace number 0";
 
-            "${mod}+Shift+${ws."0"}" = "move container to workspace 0";
-            "${mod}+Shift+${ws."10"}" = "move container to workspace 10";
-            "${mod}+Shift+${ws."11"}" = "move container to workspace 11";
-            "${mod}+Shift+${ws."12"}" = "move container to workspace 12";
-            "${mod}+Shift+${ws."13"}" = "move container to workspace 13";
-            "${mod}+Shift+${ws."14"}" = "move container to workspace 14";
+            "${mod}+Shift+${ws."0"}" = "move container to workspace number 0";
 
             "Ctrl+mod1+l" = "exec ${osConfig.systemd.package or pkgs.systemd}/bin/loginctl lock-session";
             "Ctrl+mod1+Shift+L" = "exec ${osConfig.systemd.package or pkgs.systemd}/bin/systemctl suspend";

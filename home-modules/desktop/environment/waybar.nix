@@ -94,13 +94,6 @@ in
           "sway/workspaces" = {
             all-outputs = false;
             disable-scroll = true;
-            format = "{icon}";
-            format-icons = {
-              "10" = " 10";
-              "11" = " 11";
-              "12" = " 12";
-              "13" = " 13";
-            };
           };
 
           pulseaudio = {
