@@ -132,11 +132,16 @@ in
         permissions = {
           defaultMode = "plan";
           allow = [
-            "Bash(nix log:*)"
-            "Bash(nix fmt:*)"
-            "Bash(nix flake check:*)"
-            "Bash(nix build:*)"
-            "Bash(rg:*)"
+            "Bash(nix log *)"
+            "Bash(nix fmt *)"
+            "Bash(nix flake check *)"
+            "Bash(nix build *)"
+            "Bash(nix eval *)"
+            "Bash(nix flake show *)"
+            "Bash(nix flake metadata *)"
+            "Bash(nix store diff-closures *)"
+            "Bash(systemctl --user cat *)"
+            "Bash(systemctl --user status *)"
           ];
           skipDangerousModePermissionPrompt = true;
         };
