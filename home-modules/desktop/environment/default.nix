@@ -14,6 +14,7 @@ in
     ./mako.nix
     ./sway.nix
     ./swaylock.nix
+    ./sworkstyle.nix
     ./waybar.nix
   ];
 
