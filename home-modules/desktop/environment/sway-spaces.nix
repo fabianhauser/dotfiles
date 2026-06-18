@@ -104,7 +104,8 @@ let
                 classes.append("focused")
             elif existing.visible:
                 classes.append("visible")
-            payload = {"text": existing.name, "class": " ".join(classes)}
+            icons = re.sub(r'^\d+', "", existing.name).rstrip()
+            payload = {"text": f"{my_space}{icons}", "class": " ".join(classes)}
         sys.stdout.write(json.dumps(payload) + "\n")
         sys.stdout.flush()
 
