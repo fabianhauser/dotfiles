@@ -15,7 +15,6 @@
     loader.timeout = 2;
     tmp.useTmpfs = true;
     kernelPackages = pkgs.linuxPackages_latest;
-    bootspec.enable = true;
 
     loader.efi.canTouchEfiVariables = true;
     initrd.systemd.enable = true;
