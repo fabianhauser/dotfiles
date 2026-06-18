@@ -84,7 +84,7 @@ in
               };
               format = " {capacity}% {time}"; # Icon: bolt
               format-discharging = "{icon} {capacity}% {time}";
-              format-time = "{H}:{M}";
+              format-time = "{H}:{M:02}";
               format-icons = [
                 "" # Icon: battery-full
                 "" # Icon: battery-three-quarters
