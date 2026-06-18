@@ -17,10 +17,11 @@ in
           fallback = "";
           separator = " ";
           matching = {
-            "mvc" = "";
-            "kitty" = "";
-            "evolution" = "";
-            "claws-mail" = "";
+            "mpv" = "";
+            "kitty" = "";
+            "org.gnome.Evolution" = "";
+            "Todoist" = "";
+            "/✳.*/" = "󱃖";
           };
         };
 
@@ -29,6 +30,7 @@ in
         Description = "Swayest Workstyle (workspace icons)";
         After = [ "sway-session.target" ];
         PartOf = [ "graphical-session.target" ];
+        X-Restart-Triggers = [ config.xdg.configFile."sworkstyle/config.toml".source ];
       };
       Service = {
         ExecStart = "${pkgs.swayest-workstyle}/bin/sworkstyle";

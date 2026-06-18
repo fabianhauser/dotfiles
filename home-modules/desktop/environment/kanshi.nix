@@ -2,11 +2,13 @@
   pkgs,
   lib,
   config,
+  dotfilesSwaySpaces,
   ...
 }:
 let
   inherit (lib) mkIf;
   cfg = config.dotfiles.desktop;
+  spacesCli = "${dotfilesSwaySpaces.wrapper}/bin/dotfiles-sway-spaces";
 in
 {
   #  systemd.user.services.kanshi.Install.WantedBy = "home-manager-fhauser.service"; # TODO: Upstream array type of systemdTarget
@@ -22,7 +24,10 @@ in
         mkProfile = name: outputs: {
           profile = {
             inherit name outputs;
-            exec = backgroundCommand;
+            exec = [
+              backgroundCommand
+              "${spacesCli} rearrange"
+            ];
           };
         };
         # Can be applied by profile.exec

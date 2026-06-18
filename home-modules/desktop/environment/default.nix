@@ -13,6 +13,7 @@ in
     ./kanshi.nix
     ./mako.nix
     ./sway.nix
+    ./sway-spaces.nix
     ./swaylock.nix
     ./sworkstyle.nix
     ./waybar.nix

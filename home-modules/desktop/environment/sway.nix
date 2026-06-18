@@ -3,20 +3,21 @@
   lib,
   config,
   osConfig,
+  dotfilesSwaySpaces,
   ...
 }:
 let
   inherit (lib)
     mkIf
-    mkOptionDefault
     getExe
     ;
   cfg = config.dotfiles.desktop;
   colors = config.lib.stylix.colors.withHashtag;
   pythonEnv = pkgs.python3.withPackages (ps: [ ps.i3ipc ]);
+  spacesCli = "${dotfilesSwaySpaces.wrapper}/bin/dotfiles-sway-spaces";
   workspaceBgScript = pkgs.writeScript "sway-workspace-bg" ''
     #!${pythonEnv}/bin/python3
-    import i3ipc, subprocess, threading, time, signal, sys
+    import i3ipc, re, subprocess, threading, time, signal, sys
 
     COLORS = {
         "0": "${colors.base08}",
@@ -33,9 +34,17 @@ let
 
     bg_proc = None
 
-    def set_bg(name):
+    def space_project(name):
+        m = re.match(r'^\d+', name)
+        if not m:
+            return None
+        digits = m.group(0)[:2]
+        padded = f"{int(digits):02}"
+        return padded[0], padded[1]
+
+    def set_bg(project):
         global bg_proc
-        color = COLORS.get(name, "${colors.base00}")
+        color = COLORS.get(project, "${colors.base00}")
         old_proc = bg_proc
         bg_proc = subprocess.Popen(["${pkgs.swaybg}/bin/swaybg", "-c", color])
         if old_proc is not None:
@@ -54,12 +63,16 @@ let
     signal.signal(signal.SIGINT, cleanup)
 
     def on_focus(ipc, event):
-        set_bg(event.current.name)
+        sp = space_project(event.current.name)
+        if sp is not None:
+            set_bg(sp[1])
 
     ipc = i3ipc.Connection()
     focused = next((w for w in ipc.get_workspaces() if w.focused), None)
     if focused:
-        set_bg(focused.name)
+        sp = space_project(focused.name)
+        if sp is not None:
+            set_bg(sp[1])
     ipc.on("workspace::focus", on_focus)
     ipc.main()
   '';
@@ -119,18 +132,12 @@ in
         gaps.inner = 8;
         modifier = "Mod4";
 
-        #TODO: Workspace Programm assignment: Not working properly
-        assigns = {
-          "10" = [ { app_id = "^firefox$"; } ];
-          "11" = [ { app_id = "^(claws-mail|thunderbird|evolution)$"; } ];
-          "12" = [
-            {
-              class = "^Chromium-browser$";
-              instance = "^web.threema.ch";
-            }
-          ];
-          "13" = [ { class = "^Spotify$"; } ];
-        };
+        startup = [
+          {
+            command = "${spacesCli} init 0";
+            always = true;
+          }
+        ];
 
         keybindings =
           let
@@ -138,18 +145,75 @@ in
             playerctl = getExe pkgs.playerctl;
             wpctl = "${pkgs.wireplumber}/bin/wpctl";
             light = getExe pkgs.brightnessctl;
-            ws = {
-              "0" = "grave";
+            # space (first digit, swaysome group): Mod+N / Mod+Shift+N
+            # project (second digit, swaysome workspace): Mod+Ctrl+N / Mod+Ctrl+Shift+N
+            spaceKeys = {
+              "0" = [
+                "grave"
+                "0"
+              ];
+              "1" = [ "1" ];
+              "2" = [ "2" ];
+              "3" = [ "3" ];
+              "4" = [ "4" ];
+              "5" = [ "5" ];
+              "6" = [ "6" ];
+              "7" = [ "7" ];
+              "8" = [ "8" ];
+              "9" = [ "9" ];
             };
+            spaceBindings = lib.concatMapAttrs (
+              n: keys:
+              lib.foldl' (
+                acc: key:
+                acc
+                // {
+                  "${mod}+${key}" = "exec ${spacesCli} focus-space ${n}";
+                  "${mod}+Shift+${key}" = "exec ${spacesCli} move-to-space ${n}";
+                  "${mod}+Ctrl+${key}" = "exec ${spacesCli} focus-project ${n}";
+                  "${mod}+Ctrl+Shift+${key}" = "exec ${spacesCli} move-to-project ${n}";
+                }
+              ) { } keys
+            ) spaceKeys;
           in
-          mkOptionDefault {
+          {
+            "${mod}+Return" = "exec ${getExe pkgs.kitty}";
+            "${mod}+Shift+q" = "kill";
+            "${mod}+d" = "exec ${getExe bemenuLauncher}";
+            "${mod}+h" = "focus left";
+            "${mod}+j" = "focus down";
+            "${mod}+k" = "focus up";
+            "${mod}+l" = "focus right";
+            "${mod}+Left" = "focus left";
+            "${mod}+Down" = "focus down";
+            "${mod}+Up" = "focus up";
+            "${mod}+Right" = "focus right";
+            "${mod}+Shift+h" = "move left";
+            "${mod}+Shift+j" = "move down";
+            "${mod}+Shift+k" = "move up";
+            "${mod}+Shift+l" = "move right";
+            "${mod}+Shift+Left" = "move left";
+            "${mod}+Shift+Down" = "move down";
+            "${mod}+Shift+Up" = "move up";
+            "${mod}+Shift+Right" = "move right";
+            "${mod}+b" = "splith";
+            "${mod}+v" = "splitv";
+            "${mod}+f" = "fullscreen toggle";
+            "${mod}+a" = "focus parent";
+            "${mod}+s" = "layout stacking";
+            "${mod}+w" = "layout tabbed";
+            "${mod}+e" = "layout toggle split";
+            "${mod}+Shift+space" = "floating toggle";
+            "${mod}+space" = "focus mode_toggle";
+            "${mod}+Shift+minus" = "move scratchpad";
+            "${mod}+minus" = "scratchpad show";
+            "${mod}+Shift+c" = "reload";
+            "${mod}+Shift+e" = "exec swaynag -t warning -m 'Exit sway?' -b 'Yes, exit sway' 'swaymsg exit'";
+            "${mod}+r" = "mode resize";
+
             "${mod}+Shift+d" = "exec ${getExe pkgs.rofimoji} --action clipboard --selector fuzzel";
             "${mod}+x" = "move workspace to output right";
             "${mod}+y" = "move workspace to output left";
-
-            "${mod}+${ws."0"}" = "workspace number 0";
-
-            "${mod}+Shift+${ws."0"}" = "move container to workspace number 0";
 
             "Ctrl+mod1+l" = "exec ${osConfig.systemd.package or pkgs.systemd}/bin/loginctl lock-session";
             "Ctrl+mod1+Shift+L" = "exec ${osConfig.systemd.package or pkgs.systemd}/bin/systemctl suspend";
@@ -172,7 +236,8 @@ in
 
             # screenshot
             Print = "exec ${getExe pkgs.sway-contrib.grimshot} copy area";
-          };
+          }
+          // spaceBindings;
 
       };
       extraConfig = ''
