@@ -66,15 +66,22 @@ in
                 "pulseaudio"
               ];
             };
-            backlight.format = " {percent}%";
+            backlight = {
+              format = " {percent}%";
+              tooltip = false;
+            };
             disk.format = " {percentage_used}%";
-            clock.format = "{:%Y-%m-%d %H:%M}";
+            clock = {
+              format = "{:%Y-%m-%d %H:%M}";
+              tooltip = false;
+            };
             "custom/project" = {
               exec = waybarProjectBin;
               return-type = "json";
               on-click = "${spacesCli} menu-project";
               on-click-right = "${spacesCli} set-name";
               format = "{}";
+              tooltip = false;
             };
 
             battery = {
@@ -93,7 +100,7 @@ in
                 "" # Icon: battery-quarter
                 "" # Icon: battery-empty
               ];
-              tooltip = "true";
+              tooltip = false;
             };
 
             cpu = {
@@ -116,12 +123,13 @@ in
 
             "sway/mode" = {
               format = ''<span style="italic">  {}</span>''; # Icon: expand-arrows-alt
-              tooltip = "false";
+              tooltip = false;
             };
 
             "sway/window" = {
               format = "{}";
               max-length = "120";
+              tooltip = false;
             };
 
             pulseaudio = {
