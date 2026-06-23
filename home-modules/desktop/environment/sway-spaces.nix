@@ -41,15 +41,50 @@ let
 
     # Per-project state is one JSON file per project digit, session-only.
     projects_dir="''${XDG_RUNTIME_DIR:-/tmp}/dotfiles-sway-spaces/projects"
-
     project_file() { printf '%s/%s.json' "$projects_dir" "$1"; }
 
-    current_project() {
+    # Per-project memory of the last focused space, so returning to a project
+    # restores focus to the screen you last used there. State is temporary
+    # (XDG_RUNTIME_DIR is wiped on logout) but survives sway reloads.
+    state_dir="''${XDG_RUNTIME_DIR:-/tmp}/dotfiles-sway-spaces"
+    state_file="$state_dir/last-space.json"
+
+    # Prints "<space> <project>" of the currently focused workspace.
+    focused_space_project() {
       local name digits
       name=$(${swaymsg} -r -t get_workspaces | ${jq} -r '.[] | select(.focused) | .name')
-      [[ "$name" =~ ^([0-9]+) ]] || return
-      digits="''${BASH_REMATCH[1]:0:2}"
-      printf '%02d' "$digits" | tail -c 1
+      [[ "$name" =~ ^([0-9]+) ]] || return 1
+      digits=$(printf '%02d' "''${BASH_REMATCH[1]:0:2}")
+      printf '%s %s\n' "''${digits:0:1}" "''${digits:1:1}"
+    }
+
+    current_project() {
+      local sp pr
+      read -r sp pr < <(focused_space_project) || return
+      printf '%s' "$pr"
+    }
+
+    remember_focused_space() {
+      local sp pr tmp
+      read -r sp pr < <(focused_space_project) || return 0
+      mkdir -p "$state_dir"
+      tmp=$(mktemp "$state_dir/.XXXXXX")
+      ${jq} --arg p "$pr" --arg s "$sp" '. + {($p): $s}' \
+        <(cat "$state_file" 2>/dev/null || printf '{}') > "$tmp"
+      mv "$tmp" "$state_file"
+    }
+
+    restore_focused_space() {
+      local pr="$1" sp
+      [[ -f "$state_file" ]] || return 0
+      sp=$(${jq} -r --arg p "$pr" '.[$p] // empty' "$state_file") || return 0
+      [[ -n "$sp" ]] && ${swaysome} focus-group "$sp"
+    }
+
+    focus_project() {
+      remember_focused_space
+      ${swaysome} focus-all-outputs "$1"
+      restore_focused_space "$1"
     }
 
     resolve_project() {
@@ -103,7 +138,7 @@ let
       init)            ${swaysome} init "''${1:-0}" ;;
       rearrange)       ${swaysome} rearrange-workspaces ;;
       focus-space)     ${swaysome} focus-group "''${1:-}" ;;
-      focus-project)   ${swaysome} focus-all-outputs "''${1:-}" ;;
+      focus-project)   focus_project "''${1:-}" ;;
       move-to-space)   ${swaysome} move-to-group "''${1:-}" ;;
       move-to-project) ${swaysome} move "''${1:-}" ;;
       current-project) current_project ;;
@@ -128,7 +163,7 @@ let
           if [[ -n "$nm" ]]; then printf '%s: %s\n' "$n" "$nm"; else printf '%s\n' "$n"; fi
         done | ${fuzzel} --dmenu --prompt "Project: ") || exit 0
         [[ -n "''${choice:-}" ]] || exit 0
-        [[ "$choice" =~ ^([0-9]) ]] && ${swaysome} focus-all-outputs "''${BASH_REMATCH[1]}"
+        [[ "$choice" =~ ^([0-9]) ]] && focus_project "''${BASH_REMATCH[1]}"
         ;;
       *)
         echo "Usage: dotfiles-sway-spaces {init|rearrange|focus-space|focus-project|move-to-space|move-to-project|current-project|menu-project|get-name|set-name|clear-name} [N] [NAME...]" >&2
