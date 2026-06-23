@@ -97,11 +97,12 @@ in
 
         # memory
         autoMemoryEnabled = true;
-        autoMemoryDirectory = "~/cloud/Notes/claude/memory";
+        autoMemoryDirectory = "/home/fhauser/cloud/Notes/claude/memory";
+        autoDreamEnabled = true;
 
         preferredNotifChannel = "auto"; # Uses kitten automatically
 
-        plansDirectory = "~/cloud/Notes/claude/plans";
+        plansDirectory = "/home/fhauser/cloud/Notes/claude/plans";
         showClearContextOnPlanAccept = true;
 
         useAutoModeDuringPlan = true;
