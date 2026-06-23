@@ -174,21 +174,33 @@ let
 
   waybarSpace = pkgs.writeScriptBin "dotfiles-sway-spaces-waybar-space" ''
     #!${pythonEnv}/bin/python3
-    import i3ipc, json, re, sys
+    import i3ipc, json, os, re, sys
 
     if len(sys.argv) != 2 or not sys.argv[1].isdigit():
         sys.stderr.write("usage: dotfiles-sway-spaces-waybar-space <space 0-9>\n")
         sys.exit(2)
     my_space = sys.argv[1]
+    my_output = os.environ["WAYBAR_OUTPUT_NAME"]
 
     ${pySpaceProject}
 
+    def current_on_output(workspaces):
+        # The space shown on this bar's screen is the visible workspace on this
+        # output; its project is the bar's current project.
+        return next(
+            (w for w in workspaces if w.output == my_output and w.visible),
+            None,
+        )
+
     def emit(ipc, *_):
+        # A monitor hosts several spaces of the current project; only one is
+        # visible, the rest hidden but live. List every space with a workspace
+        # on this output in the current project, not just the visible one.
         workspaces = ipc.get_workspaces()
-        focused = next((w for w in workspaces if w.focused), None)
-        if focused is None:
+        current = current_on_output(workspaces)
+        if current is None:
             return
-        sp = space_project(focused.name)
+        sp = space_project(current.name)
         if sp is None:
             return
         _, project = sp
@@ -198,6 +210,7 @@ let
                 w for w in workspaces
                 if (sp2 := space_project(w.name)) is not None
                 and f"{sp2[0]}{sp2[1]}" == target
+                and w.output == my_output
             ),
             None,
         )
