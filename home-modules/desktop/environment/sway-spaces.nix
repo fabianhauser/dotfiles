@@ -30,7 +30,6 @@ let
     set -euo pipefail
     cmd="''${1:-help}"
     shift || true
-    arg="''${1:-}"
 
     # User-facing verbs vs. swaysome's vocabulary:
     #   space   = swaysome "group"     (per-output column, first digit)
@@ -40,6 +39,11 @@ let
     # Mod+Shift+N      -> move-to-space N
     # Mod+Ctrl+Shift+N -> move-to-project N
 
+    # Per-project state is one JSON file per project digit, session-only.
+    projects_dir="''${XDG_RUNTIME_DIR:-/tmp}/dotfiles-sway-spaces/projects"
+
+    project_file() { printf '%s/%s.json' "$projects_dir" "$1"; }
+
     current_project() {
       local name digits
       name=$(${swaymsg} -r -t get_workspaces | ${jq} -r '.[] | select(.focused) | .name')
@@ -48,20 +52,86 @@ let
       printf '%02d' "$digits" | tail -c 1
     }
 
+    resolve_project() {
+      if [[ "''${1:-}" =~ ^[0-9]$ ]]; then printf '%s' "$1"; else current_project; fi
+    }
+
+    get_name() {
+      local f
+      f=$(project_file "$1")
+      [[ -f "$f" ]] || return 0
+      ${jq} -r '.name // empty' "$f"
+    }
+
+    set_name() {
+      local proj="$1" name="$2" f tmp
+      f=$(project_file "$proj")
+      mkdir -p "$projects_dir"
+      tmp=$(mktemp)
+      if [[ -f "$f" ]]; then
+        ${jq} --arg name "$name" '.name = $name' "$f" > "$tmp"
+      else
+        ${jq} -n --arg name "$name" '{ name: $name }' > "$tmp"
+      fi
+      mv "$tmp" "$f"
+    }
+
+    clear_name() {
+      local proj="$1" f tmp
+      f=$(project_file "$proj")
+      [[ -f "$f" ]] || return 0
+      tmp=$(mktemp)
+      ${jq} 'del(.name)' "$f" > "$tmp"
+      if [[ "$(${jq} -r 'keys | length' "$tmp")" == "0" ]]; then
+        rm -f "$f" "$tmp"
+      else
+        mv "$tmp" "$f"
+      fi
+    }
+
+    notify_change() { ${swaymsg} -t send_tick project-name >/dev/null; }
+
+    prompt_name() {
+      if [[ -n "$1" ]]; then
+        printf '%s\n' "$1" | ${fuzzel} --dmenu --prompt "Name: "
+      else
+        ${fuzzel} --dmenu --prompt "Name: " < /dev/null
+      fi
+    }
+
     case "$cmd" in
-      init)            ${swaysome} init "''${arg:-0}" ;;
+      init)            ${swaysome} init "''${1:-0}" ;;
       rearrange)       ${swaysome} rearrange-workspaces ;;
-      focus-space)     ${swaysome} focus-group "$arg" ;;
-      focus-project)   ${swaysome} focus-all-outputs "$arg" ;;
-      move-to-space)   ${swaysome} move-to-group "$arg" ;;
-      move-to-project) ${swaysome} move "$arg" ;;
+      focus-space)     ${swaysome} focus-group "''${1:-}" ;;
+      focus-project)   ${swaysome} focus-all-outputs "''${1:-}" ;;
+      move-to-space)   ${swaysome} move-to-group "''${1:-}" ;;
+      move-to-project) ${swaysome} move "''${1:-}" ;;
       current-project) current_project ;;
+      get-name)        get_name "$(resolve_project "''${1:-}")" ;;
+      set-name)
+        if [[ "''${1:-}" =~ ^[0-9]$ ]]; then proj="$1"; shift; else proj=$(current_project); fi
+        [[ -n "$proj" ]] || { echo "no current project" >&2; exit 1; }
+        name="$*"
+        [[ -n "$name" ]] || name=$(prompt_name "$(get_name "$proj")") || exit 0
+        if [[ -z "$name" ]]; then clear_name "$proj"; else set_name "$proj" "$name"; fi
+        notify_change
+        ;;
+      clear-name)
+        proj=$(resolve_project "''${1:-}")
+        [[ -n "$proj" ]] || exit 0
+        clear_name "$proj"
+        notify_change
+        ;;
       menu-project)
-        choice=$(seq 0 9 | ${fuzzel} --dmenu --prompt "Project: ")
-        [[ -n "''${choice:-}" ]] && ${swaysome} focus-all-outputs "$choice"
+        choice=$(for n in $(seq 0 9); do
+          nm=$(get_name "$n")
+          if [[ -n "$nm" ]]; then printf '%s: %s\n' "$n" "$nm"; else printf '%s\n' "$n"; fi
+        done | ${fuzzel} --dmenu --prompt "Project: ") || exit 0
+        [[ -n "''${choice:-}" ]] || exit 0
+        [[ "$choice" =~ ^([0-9]) ]] && ${swaysome} focus-all-outputs "''${BASH_REMATCH[1]}"
         ;;
       *)
-        echo "Usage: dotfiles-sway-spaces {init|rearrange|focus-space|focus-project|move-to-space|move-to-project|current-project|menu-project} [N]" >&2
+        echo "Usage: dotfiles-sway-spaces {init|rearrange|focus-space|focus-project|move-to-space|move-to-project|current-project|menu-project|get-name|set-name|clear-name} [N] [NAME...]" >&2
         exit 1
         ;;
     esac
@@ -124,9 +194,18 @@ let
 
   waybarProject = pkgs.writeScriptBin "dotfiles-sway-spaces-waybar-project" ''
     #!${pythonEnv}/bin/python3
-    import i3ipc, json, re, sys
+    import i3ipc, json, os, re, sys
 
     ${pySpaceProject}
+
+    def project_name(project):
+        runtime = os.environ.get("XDG_RUNTIME_DIR", "/tmp")
+        path = os.path.join(runtime, "dotfiles-sway-spaces", "projects", f"{project}.json")
+        try:
+            with open(path) as f:
+                return json.load(f).get("name") or None
+        except (OSError, ValueError):
+            return None
 
     def emit(ipc, *_):
         focused = next((w for w in ipc.get_workspaces() if w.focused), None)
@@ -136,9 +215,12 @@ let
         if sp is None:
             return
         _, project = sp
-        sys.stdout.write(
-            json.dumps({"text": project, "tooltip": f"Project {project}"}) + "\n"
-        )
+        name = project_name(project)
+        if name:
+            payload = {"text": f"{project}: {name}", "tooltip": f"Project {project}: {name}"}
+        else:
+            payload = {"text": project, "tooltip": f"Project {project}"}
+        sys.stdout.write(json.dumps(payload) + "\n")
         sys.stdout.flush()
 
     ipc = i3ipc.Connection()
@@ -149,6 +231,7 @@ let
         "workspace::empty",
         "workspace::rename",
         "output::change",
+        "tick",
     ):
         ipc.on(event, emit)
     ipc.main()

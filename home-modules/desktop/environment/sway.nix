@@ -268,6 +268,7 @@ in
             "${mod}+r" = "mode resize";
 
             "${mod}+Shift+d" = "exec ${getExe pkgs.rofimoji} --action clipboard --selector fuzzel";
+            "${mod}+Ctrl+n" = "exec ${spacesCli} set-name";
             "${mod}+x" = "move workspace to output right";
             "${mod}+y" = "move workspace to output left";
 

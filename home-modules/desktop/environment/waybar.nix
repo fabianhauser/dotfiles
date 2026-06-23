@@ -73,6 +73,7 @@ in
               exec = waybarProjectBin;
               return-type = "json";
               on-click = "${spacesCli} menu-project";
+              on-click-right = "${spacesCli} set-name";
               format = "{}";
             };
 
