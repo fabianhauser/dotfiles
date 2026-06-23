@@ -15,9 +15,10 @@ let
   colors = config.lib.stylix.colors.withHashtag;
   pythonEnv = pkgs.python3.withPackages (ps: [ ps.i3ipc ]);
   spacesCli = "${dotfilesSwaySpaces.wrapper}/bin/dotfiles-sway-spaces";
+  backgroundsDir = "${config.home.homeDirectory}/cloud/pictures/backgrounds";
   workspaceBgScript = pkgs.writeScript "sway-workspace-bg" ''
     #!${pythonEnv}/bin/python3
-    import i3ipc, re, subprocess, threading, time, signal, sys
+    import i3ipc, re, os, glob, json, subprocess, threading, time, signal, sys
 
     COLORS = {
         "0": "${colors.base08}",
@@ -32,7 +33,18 @@ let
         "9": "${colors.base06}",
     }
 
+    BACKGROUNDS_DIR = "${backgroundsDir}"
+    CACHE_DIR = os.path.join(
+        os.environ.get("XDG_CACHE_HOME") or os.path.expanduser("~/.cache"),
+        "dotfiles-sway-backgrounds",
+    )
+    MAGICK = "${pkgs.imagemagick}/bin/magick"
+    XXHSUM = "${pkgs.xxhash}/bin/xxhsum"
+    SWAYBG = "${pkgs.swaybg}/bin/swaybg"
+    SWAYMSG = "${pkgs.sway}/bin/swaymsg"
+
     bg_proc = None
+    current_project = None
 
     def space_project(name):
         m = re.match(r'^\d+', name)
@@ -42,11 +54,47 @@ let
         padded = f"{int(digits):02}"
         return padded[0], padded[1]
 
+    def screen_size():
+        outputs = json.loads(subprocess.check_output([SWAYMSG, "-t", "get_outputs", "-r"]))
+        edges = [
+            max(o["current_mode"]["width"], o["current_mode"]["height"])
+            for o in outputs
+            if o.get("active") and o.get("current_mode")
+        ]
+        return max(edges) if edges else None
+
+    def source_image(project):
+        matches = sorted(glob.glob(os.path.join(BACKGROUNDS_DIR, project + ".*")))
+        return matches[0] if matches else None
+
+    def cached_image(src, size):
+        digest = subprocess.check_output([XXHSUM, src]).split()[0].decode()
+        os.makedirs(CACHE_DIR, exist_ok=True)
+        cache = os.path.join(CACHE_DIR, f"{digest}-{size}.jpg")
+        if not os.path.exists(cache):
+            tmp = f"{cache}.tmp"
+            subprocess.run(
+                [MAGICK, src, "-auto-orient", "-resize", f"{size}x{size}>",
+                 "-quality", "85", tmp],
+                check=True,
+            )
+            os.replace(tmp, cache)
+        return cache
+
+    def swaybg_cmd(project):
+        src = source_image(project)
+        size = screen_size()
+        if src and size:
+            try:
+                return [SWAYBG, "-i", cached_image(src, size), "-m", "fill"]
+            except (subprocess.CalledProcessError, OSError):
+                pass
+        return [SWAYBG, "-c", COLORS.get(project, "${colors.base00}")]
+
     def set_bg(project):
         global bg_proc
-        color = COLORS.get(project, "${colors.base00}")
         old_proc = bg_proc
-        bg_proc = subprocess.Popen(["${pkgs.swaybg}/bin/swaybg", "-c", color])
+        bg_proc = subprocess.Popen(swaybg_cmd(project))
         if old_proc is not None:
             def kill_old():
                 time.sleep(0.05)
@@ -63,17 +111,25 @@ let
     signal.signal(signal.SIGINT, cleanup)
 
     def on_focus(ipc, event):
+        global current_project
         sp = space_project(event.current.name)
         if sp is not None:
-            set_bg(sp[1])
+            current_project = sp[1]
+            set_bg(current_project)
+
+    def on_output(ipc, event):
+        if current_project is not None:
+            set_bg(current_project)
 
     ipc = i3ipc.Connection()
     focused = next((w for w in ipc.get_workspaces() if w.focused), None)
     if focused:
         sp = space_project(focused.name)
         if sp is not None:
-            set_bg(sp[1])
+            current_project = sp[1]
+            set_bg(current_project)
     ipc.on("workspace::focus", on_focus)
+    ipc.on("output", on_output)
     ipc.main()
   '';
   # TODO: active screen with -m $active_screen
@@ -255,7 +311,7 @@ in
 
     systemd.user.services.sway-workspace-bg = {
       Unit = {
-        Description = "Per-workspace sway background colors";
+        Description = "Per-project sway background images";
         After = [ "sway-session.target" ];
         PartOf = [ "graphical-session.target" ];
       };
