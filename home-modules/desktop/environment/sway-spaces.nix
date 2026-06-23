@@ -174,6 +174,8 @@ let
                 classes.append("focused")
             elif existing.visible:
                 classes.append("visible")
+            if existing.urgent:
+                classes.append("urgent")
             icons = re.sub(r'^\d+', "", existing.name).rstrip()
             payload = {"text": f"{my_space}{icons}", "class": " ".join(classes)}
         sys.stdout.write(json.dumps(payload) + "\n")
@@ -187,6 +189,7 @@ let
         "workspace::empty",
         "workspace::rename",
         "output::change",
+        "window::urgent",
     ):
         ipc.on(event, emit)
     ipc.main()

@@ -241,6 +241,13 @@ in
             color: @base05;
         }
 
+        #custom-space-0.urgent, #custom-space-1.urgent, #custom-space-2.urgent,
+        #custom-space-3.urgent, #custom-space-4.urgent, #custom-space-5.urgent,
+        #custom-space-6.urgent, #custom-space-7.urgent, #custom-space-8.urgent,
+        #custom-space-9.urgent {
+            animation: blink-critical 1s linear infinite alternate;
+        }
+
         #custom-space-0.empty, #custom-space-1.empty, #custom-space-2.empty,
         #custom-space-3.empty, #custom-space-4.empty, #custom-space-5.empty,
         #custom-space-6.empty, #custom-space-7.empty, #custom-space-8.empty,
