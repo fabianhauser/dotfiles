@@ -200,7 +200,7 @@ in
             mod = config.wayland.windowManager.sway.config.modifier;
             playerctl = getExe pkgs.playerctl;
             wpctl = "${pkgs.wireplumber}/bin/wpctl";
-            light = getExe pkgs.brightnessctl;
+            brightnessctl = getExe pkgs.brightnessctl;
             # space (first digit, swaysome group): Mod+N / Mod+Shift+N
             # project (second digit, swaysome workspace): Mod+Ctrl+N / Mod+Ctrl+Shift+N
             spaceKeys = {
@@ -288,8 +288,8 @@ in
             XF86AudioPrev = "exec ${playerctl} previous";
 
             # screen brightness
-            XF86MonBrightnessUp = "exec ${light} +10%";
-            XF86MonBrightnessDown = "exec ${light} 5%-";
+            XF86MonBrightnessUp = "exec ${brightnessctl} set +10%";
+            XF86MonBrightnessDown = "exec ${brightnessctl} set 5%-";
 
             # screenshot
             Print = "exec ${getExe pkgs.sway-contrib.grimshot} copy area";
