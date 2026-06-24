@@ -1,5 +1,4 @@
 {
-  pkgs,
   lib,
   config,
   dotfilesSwaySpaces,
@@ -24,17 +23,9 @@ in
         mkProfile = name: outputs: {
           profile = {
             inherit name outputs;
-            exec = [
-              backgroundCommand
-              "${spacesCli} rearrange"
-            ];
+            exec = [ "${spacesCli} rearrange" ];
           };
         };
-        # Can be applied by profile.exec
-        backgroundPicturePath = "${config.dotfiles.cloudRoot}/pictures/backgrounds";
-        backgroundCommand = ''
-          ${pkgs.sway}/bin/swaymsg "output * bg `find ${backgroundPicturePath} -type f | ${pkgs.coreutils-full}/bin/shuf -n 1` fill"
-        '';
 
         screens = {
           x1-screen.output = {

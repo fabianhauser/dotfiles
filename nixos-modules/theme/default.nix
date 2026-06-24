@@ -6,7 +6,6 @@
   stylix = {
     enable = true;
     enableReleaseChecks = false;
-    image = ../../home-modules/desktop/environment/closed_farn.JPG;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     fonts = {
       monospace = {

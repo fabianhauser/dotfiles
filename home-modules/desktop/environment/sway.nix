@@ -97,7 +97,7 @@ let
         bg_proc = subprocess.Popen(swaybg_cmd(project))
         if old_proc is not None:
             def kill_old():
-                time.sleep(0.05)
+                time.sleep(0.5)
                 old_proc.terminate()
                 old_proc.wait(timeout=1)
             threading.Thread(target=kill_old, daemon=True).start()

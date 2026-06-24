@@ -10,7 +10,6 @@
 
   stylix = lib.mkIf (!(osConfig ? stylix)) {
     enable = true;
-    image = ./desktop/environment/closed_farn.JPG;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
     fonts = {
       monospace = {
