@@ -118,7 +118,6 @@ in
             denyRead = [
               "~/"
               "/var"
-              "/etc"
             ];
             allowRead = [
               "/nix/store"
