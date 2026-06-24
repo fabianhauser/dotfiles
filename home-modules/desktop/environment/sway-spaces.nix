@@ -35,9 +35,9 @@ let
     #   space   = swaysome "group"     (per-output column, first digit)
     #   project = swaysome "workspace" (row across spaces,  second digit)
     # Mod+N            -> focus-space N        (which output column is focused)
-    # Mod+Ctrl+N       -> focus-project N      (switch to project N's spaces)
     # Mod+Shift+N      -> move-to-space N
-    # Mod+Ctrl+Shift+N -> move-to-project N
+    # Mod+F{N} (Esc=0) -> focus-project N      (switch to project N's spaces)
+    # Mod+Shift+F{N}   -> move-to-project N
 
     # Per-project state is one JSON file per project digit, session-only.
     projects_dir="''${XDG_RUNTIME_DIR:-/tmp}/dotfiles-sway-spaces/projects"

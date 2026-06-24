@@ -201,8 +201,8 @@ in
             playerctl = getExe pkgs.playerctl;
             wpctl = "${pkgs.wireplumber}/bin/wpctl";
             brightnessctl = getExe pkgs.brightnessctl;
-            # space (first digit, swaysome group): Mod+N / Mod+Shift+N
-            # project (second digit, swaysome workspace): Mod+Ctrl+N / Mod+Ctrl+Shift+N
+            # space (first digit, swaysome group): number row, Mod+N / Mod+Shift+N
+            # project (second digit, swaysome workspace): function row, Mod+F{N} / Mod+Shift+F{N}
             spaceKeys = {
               "0" = [
                 "grave"
@@ -218,6 +218,21 @@ in
               "8" = [ "8" ];
               "9" = [ "9" ];
             };
+            projectKeys = {
+              "0" = [
+                "F10"
+                "Escape"
+              ];
+              "1" = [ "F1" ];
+              "2" = [ "F2" ];
+              "3" = [ "F3" ];
+              "4" = [ "F4" ];
+              "5" = [ "F5" ];
+              "6" = [ "F6" ];
+              "7" = [ "F7" ];
+              "8" = [ "F8" ];
+              "9" = [ "F9" ];
+            };
             spaceBindings = lib.concatMapAttrs (
               n: keys:
               lib.foldl' (
@@ -226,11 +241,20 @@ in
                 // {
                   "${mod}+${key}" = "exec ${spacesCli} focus-space ${n}";
                   "${mod}+Shift+${key}" = "exec ${spacesCli} move-to-space ${n}";
-                  "${mod}+Ctrl+${key}" = "exec ${spacesCli} focus-project ${n}";
-                  "${mod}+Ctrl+Shift+${key}" = "exec ${spacesCli} move-to-project ${n}";
                 }
               ) { } keys
             ) spaceKeys;
+            projectBindings = lib.concatMapAttrs (
+              n: keys:
+              lib.foldl' (
+                acc: key:
+                acc
+                // {
+                  "${mod}+${key}" = "exec ${spacesCli} focus-project ${n}";
+                  "${mod}+Shift+${key}" = "exec ${spacesCli} move-to-project ${n}";
+                }
+              ) { } keys
+            ) projectKeys;
           in
           {
             "${mod}+Return" = "exec ${getExe pkgs.kitty}";
@@ -294,7 +318,8 @@ in
             # screenshot
             Print = "exec ${getExe pkgs.sway-contrib.grimshot} copy area";
           }
-          // spaceBindings;
+          // spaceBindings
+          // projectBindings;
 
       };
       extraConfig = ''
