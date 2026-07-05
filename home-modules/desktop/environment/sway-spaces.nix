@@ -49,6 +49,13 @@ let
     state_dir="''${XDG_RUNTIME_DIR:-/tmp}/dotfiles-sway-spaces"
     state_file="$state_dir/last-space.json"
 
+    # The active project, recorded on every deliberate switch. swaysome's init
+    # and rearrange-workspaces move focus to a fixed/arbitrary project, and on a
+    # monitor unplug sway has already shifted focus by the time kanshi runs
+    # rearrange. Reading the live focus is therefore unreliable during those
+    # events, so we persist the intended project here instead.
+    current_project_file="$state_dir/current-project"
+
     # Prints "<space> <project>" of the currently focused workspace.
     focused_space_project() {
       local name digits
@@ -81,10 +88,39 @@ let
       [[ -n "$sp" ]] && ${swaysome} focus-group "$sp"
     }
 
-    focus_project() {
-      remember_focused_space
+    read_current_project() { cat "$current_project_file" 2>/dev/null || true; }
+
+    write_current_project() {
+      mkdir -p "$state_dir"
+      printf '%s' "$1" > "$current_project_file"
+    }
+
+    goto_project() {
       ${swaysome} focus-all-outputs "$1"
       restore_focused_space "$1"
+    }
+
+    focus_project() {
+      remember_focused_space
+      goto_project "$1"
+      write_current_project "$1"
+    }
+
+    # init and rearrange move focus off the active project; put it back.
+    restore_project() {
+      local proj
+      proj=$(read_current_project)
+      [[ -n "$proj" ]] && goto_project "$proj"
+    }
+
+    init_spaces() {
+      ${swaysome} init "$1"
+      if [[ -n "$(read_current_project)" ]]; then restore_project; else write_current_project "$1"; fi
+    }
+
+    rearrange_spaces() {
+      ${swaysome} rearrange-workspaces
+      restore_project
     }
 
     resolve_project() {
@@ -135,8 +171,8 @@ let
     }
 
     case "$cmd" in
-      init)            ${swaysome} init "''${1:-0}" ;;
-      rearrange)       ${swaysome} rearrange-workspaces ;;
+      init)            init_spaces "''${1:-0}" ;;
+      rearrange)       rearrange_spaces ;;
       focus-space)     ${swaysome} focus-group "''${1:-}" ;;
       focus-project)   focus_project "''${1:-}" ;;
       move-to-space)   ${swaysome} move-to-group "''${1:-}" ;;
