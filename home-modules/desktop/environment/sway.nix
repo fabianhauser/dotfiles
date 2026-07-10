@@ -14,11 +14,12 @@ let
   cfg = config.dotfiles.desktop;
   colors = config.lib.stylix.colors.withHashtag;
   pythonEnv = pkgs.python3.withPackages (ps: [ ps.i3ipc ]);
-  spacesCli = "${dotfilesSwaySpaces.wrapper}/bin/dotfiles-sway-spaces";
+  swaysome = dotfilesSwaySpaces.swaysome;
+  spacesMenu = dotfilesSwaySpaces.spacesMenu;
   backgroundsDir = "${config.home.homeDirectory}/cloud/pictures/backgrounds";
   workspaceBgScript = pkgs.writeScript "sway-workspace-bg" ''
     #!${pythonEnv}/bin/python3
-    import i3ipc, re, os, glob, json, subprocess, threading, time, signal, sys
+    import i3ipc, os, glob, json, subprocess, threading, time, signal, sys
 
     COLORS = {
         "0": "${colors.base08}",
@@ -46,13 +47,13 @@ let
     bg_proc = None
     current_project = None
 
-    def space_project(name):
-        m = re.match(r'^\d+', name)
-        if not m:
+    def project_of(workspace):
+        # sway reports num == -1 for workspaces with no leading number (e.g.
+        # a manually renamed workspace); -1 % 10 == 9 in Python, so this must
+        # be guarded explicitly rather than relying on modulo to skip it.
+        if workspace is None or workspace.num == -1:
             return None
-        digits = m.group(0)[:2]
-        padded = f"{int(digits):02}"
-        return padded[0], padded[1]
+        return str(workspace.num % 10)
 
     def screen_size():
         outputs = json.loads(subprocess.check_output([SWAYMSG, "-t", "get_outputs", "-r"]))
@@ -112,9 +113,9 @@ let
 
     def on_focus(ipc, event):
         global current_project
-        sp = space_project(event.current.name)
-        if sp is not None:
-            current_project = sp[1]
+        project = project_of(event.current)
+        if project is not None:
+            current_project = project
             set_bg(current_project)
 
     def on_output(ipc, event):
@@ -123,11 +124,10 @@ let
 
     ipc = i3ipc.Connection()
     focused = next((w for w in ipc.get_workspaces() if w.focused), None)
-    if focused:
-        sp = space_project(focused.name)
-        if sp is not None:
-            current_project = sp[1]
-            set_bg(current_project)
+    project = project_of(focused)
+    if project is not None:
+        current_project = project
+        set_bg(current_project)
     ipc.on("workspace::focus", on_focus)
     ipc.on("output", on_output)
     ipc.main()
@@ -190,7 +190,7 @@ in
 
         startup = [
           {
-            command = "${spacesCli} init 0";
+            command = "${swaysome} init 0";
             always = true;
           }
         ];
@@ -239,8 +239,8 @@ in
                 acc: key:
                 acc
                 // {
-                  "${mod}+${key}" = "exec ${spacesCli} focus-space ${n}";
-                  "${mod}+Shift+${key}" = "exec ${spacesCli} move-to-space ${n}";
+                  "${mod}+${key}" = "exec ${swaysome} focus-space ${n}";
+                  "${mod}+Shift+${key}" = "exec ${swaysome} move-to-space ${n}";
                 }
               ) { } keys
             ) spaceKeys;
@@ -250,8 +250,8 @@ in
                 acc: key:
                 acc
                 // {
-                  "${mod}+${key}" = "exec ${spacesCli} focus-project ${n}";
-                  "${mod}+Shift+${key}" = "exec ${spacesCli} move-to-project ${n}";
+                  "${mod}+${key}" = "exec ${swaysome} focus-project ${n}";
+                  "${mod}+Shift+${key}" = "exec ${swaysome} move-to-project ${n}";
                 }
               ) { } keys
             ) projectKeys;
@@ -292,7 +292,7 @@ in
             "${mod}+r" = "mode resize";
 
             "${mod}+Shift+d" = "exec ${getExe pkgs.rofimoji} --action clipboard --selector fuzzel";
-            "${mod}+Ctrl+n" = "exec ${spacesCli} set-name";
+            "${mod}+Ctrl+n" = "exec ${spacesMenu} set-name";
             "${mod}+x" = "move workspace to output right";
             "${mod}+y" = "move workspace to output left";
 

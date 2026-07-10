@@ -7,19 +7,22 @@
 let
   inherit (lib) mkIf;
   cfg = config.dotfiles.desktop;
-  spacesCli = "${dotfilesSwaySpaces.wrapper}/bin/dotfiles-sway-spaces";
-  waybarSpaceBin = "${dotfilesSwaySpaces.waybarSpace}/bin/dotfiles-sway-spaces-waybar-space";
-  waybarProjectBin = "${dotfilesSwaySpaces.waybarProject}/bin/dotfiles-sway-spaces-waybar-project";
+  swaysome = dotfilesSwaySpaces.swaysome;
+  spacesMenu = dotfilesSwaySpaces.spacesMenu;
   spaceRange = lib.range 0 9;
   spaceModuleNames = map (n: "custom/space-${toString n}") spaceRange;
+  # waybar does not auto-restart continuous `exec` scripts that exit; without
+  # this, a transient sway hiccup permanently kills the module.
+  watcherRestartInterval = 3;
   spaceModuleConfigs = lib.listToAttrs (
     map (
       n:
       lib.nameValuePair "custom/space-${toString n}" {
-        exec = "${waybarSpaceBin} ${toString n}";
+        exec = "${swaysome} watch-space ${toString n}";
         return-type = "json";
-        on-click = "${spacesCli} focus-space ${toString n}";
-        on-click-right = "${spacesCli} move-to-space ${toString n}";
+        restart-interval = watcherRestartInterval;
+        on-click = "${swaysome} focus-space ${toString n}";
+        on-click-right = "${swaysome} move-to-space ${toString n}";
         format = "{}";
       }
     ) spaceRange
@@ -76,10 +79,11 @@ in
               tooltip = false;
             };
             "custom/project" = {
-              exec = waybarProjectBin;
+              exec = "${swaysome} watch-project";
               return-type = "json";
-              on-click = "${spacesCli} menu-project";
-              on-click-right = "${spacesCli} set-name";
+              restart-interval = watcherRestartInterval;
+              on-click = "${spacesMenu} project";
+              on-click-right = "${spacesMenu} set-name";
               format = "{}";
               tooltip = false;
             };
