@@ -46,6 +46,13 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # TODO: swap for a real github:/gitlab: URL once the fork is pushed
+    # somewhere; local path: input only sees on-disk state, uncommitted
+    # changes included.
+    swaysome = {
+      url = "path:/home/fhauser/private/fabianhauser/swaysome";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     private = {
       url = "./private";

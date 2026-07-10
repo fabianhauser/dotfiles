@@ -476,6 +476,7 @@
         "nixpkgs": "nixpkgs",
         "private": "private",
         "stylix": "stylix",
+        "swaysome": "swaysome",
         "treefmt-nix": "treefmt-nix"
       }
     },
@@ -531,6 +532,23 @@
         "owner": "nix-community",
         "repo": "stylix",
         "type": "github"
+      }
+    },
+    "swaysome": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1783716569,
+        "narHash": "sha256-VW633p8vl/sZ3kHaow5bVADRV860gyllU19IY7cLNHU=",
+        "path": "/home/fhauser/private/fabianhauser/swaysome",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/fhauser/private/fabianhauser/swaysome",
+        "type": "path"
       }
     },
     "systems": {

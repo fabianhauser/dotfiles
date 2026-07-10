@@ -2,12 +2,14 @@
   pkgs,
   lib,
   config,
+  inputs,
   ...
 }:
 let
   cfg = config.dotfiles.desktop;
   pythonEnv = pkgs.python3.withPackages (ps: [ ps.i3ipc ]);
-  swaysome = "${pkgs.swaysome}/bin/swaysome";
+  swaysomePkg = inputs.swaysome.packages.${pkgs.stdenv.hostPlatform.system}.default;
+  swaysome = "${swaysomePkg}/bin/swaysome";
   swaymsg = "${pkgs.sway}/bin/swaymsg";
   jq = "${pkgs.jq}/bin/jq";
   fuzzel = "${pkgs.fuzzel}/bin/fuzzel";
@@ -332,7 +334,7 @@ in
   config = {
     _module.args.dotfilesSwaySpaces = swaySpacesPkgs;
     home.packages = lib.mkIf cfg.enable [
-      pkgs.swaysome
+      swaysomePkg
       wrapper
       waybarSpace
       waybarProject
