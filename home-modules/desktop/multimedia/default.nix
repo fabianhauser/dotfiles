@@ -58,7 +58,6 @@
       ]
       ++ (with gst_all_1; [
         gstreamer
-        gst-vaapi
         gst-rtsp-server
         gst-libav
         gst-plugins-base
