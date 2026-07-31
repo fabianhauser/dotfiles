@@ -3,6 +3,8 @@ name: git
 description: Git commit and branch conventions. Always use when performing any git operation, creating commits, naming branches, or working with git history.
 ---
 
+- Always commit etc. outside of sandbox.
+
 ## Commit Messages
 
 Keep commit messages short and in **present simple** tense. No conventional-commits prefixes (`feat:`, `fix:`, `chore:`, etc.) and no scoped prefixes (`feat(scope):`).

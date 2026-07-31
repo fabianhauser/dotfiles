@@ -12,6 +12,7 @@
     ./amd-desktop.nix
     ./modem-em120r-gl.nix
     ./thinkpad-x1-gen9.nix
+    ./thinkpad-x1-gen13.nix
     ./printing.nix
   ];
 
@@ -59,5 +60,7 @@
   services.hardware.bolt.enable = true;
   services.udisks2.enable = true;
   services.upower.enable = config.powerManagement.enable;
+
+  hardware.facter.enable = true;
 
 }

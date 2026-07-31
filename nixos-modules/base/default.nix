@@ -7,6 +7,8 @@
   imports = [
     ./applications.nix
     ./boot.nix
+    ./overlays.nix
+    ./secure-boot-measured.nix
     ./unfree.nix
     ./users.nix
   ];

@@ -154,7 +154,7 @@
         };
         nixos.hosts =
           with nixpkgs.lib;
-          genAttrs [ "speer" "ochsenchopf" ] (const {
+          genAttrs [ "speer" "ochsenchopf" "tschingel" ] (const {
             userHomeModules = [
               "fhauser"
             ];
