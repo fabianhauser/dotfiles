@@ -61,4 +61,6 @@
   services.udisks2.enable = true;
   services.upower.enable = config.powerManagement.enable;
 
+  hardware.facter.enable = true;
+
 }
