@@ -13,6 +13,7 @@
     # TODO: Check AX200 issues
     hardware.enableAllFirmware = true;
     hardware.enableRedistributableFirmware = true;
+    nixpkgs.config.allowUnfree = true;
 
     # CPU Configuration
     services.throttled.enable = true;

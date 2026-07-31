@@ -149,7 +149,7 @@ in
       wl-clipboard
       libappindicator
       adwaita-icon-theme
-      gnome-icon-theme
+      #gnome-icon-theme
       hicolor-icon-theme # TODO: Move these requirements?
       fuzzel # Required for rofimoji
     ];
