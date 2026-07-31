@@ -126,6 +126,7 @@
             packages = lib.attrValues {
               inherit (pkgs)
                 nixos-rebuild
+                nixos-anywhere
                 nixos-facter
                 nix-fast-build
                 attic-client
@@ -133,6 +134,7 @@
                 ssh-to-age
                 nixd
                 home-manager
+                pwgen
                 ;
               inherit (self'.packages) dotfiles-enroll-tpm dotfiles-nixos-switch;
             };
