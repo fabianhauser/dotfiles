@@ -43,3 +43,36 @@ See [lanzaboote documentation](https://github.com/nix-community/lanzaboote/blob/
 - In case your firmware or boot process changes, you need to insert the luks password manually.
   - This should **not** happen just because of kernel updates (but might with boot param changes.)
   - After a successful boot, you can re-enroll the new secure state with `dotfiles-enroll-tpm`.
+
+### Measured Boot (lanzaboote autoEnrollKeys + systemd-pcrlock)
+
+Hosts that set `dotfiles.secureBoot.measured.enable` (currently `tschingel`) skip the manual
+`sbctl create-keys`/`enroll-keys` steps above: lanzaboote generates the Secure Boot keys and
+enrolls them via systemd-boot, and locks the TPM2 policy to a `systemd-pcrlock` policy
+(PCRs 0/4/7) instead of static PCRs. `configurationLimit` is capped at 8.
+
+**Migrating an existing host** (e.g. `speer`, `ochsenchopf`) to measured boot:
+
+1. Set on the host:
+   ```nix
+   dotfiles.secureBoot.measured = {
+     enable = true;
+     cryptenrollDevice = "<the host's LUKS2 block device>"; # optional; enables hands-off re-enroll
+   };
+   ```
+   and keep `configurationLimit <= 8` (fewer stored generations on the ESP).
+1. `dotfiles-nixos-switch`, then reboot so the keys are auto-enrolled.
+1. `dotfiles-enroll-tpm` once to seed the first TPM2 slot (uses the new pcrlock policy). If
+   `cryptenrollDevice` is set, lanzaboote's `autoCryptenroll` re-enrolls automatically on later
+   boot-measurement changes; otherwise re-run `dotfiles-enroll-tpm` after such changes.
+1. `bootctl status` to confirm Secure Boot is active.
+
+Passphrase and SSH-in-initrd unlock remain available as fallback if the TPM policy fails.
+
+Caveats:
+
+- `autoCryptenroll` handles only its single `cryptenrollDevice`. On hosts with a second LUKS2
+  volume (e.g. tschingel's encrypted swap), re-run `dotfiles-enroll-tpm` after boot-measurement
+  changes to refresh that volume's TPM2 slot; otherwise it falls back to the passphrase prompt.
+- `autoCryptenroll` retries on every boot until the first slot exists — seed it with
+  `dotfiles-enroll-tpm` on a quiet boot and don't run both concurrently.

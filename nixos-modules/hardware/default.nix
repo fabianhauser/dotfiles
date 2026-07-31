@@ -12,6 +12,7 @@
     ./amd-desktop.nix
     ./modem-em120r-gl.nix
     ./thinkpad-x1-gen9.nix
+    ./thinkpad-x1-gen13.nix
     ./printing.nix
   ];
 
