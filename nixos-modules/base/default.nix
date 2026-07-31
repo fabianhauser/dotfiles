@@ -18,10 +18,17 @@
 
   # Package management
   nix = {
-    settings.trusted-users = [
-      "root"
-      "@wheel"
-    ];
+    settings = {
+      trusted-users = [
+        "root"
+        "@wheel"
+      ];
+
+      # Read by nixos-anywhere to configure the installer environment.
+      # cache.nixos.org is appended by nixpkgs itself.
+      substituters = [ "https://attic.qo.is/dotfiles" ];
+      trusted-public-keys = [ "dotfiles:KpLi0qe5O5rb8E8N8vntZWBDqFwG3Ksx4AFGizYCLoU=" ];
+    };
     optimise.automatic = true;
     gc = {
       automatic = true;
