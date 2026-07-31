@@ -1,15 +1,15 @@
 { config, ... }:
 let
+  makeGB = n: "${toString (n * 976562)}K";
   physSizes = {
-    # Note: GB, TB etc. are 10**x units in sgdisk
     # Whole disk is 1TB
-    boot = "1GB";
-    bootReserved = "1GB";
-    luks = "997GB";
+    boot = makeGB 1;
+    bootReserved = makeGB 1;
+    luks = makeGB 997;
   };
   lvmSizes = {
-    main = "900GB";
-    swap = "32GB";
+    main = makeGB 900;
+    swap = "32G";
   };
   luksSettings = {
     allowDiscards = true;
