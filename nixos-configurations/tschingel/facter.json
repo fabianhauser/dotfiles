@@ -1018,7 +1018,6 @@
         "fpu_exception": false,
         "cpuid_level": 35,
         "write_protect": false,
-        "tlb_size": 28998,
         "clflush_size": 64,
         "cache_alignment": 64,
         "address_sizes": {
@@ -1838,7 +1837,7 @@
         "resources": [
           {
             "type": "hwaddr",
-            "address": 99
+            "address": 101
           },
           {
             "type": "phwaddr",
@@ -1866,6 +1865,47 @@
     "network_interface": [
       {
         "index": 52,
+        "attached_to": 19,
+        "class_list": [
+          "network_interface"
+        ],
+        "base_class": {
+          "hex": "0107",
+          "name": "Network Interface",
+          "value": 263
+        },
+        "sub_class": {
+          "hex": "0001",
+          "name": "Ethernet",
+          "value": 1
+        },
+        "model": "Ethernet network interface",
+        "sysfs_id": "/class/net/wlp0s20f3",
+        "sysfs_device_link": "/devices/pci0000:00/0000:00:14.3",
+        "unix_device_names": [
+          "wlp0s20f3"
+        ],
+        "resources": [
+          {
+            "type": "hwaddr",
+            "address": 101
+          },
+          {
+            "type": "phwaddr",
+            "address": 56
+          }
+        ],
+        "driver": "iwlwifi",
+        "driver_module": "iwlwifi",
+        "drivers": [
+          "iwlwifi"
+        ],
+        "driver_modules": [
+          "iwlwifi"
+        ]
+      },
+      {
+        "index": 53,
         "attached_to": 0,
         "class_list": [
           "network_interface"
@@ -1887,7 +1927,7 @@
         ]
       },
       {
-        "index": 53,
+        "index": 54,
         "attached_to": 0,
         "class_list": [
           "network_interface"
@@ -1925,47 +1965,6 @@
         ],
         "driver_modules": [
           "thunderbolt_net"
-        ]
-      },
-      {
-        "index": 54,
-        "attached_to": 19,
-        "class_list": [
-          "network_interface"
-        ],
-        "base_class": {
-          "hex": "0107",
-          "name": "Network Interface",
-          "value": 263
-        },
-        "sub_class": {
-          "hex": "0001",
-          "name": "Ethernet",
-          "value": 1
-        },
-        "model": "Ethernet network interface",
-        "sysfs_id": "/class/net/wlp0s20f3",
-        "sysfs_device_link": "/devices/pci0000:00/0000:00:14.3",
-        "unix_device_names": [
-          "wlp0s20f3"
-        ],
-        "resources": [
-          {
-            "type": "hwaddr",
-            "address": 99
-          },
-          {
-            "type": "phwaddr",
-            "address": 56
-          }
-        ],
-        "driver": "iwlwifi",
-        "driver_module": "iwlwifi",
-        "drivers": [
-          "iwlwifi"
-        ],
-        "driver_modules": [
-          "iwlwifi"
         ]
       }
     ],

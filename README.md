@@ -42,15 +42,13 @@ nixos-anywhere \
   --disk-encryption-keys /tmp/secret.key "$LUKS_KEYFILE" \
   root@$REMOTE_IP
 
+# --disk-encryption-keys <remote> <local> # the remote path must match disko's `passwordFile` (\n stripped)
+# --ssh-option "ProxyJump=user@jumphost"
+#  --no-substitute-on-destination # Copy over deps
+
 shred -u "$LUKS_KEYFILE"
 git add nixos-configurations/$REMOTE_HOSTNAME/facter.json
 ```
-
-- `--disk-encryption-keys <remote> <local>`; the remote path must match disko's `passwordFile`. The
-  trailing newline is stripped, so it is not part of the passphrase.
-- nixos-anywhere copies `nix.settings.substituters` into the installer, so `--build-on remote` uses the
-  attic cache.
-- Jumphost: `--ssh-option "ProxyJump=user@jumphost"`.
 
 ### 4. Secure Boot
 
