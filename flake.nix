@@ -118,7 +118,7 @@
 
           packages.dotfiles-enroll-tpm = pkgs.callPackage ./packages/dotfiles-enroll-tpm { inherit self; };
           packages.dotfiles-nixos-switch = pkgs.writeShellScriptBin "dotfiles-nixos-switch" ''
-            ${pkgs.lib.getExe pkgs.nixos-rebuild} switch --sudo --flake .
+            ${pkgs.lib.getExe pkgs.nixos-rebuild} switch --accept-flake-config --sudo --flake .
           '';
 
           devShells.default = pkgs.mkShellNoCC {
