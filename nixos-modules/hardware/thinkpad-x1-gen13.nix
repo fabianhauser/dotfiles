@@ -11,7 +11,6 @@
   config = lib.mkIf config.dotfiles.hardware.thinkpad-x1-gen13.enable {
 
     # TODO: Check AX200 issues
-    hardware.enableAllFirmware = true;
     hardware.enableRedistributableFirmware = true;
 
     # CPU Configuration

@@ -29,7 +29,7 @@ in
 
         screens = {
           x1-screen.output = {
-            criteria = "California Institute of Technology 0x1404 Unknown";
+            criteria = "Samsung Display Corp. ATNA40HQ02-0  Unknown";
             scale = null;
           };
           tallinn-4k.output = {
