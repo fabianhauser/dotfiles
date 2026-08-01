@@ -5,6 +5,8 @@
 
 {
 
+  services.sshd.enable = true;
+
   environment.etc = {
     gitconfig.source = ./etc/gitconfig;
     vimrc.source = ./etc/vimrc;

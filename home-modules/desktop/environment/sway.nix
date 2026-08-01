@@ -149,7 +149,6 @@ in
       wl-clipboard
       libappindicator
       adwaita-icon-theme
-      gnome-icon-theme
       hicolor-icon-theme # TODO: Move these requirements?
       fuzzel # Required for rofimoji
     ];
@@ -351,8 +350,6 @@ in
 
     gtk = {
       iconTheme = {
-        # package = pkgs.gnome-icon-theme;
-        # name = "gnome";
         package = pkgs.hicolor-icon-theme;
         name = "hicolor";
       };
