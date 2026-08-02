@@ -292,8 +292,8 @@ in
 
             "${mod}+Shift+d" = "exec ${getExe pkgs.rofimoji} --action clipboard --selector fuzzel";
             "${mod}+Ctrl+n" = "exec ${spacesMenu} set-name";
-            "${mod}+x" = "move workspace to output right";
-            "${mod}+y" = "move workspace to output left";
+            "${mod}+x" = "exec ${swaysome} workspace-group-next-output";
+            "${mod}+y" = "exec ${swaysome} workspace-group-prev-output";
 
             "Ctrl+mod1+l" = "exec ${osConfig.systemd.package or pkgs.systemd}/bin/loginctl lock-session";
             "Ctrl+mod1+Shift+L" = "exec ${osConfig.systemd.package or pkgs.systemd}/bin/systemctl suspend";
