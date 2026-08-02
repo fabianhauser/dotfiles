@@ -30,7 +30,7 @@ in
         screens = {
           x1-screen.output = {
             criteria = "Samsung Display Corp. ATNA40HQ02-0  Unknown";
-            scale = null;
+            scale = 1.5;
           };
           tallinn-4k.output = {
             criteria = "HP Inc. HP Z27 CN482201RP";
@@ -68,7 +68,7 @@ in
           (mkScreen tallinn-4k "0,0")
         ])
         (mkProfile "home-dock" [
-          (mkScreen x1-screen "0,120")
+          (mkScreen x1-screen "0,600")
           (mkScreen tallinn-4k "1920,0")
         ])
         (mkProfile "saba-desk" [

@@ -14,7 +14,7 @@
     hardware.enableRedistributableFirmware = true;
 
     # CPU Configuration
-    services.throttled.enable = true;
+    #services.throttled.enable = true; # Currently doesn't support this CPU
     powerManagement.cpuFreqGovernor = lib.mkDefault "ondemand";
   };
 }
