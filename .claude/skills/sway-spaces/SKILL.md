@@ -40,9 +40,10 @@ the rest stay live but hidden. E.g. in project 1: monitor 1 holds `31`,`41`
 
 ## Where things live
 
-- `sway-spaces.nix` — wires `inputs.swaysome` (a local `path:` flake input
-  pointed at the fork checkout, see `flake.nix`) as the package, plus
-  `spacesMenu` (`dotfiles-sway-spaces-menu`): a tiny fuzzel-only glue script
+- `sway-spaces.nix` — wires `inputs.swaysome` (a `git+https://git.qo.is/...`
+  flake input pinned to a rev, see `flake.nix`/`flake.lock` — not a local
+  `path:` input) as the package, plus `spacesMenu`
+  (`dotfiles-sway-spaces-menu`): a tiny fuzzel-only glue script
   for the project-switch and rename menus (`swaysome list-projects`/
   `set-project-name`/`get-project-name` piped through `fuzzel --dmenu`). No
   parsing logic lives here — `swaysome` does all the state I/O and waybar tick
@@ -64,6 +65,19 @@ the rest stay live but hidden. E.g. in project 1: monitor 1 holds `31`,`41`
   modulo would silently apply project 9's wallpaper instead of skipping).
 - `kanshi.nix` — profile `exec` calls `swaysome rearrange-workspaces` on
   monitor layout changes.
+
+## Updating swaysome
+
+Fix bugs in the checkout at `/home/fhauser/private/fabianhauser/swaysome`
+(see its `HACKING.md` for how to run its tests/lints). Since the flake input
+is a pinned remote rev, not `path:`, a fix isn't picked up by just committing
+locally:
+
+1. Commit in the swaysome checkout, then `git push origin master`.
+1. In dotfiles, run `nix flake lock --update-input swaysome` to bump the pin
+   in `flake.lock`.
+1. Rebuild (`nixos-rebuild build --flake .`) and commit the `flake.lock`
+   change.
 
 ## State
 
