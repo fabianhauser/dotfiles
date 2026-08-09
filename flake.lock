@@ -645,11 +645,11 @@
         "treefmt-nix": "treefmt-nix"
       },
       "locked": {
-        "lastModified": 1785667200,
-        "narHash": "sha256-iK/YCL5Y1S996X4BB9zCr5KFrweqJjMVulO4F4FHMZI=",
+        "lastModified": 1786022123,
+        "narHash": "sha256-DY+oWFzZ/8+UX4U7Wxvk4JRu04w5jxFaJpnojWl48PE=",
         "ref": "refs/heads/master",
-        "rev": "93b7f67794026c0dabc2654e20ba5a8348ddc4c1",
-        "revCount": 132,
+        "rev": "0dac2ab05bc394289a534f1be2ad2574aebc017a",
+        "revCount": 134,
         "type": "git",
         "url": "https://git.qo.is/fabianhauser/swaysome.git"
       },
