@@ -51,11 +51,10 @@
       enable = true;
       package = pkgs.bluez;
     };
-    logitech.wireless = {
-      enable = true;
-      enableGraphical = true;
-    };
+    logitech.wireless.enable = true;
   };
+
+  programs.solaar.enable = true;
 
   services.hardware.bolt.enable = true;
   services.udisks2.enable = true;
