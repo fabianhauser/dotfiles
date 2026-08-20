@@ -156,6 +156,7 @@ in
       skills = {
         nix = ./skills/nix.md;
         git = ./skills/git.md;
+        fj = ./skills/fj.md;
       };
 
     };

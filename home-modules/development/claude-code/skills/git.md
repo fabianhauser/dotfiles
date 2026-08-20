@@ -1,7 +1,9 @@
 ---
 name: git
-description: Git commit and branch conventions. Always use when performing any git operation, creating commits, naming branches, or working with git history.
+description: Git commit message and branch naming conventions, and how to fix a bug in an already-committed change with git absorb. TRIGGER when: about to write a commit message, about to name a new branch, or fixing a bug in a commit that's already been made (git absorb) — not for routine `git status`/`diff`/`log`/`add` calls.
 ---
+
+Once loaded in this conversation, these conventions apply for the rest of the session — no need to re-invoke for subsequent commits/branches.
 
 - Always commit etc. outside of sandbox.
 
