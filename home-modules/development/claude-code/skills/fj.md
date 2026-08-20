@@ -3,7 +3,7 @@ name: fj
 description: Forgejo CLI (fj) pull requests on Forgejo remotes like git.qo.is — NOT GitHub, use gh there. TRIGGER when: opening a PR, reading or answering PR review comments, or checking PR CI status on a Forgejo remote, or the user says "fj" or "Forgejo".
 ---
 
-`fj` is `gh` for Forgejo. Hits the network — run with `dangerouslyDisableSandbox: true`, from inside the repo.
+`fj` is `gh` for Forgejo. Hits the network — run with `dangerouslyDisableSandbox: true`, from inside the repo - outside of the sandbox!
 `[ID]` is optional on subcommands acting on an existing PR and defaults to the current branch's PR (errors if there is none).
 
 ## Opening a PR
