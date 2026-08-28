@@ -8,6 +8,7 @@
     ./games
     ./kitty.nix
     ./nextcloud.nix
+    ./proton-vpn.nix
     ./webapps.nix
   ];
 }
