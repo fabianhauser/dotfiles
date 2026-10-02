@@ -12,7 +12,6 @@
     keyutils # required for cifs kerberos auth
     sshfs-fuse
     hdparm
-    simple-mtpfs
     ntfs3g
     smartmontools
     parted

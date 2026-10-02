@@ -25,8 +25,7 @@ in
       autoGenerateKeys.enable = true;
       autoEnrollKeys.enable = true;
 
-      # systemd-pcrlock caps the ESP at 8 generations.
-      configurationLimit = 8;
+      configurationLimit = 4;
       measuredBoot = {
         enable = true;
         # TODO(tpm-pin): enroll with --tpm2-with-pin via sops-nix (#125).

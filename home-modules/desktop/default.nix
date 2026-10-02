@@ -38,7 +38,7 @@
           pinentry-rofi
         ]
         ++ [
-          libreoffice-fresh
+          libreoffice
           tectonic
           pandoc
           texliveSmall
@@ -50,7 +50,7 @@
           qdigidoc
         ]
         ++ [
-          jitsi-meet-electron
+          # jitsi-meet-electron  # dropped: pins EOL electron-41
           rdesktop
         ]
         ++ [

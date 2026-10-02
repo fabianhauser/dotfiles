@@ -4,6 +4,15 @@
   config,
   ...
 }:
+let
+  davinciResolveLauncher = pkgs.writeShellScriptBin "davinci-resolve-launcher" ''
+    set -euo pipefail
+    export QT_QPA_PLATFORM=xcb
+    export QT_AUTO_SCREEN_SCALE_FACTOR=0
+    export NIXPKGS_ALLOW_UNFREE=1
+    exec nix run --impure nixpkgs#davinci-resolve -- "$@"
+  '';
+in
 {
   config = lib.mkIf config.dotfiles.desktop.enable {
     programs.mpv = {
@@ -48,6 +57,7 @@
         darktable
         inkscape
         ghostscript
+        davinciResolveLauncher
       ]
       ++ [
         # Codecs for Audio and Video
