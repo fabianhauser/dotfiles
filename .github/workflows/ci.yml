@@ -23,4 +23,4 @@ jobs:
           attic login "$CACHE_NAME" "$SERVER" "$ATTIC_AUTH_TOKEN"
           attic use "$CACHE_REPOSITORY"
       - name: Run Checks
-        run: nix-fast-build --no-nom --max-jobs 1 --skip-cached --attic-cache fabianhauser:dotfiles
+        run: nix-fast-build --no-nom --max-jobs 1 --eval-workers 1 --eval-max-memory-size 4096 --skip-cached --attic-cache fabianhauser:dotfiles
