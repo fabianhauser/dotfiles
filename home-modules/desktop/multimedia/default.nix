@@ -26,6 +26,8 @@ in
       };
       scripts = [ pkgs.mpvScripts.mpris ];
     };
+    programs.gphoto2.enable = true;
+    usres.users.fhauser.extraGroups = [ "camera" ];
     home.packages =
       with pkgs;
       [
