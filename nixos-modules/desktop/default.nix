@@ -4,6 +4,7 @@
 }:
 {
   imports = [
+    ./camera.nix
     ./desktop-environment.nix
     ./greeter.nix
     ./office-suite.nix
