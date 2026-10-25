@@ -17,7 +17,6 @@
     kernelPackages = pkgs.linuxPackages_latest;
 
     loader.efi.canTouchEfiVariables = true;
-    initrd.systemd.enable = true;
 
     # Lanzaboote currently replaces the systemd-boot module.
     # This setting is usually set to true in configuration.nix
