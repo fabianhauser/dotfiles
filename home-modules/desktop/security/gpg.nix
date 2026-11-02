@@ -21,6 +21,7 @@ in
         if config.targets.genericLinux.enable then pkgs.pinentry-gnome3 else pkgs.pinentry-bemenu;
       sshKeys = [
         "638143D3F6421377E9D4C7F1D2EDC5AA0A860351" # 0x3E957C9C8CB5D6B2 / fabian.hauser@qo.is
+        "64365E43623918DB67579BB857DFE41BD28BC795" # ed25519/0xC4866015F3181FFB / fabian.hauser@qo.is
       ];
     };
 
