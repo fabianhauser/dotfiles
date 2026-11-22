@@ -60,7 +60,6 @@
           "image/x-tga" = image;
           "image/tiff" = image;
           "image/x-canon-cr2" = image;
-          "application/x-ptoptimizer-script" = [ "hugin.desktop" ];
           "image/svg+xml" = image-vector;
 
           "video/mp4" = video;

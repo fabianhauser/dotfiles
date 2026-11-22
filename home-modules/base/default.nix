@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ ... }:
 {
   home.enableNixpkgsReleaseCheck = false;
 
@@ -8,35 +8,5 @@
     ./shell.nix
     ./ssh.nix
     ./vim.nix
-  ];
-
-  home.packages = with pkgs; [
-    # General utilities
-    tmux
-    bc
-    mkpasswd
-    rename
-    wipe
-    pwgen
-    powertop
-
-    # File utilities
-    ripgrep
-    unzip
-    p7zip
-    iotop
-    tree
-
-    # Networking utilities
-    nmap
-    bind
-    curl
-    wget
-    wol
-    rsync
-    sshuttle
-    iftop
-    mailutils
-    bluez-tools
   ];
 }

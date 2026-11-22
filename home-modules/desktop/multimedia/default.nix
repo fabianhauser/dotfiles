@@ -36,7 +36,6 @@ in
       ++ [
         # Audio
         gnome-sound-recorder
-        enblend-enfuse
         ffmpeg
         #sox mencoder
         vorbis-tools
@@ -52,8 +51,6 @@ in
       ++ [
         # Imaging
         gimp
-        hugin
-        lensfun
         darktable
         inkscape
         ghostscript

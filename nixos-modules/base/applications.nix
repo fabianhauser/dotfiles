@@ -34,7 +34,6 @@
       efivar
       mkpasswd
       rename
-      wipe
       gnupg
       pwgen
       powertop
@@ -60,7 +59,6 @@
     ++ [
       # Networking Utilities
       nmap
-      bind
       curl
       wget
       wol

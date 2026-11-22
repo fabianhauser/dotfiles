@@ -33,7 +33,6 @@
           thunar
           thunar-archive-plugin
           xfce4-appfinder
-          mousepad
           # bitwarden-desktop  # dropped: EOL electron-39, see https://git.qo.is/fabianhauser/dotfiles/issues/107
           pinentry-rofi
         ]
@@ -41,12 +40,10 @@
           libreoffice
           tectonic
           pandoc
-          texliveSmall
           simple-scan
           gnome-online-accounts
           gnome-control-center
           todoist-electron
-          smile
           qdigidoc
         ]
         ++ [
