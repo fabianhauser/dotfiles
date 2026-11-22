@@ -50,6 +50,10 @@
       url = "git+https://git.qo.is/fabianhauser/swaysome.git";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    elephant-goldfish-model = {
+      url = "github:google/elephant-goldfish-model";
+      flake = false;
+    };
 
     private = {
       url = "./private";

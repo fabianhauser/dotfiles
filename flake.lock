@@ -118,6 +118,22 @@
         "type": "github"
       }
     },
+    "elephant-goldfish-model": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1795275402,
+        "narHash": "sha256-cms3Vn14+yohNMx5m2BrtRfTsRQjW+OEgrYLt6pGsq0=",
+        "owner": "google",
+        "repo": "elephant-goldfish-model",
+        "rev": "7d1b721e51448518cc9b0336465041230200dd10",
+        "type": "github"
+      },
+      "original": {
+        "owner": "google",
+        "repo": "elephant-goldfish-model",
+        "type": "github"
+      }
+    },
     "ez-configs": {
       "inputs": {
         "flake-parts": [
@@ -525,6 +541,7 @@
     "root": {
       "inputs": {
         "disko": "disko",
+        "elephant-goldfish-model": "elephant-goldfish-model",
         "ez-configs": "ez-configs",
         "fcc-unlock": "fcc-unlock",
         "flake-parts": "flake-parts",
