@@ -78,7 +78,7 @@ in
     programs.claude-code = {
       enable = true;
       enableMcpIntegration = true;
-      plugins = [ inputs.elephant-goldfish-model ];
+      plugins.elephant-goldfish-model = inputs.elephant-goldfish-model;
       context = ''
         - If you're not sure about something, or there are multiple options, ask me!
           Avoid assumptions, you take full responsibility (or ask me what you should do).
