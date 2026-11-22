@@ -105,7 +105,8 @@ in
         preferredNotifChannel = "auto"; # Uses kitten automatically
 
         plansDirectory = "${config.home.homeDirectory}/cloud/Notes/claude/plans";
-        showClearContextOnPlanAccept = true;
+        showClearContextOnPlanAccept = false;
+        awaySummaryEnabled = false;
 
         useAutoModeDuringPlan = true;
 
