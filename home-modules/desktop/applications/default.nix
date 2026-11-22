@@ -1,7 +1,6 @@
 { ... }:
 {
   imports = [
-    ./anki.nix
     ./calibre.nix
     ./evolution.nix
     ./firefox.nix
