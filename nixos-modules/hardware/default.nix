@@ -25,7 +25,6 @@
   services.blueman.enable = true;
 
   # Enable sound.
-  nixpkgs.config.pulseaudio = true;
 
   services.pulseaudio.enable = false;
   services.pipewire = {
