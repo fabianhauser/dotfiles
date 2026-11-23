@@ -121,11 +121,11 @@
     "elephant-goldfish-model": {
       "flake": false,
       "locked": {
-        "lastModified": 1795275402,
-        "narHash": "sha256-cms3Vn14+yohNMx5m2BrtRfTsRQjW+OEgrYLt6pGsq0=",
+        "lastModified": 1795368585,
+        "narHash": "sha256-l2iffJJ63TH4d56rwEDtaVRsnKWQpVt6vZiyLYEFen0=",
         "owner": "google",
         "repo": "elephant-goldfish-model",
-        "rev": "7d1b721e51448518cc9b0336465041230200dd10",
+        "rev": "8b1553f5c6dc84c60b7e065f0040199d72c54c54",
         "type": "github"
       },
       "original": {
